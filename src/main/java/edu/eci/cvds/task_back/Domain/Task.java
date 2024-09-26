@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back;
+package edu.eci.cvds.task_back.Domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,6 +1,9 @@
 package edu.eci.cvds.task_back;
 
 
+import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.Services.TaskRepository;
+import edu.eci.cvds.task_back.Services.TaskService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

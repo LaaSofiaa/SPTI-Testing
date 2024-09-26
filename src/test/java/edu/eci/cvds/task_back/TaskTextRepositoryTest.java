@@ -2,12 +2,13 @@ package edu.eci.cvds.task_back;
 
 
 
+import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.Repositories.TaskTextRepository;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;

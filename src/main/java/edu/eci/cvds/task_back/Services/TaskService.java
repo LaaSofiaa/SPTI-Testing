@@ -1,7 +1,8 @@
-package edu.eci.cvds.task_back;
+package edu.eci.cvds.task_back.Services;
 
+import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

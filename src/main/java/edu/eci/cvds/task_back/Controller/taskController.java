@@ -1,5 +1,7 @@
-package edu.eci.cvds.task_back;
+package edu.eci.cvds.task_back.Controller;
 
+import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;

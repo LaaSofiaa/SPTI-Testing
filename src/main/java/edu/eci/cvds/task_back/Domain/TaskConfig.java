@@ -1,5 +1,8 @@
-package edu.eci.cvds.task_back;
+package edu.eci.cvds.task_back.Domain;
 
+import edu.eci.cvds.task_back.Repositories.TaskMongoRepository;
+import edu.eci.cvds.task_back.Repositories.TaskRepository;
+import edu.eci.cvds.task_back.Repositories.TaskTextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,5 +1,7 @@
-package edu.eci.cvds.task_back;
+package edu.eci.cvds.task_back.Repositories;
 
+import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;

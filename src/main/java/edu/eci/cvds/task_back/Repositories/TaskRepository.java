@@ -1,5 +1,6 @@
-package edu.eci.cvds.task_back;
+package edu.eci.cvds.task_back.Repositories;
 
+import edu.eci.cvds.task_back.Domain.Task;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
