@@ -3,7 +3,7 @@ package edu.eci.cvds.task_back;
 import edu.eci.cvds.task_back.Domain.TaskConfig;
 import edu.eci.cvds.task_back.Repositories.TaskMongoRepository;
 import edu.eci.cvds.task_back.Repositories.TaskTextRepository;
-import edu.eci.cvds.task_back.Services.TaskRepository;
+import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
