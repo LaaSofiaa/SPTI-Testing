@@ -64,9 +64,6 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
-				<configuration>
-					<excludes><exclude>src/main/java/edu/eci/cvds/task_back/*</exclude> </excludes>
-				</configuration>
 				<executions>
 					<execution>
 						<goals>
@@ -79,11 +76,7 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<configuration>
-							<excludes>
-								<exclude>/configurators/</exclude>
-							</excludes>
-						</configuration>
+
 					</execution>
 					<execution>
 						<id>jacoco-check</id>
@@ -98,16 +91,21 @@
 										<limit>
 											<counter>CLASS</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.01</minimum><!--Porcentaje mínimo de cubrimiento para construir el proyecto-->
+											<minimum>0.85</minimum>
 										</limit>
 									</limits>
 								</rule>
 							</rules>
-							<excludes><exclude>src/main/java/edu/eci/cvds/task_back/*</exclude> </excludes>
+							<excludes>
+								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/TaskMongoRepository*</exclude>
+
+							</excludes>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
