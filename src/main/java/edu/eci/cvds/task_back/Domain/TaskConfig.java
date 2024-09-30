@@ -1,6 +1,7 @@
 package edu.eci.cvds.task_back.Domain;
 
 import edu.eci.cvds.task_back.Repositories.TaskMongoRepository;
+import edu.eci.cvds.task_back.Repositories.TaskMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import edu.eci.cvds.task_back.Repositories.TaskTextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class TaskConfig {
 
     private final TaskMongoRepository taskMongoRepository;
     private final TaskTextRepository taskTextRepository;
+    private final TaskMySqlRepository taskMySqlRepository;
 
     /**
      * Constructor que inyecta las implementaciones de los repositorios.
@@ -31,9 +33,10 @@ public class TaskConfig {
      * @param taskTextRepository Repositorio de tareas basado en archivos de texto.
      */
     @Autowired
-    public TaskConfig(TaskMongoRepository taskMongoRepository, TaskTextRepository taskTextRepository) {
+    public TaskConfig(TaskMongoRepository taskMongoRepository, TaskTextRepository taskTextRepository,TaskMySqlRepository taskMySqlRepository) {
         this.taskMongoRepository = taskMongoRepository;
         this.taskTextRepository = taskTextRepository;
+        this.taskMySqlRepository = taskMySqlRepository;
     }
 
     /**
@@ -47,7 +50,10 @@ public class TaskConfig {
             return taskMongoRepository;
         } else if ("text".equalsIgnoreCase(repositoryType)) {
             return taskTextRepository;
-        } else {
+        } else if ("MySql".equalsIgnoreCase(repositoryType)){
+            return taskMySqlRepository;
+        }
+        else {
             throw new IllegalArgumentException("Tipo de repositorio no soportado");
         }
     }
