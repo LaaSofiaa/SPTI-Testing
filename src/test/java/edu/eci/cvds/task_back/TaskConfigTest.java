@@ -2,6 +2,7 @@ package edu.eci.cvds.task_back;
 
 import edu.eci.cvds.task_back.Domain.TaskConfig;
 import edu.eci.cvds.task_back.Repositories.TaskMongoRepository;
+import edu.eci.cvds.task_back.Repositories.TaskMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.TaskTextRepository;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,9 @@ public class TaskConfigTest {
     @Mock
     private TaskTextRepository taskTextRepository;
 
+    @Mock
+    private TaskMySqlRepository taskMySqlRepository;
+
     @InjectMocks
     private TaskConfig taskConfig;
 
@@ -35,7 +39,7 @@ public class TaskConfigTest {
     public void testTaskRepositoryMongo() {
         // Configurar el tipo de repositorio a "mongo"
         repositoryType = "mongo";
-        taskConfig = new TaskConfig(taskMongoRepository, taskTextRepository);
+        taskConfig = new TaskConfig(taskMongoRepository, taskTextRepository, taskMySqlRepository);
 
         // Aquí se usa reflexión para establecer el valor de la propiedad
         ReflectionTestUtils.setField(taskConfig, "repositoryType", repositoryType);
@@ -50,7 +54,7 @@ public class TaskConfigTest {
     public void testTaskRepositoryText() {
         // Configurar el tipo de repositorio a "text"
         repositoryType = "text";
-        taskConfig = new TaskConfig(taskMongoRepository, taskTextRepository);
+        taskConfig = new TaskConfig(taskMongoRepository, taskTextRepository, taskMySqlRepository);
 
         // Aquí se usa reflexión para establecer el valor de la propiedad
         ReflectionTestUtils.setField(taskConfig, "repositoryType", repositoryType);
@@ -65,7 +69,7 @@ public class TaskConfigTest {
     public void testTaskRepositoryUnsupportedType() {
         // Configurar el tipo de repositorio a un valor no soportado
         repositoryType = "unsupported";
-        taskConfig = new TaskConfig(taskMongoRepository, taskTextRepository);
+        taskConfig = new TaskConfig(taskMongoRepository, taskTextRepository, taskMySqlRepository);
 
         // Aquí se usa reflexión para establecer el valor de la propiedad
         ReflectionTestUtils.setField(taskConfig, "repositoryType", repositoryType);
