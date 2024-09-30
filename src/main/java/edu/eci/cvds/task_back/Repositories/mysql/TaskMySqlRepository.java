@@ -1,10 +1,13 @@
-package edu.eci.cvds.task_back.Repositories;
+package edu.eci.cvds.task_back.Repositories.mysql;
+import edu.eci.cvds.task_back.Repositories.TaskRepository;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import edu.eci.cvds.task_back.Domain.Task;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface TaskMySqlRepository extends JpaRepository<Task, String>,TaskRepository{
+public interface TaskMySqlRepository extends JpaRepository<Task, String>, TaskRepository {
 
     @Override
     public default void saveTask(Task task){

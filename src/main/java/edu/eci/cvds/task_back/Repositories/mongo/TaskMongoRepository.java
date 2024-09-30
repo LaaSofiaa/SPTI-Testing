@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Repositories;
+package edu.eci.cvds.task_back.Repositories.mongo;
 
 import edu.eci.cvds.task_back.Domain.Task;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;

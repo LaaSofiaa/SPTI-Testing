@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Repositories;
+package edu.eci.cvds.task_back.Repositories.text;
 
 import edu.eci.cvds.task_back.Domain.Task;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
@@ -57,7 +57,7 @@ public class TaskTextRepository implements TaskRepository {
                 String dueDate = (String) taskJson.get("dueDate");
                 String creationDate = (String) taskJson.get("creationDate");
                 boolean completed = (boolean) taskJson.get("isCompleted");
-                Task passedTask = new Task(id, title, description, dueDate);
+                Task passedTask = new Task(title, description, dueDate); //revisar
                 passedTask.setCreationDate(creationDate);
                 passedTask.setIsCompleted(completed);
                 taskList.add(passedTask);
@@ -151,7 +151,7 @@ public class TaskTextRepository implements TaskRepository {
             char character = CHARACTERS.charAt(index);
             taskId += character;
         }
-        task.setId(taskId);
+//        task.setId(taskId);
         return task;
     }
 }

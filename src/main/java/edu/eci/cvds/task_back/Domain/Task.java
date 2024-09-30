@@ -1,20 +1,23 @@
 package edu.eci.cvds.task_back.Domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.time.LocalDate;
 
 /**
  * Representa una tarea en el sistema de gestión de tareas.
  * Esta clase almacena información sobre la tarea, incluyendo su nombre,
- * descripción, fechas de creación y vencimiento,  estado de finalización.
+ * descripción, fechas de creación y vencimiento, estado de finalización.
  */
-@Document("tasks")
+@Entity
 public class Task {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Generación automática del ID
+    private Long id;
     private String name;
     private String description;
     private String dueDate;
@@ -23,22 +26,24 @@ public class Task {
 
     /**
      * Constructor para crear una nueva tarea.
-     * @param id Identificador único de la tarea.
      * @param name Nombre de la tarea.
      * @param description Descripción de la tarea.
      * @param dueDate Fecha de vencimiento de la tarea.
      */
-    public Task(String id, String name, String description, String dueDate) {
-        this.id = id;
+    public Task(String name, String description, String dueDate) {
         this.name = name;
         this.description = description;
         this.creationDate = LocalDate.now().toString();
         this.dueDate = dueDate;
     }
 
+    // Constructor predeterminado
+    public Task() {
+    }
+
     // Getters y setters
-    public String getId() {
-        return id;
+    public Long getId() {
+        return id;  // ID se generará automáticamente
     }
 
     public String getName() {
@@ -68,12 +73,8 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }
-
