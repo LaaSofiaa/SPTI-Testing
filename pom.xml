@@ -108,7 +108,7 @@
 							<excludes>
 								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
 								<exclude>edu/eci/cvds/task_back/Repositories/TaskMongoRepository*</exclude>
-
+								<exclude>edu/eci/cvds/task_back/Repositories/TaskMySqlRepository*</exclude>
 							</excludes>
 						</configuration>
 					</execution>
