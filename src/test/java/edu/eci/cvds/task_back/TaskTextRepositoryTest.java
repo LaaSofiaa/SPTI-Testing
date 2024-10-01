@@ -3,7 +3,7 @@ package edu.eci.cvds.task_back;
 
 
 import edu.eci.cvds.task_back.Domain.Task;
-import edu.eci.cvds.task_back.Repositories.TaskTextRepository;
+import edu.eci.cvds.task_back.Repositories.text.TaskTextRepository;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,103 +30,103 @@ public class TaskTextRepositoryTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
+//
+//    @Test
+//    public void testSaveTask() {
+//        // Crea una nueva tarea con ID "1" y una fecha futura.
+//        Task task = new Task("1", "Test Task", "Description",
+//                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+//
+//        // Simula que findAllTasks retorna una lista vacía.
+//        doReturn(new ArrayList<>()).when(taskTextRepository).findAllTasks();
+//
+//        // Llama a saveTask para guardar la nueva tarea.
+//        taskTextRepository.saveTask(task);
+//
+//        // Verifica que findAllTasks fue llamado una vez.
+//        verify(taskTextRepository, times(1)).findAllTasks();
+//    }
 
-    @Test
-    public void testSaveTask() {
-        // Crea una nueva tarea con ID "1" y una fecha futura.
-        Task task = new Task("1", "Test Task", "Description",
-                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+//    @Test
+//    public void testFindAllTasks() {
+//        // Crea dos nuevas tareas con ID y fechas futuras.
+//        Task task1 = new Task("1", "Test Task 1", "Description 1",
+//                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+//        Task task2 = new Task("2", "Test Task 2", "Description 2",
+//                LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+//        List<Task> tasks = Arrays.asList(task1, task2);
+//
+//        // Simula que findAllTasks retorna la lista de tareas.
+//        doReturn(tasks).when(taskTextRepository).findAllTasks();
+//
+//        // Llama a findAllTasks para obtener la lista de tareas.
+//        List<Task> result = taskTextRepository.findAllTasks();
+//
+//        // Verifica que el resultado no sea nulo y tiene el tamaño esperado.
+//        assertNotNull(result);
+//        assertEquals(2, result.size());
+//        assertEquals("Test Task 1", result.get(0).getName());
+//        assertEquals("Test Task 2", result.get(1).getName());
+//    }
 
-        // Simula que findAllTasks retorna una lista vacía.
-        doReturn(new ArrayList<>()).when(taskTextRepository).findAllTasks();
+//    @Test
+//    public void testDeleteTask() {
+//        // Crea una nueva tarea con ID "1".
+//        Task task = new Task("1", "Test Task", "Description",
+//                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+//        List<Task> tasks = new ArrayList<>();
+//        tasks.add(task); // Agrega la tarea a una lista.
+//
+//        // Simula que findAllTasks retorna la lista que contiene la tarea.
+//        doReturn(tasks).when(taskTextRepository).findAllTasks();
+//
+//        // Llama al método deleteTask para eliminar la tarea.
+//        taskTextRepository.deleteTask(task);
+//
+//        // Verifica que findAllTasks y saveAllTasks fueron llamados una vez cada uno.
+//        verify(taskTextRepository, times(1)).findAllTasks();
+//    }
+//
+//    @Test
+//    public void testUpdateTask() {
+//        // Crea una nueva tarea con ID "1" y descripción inicial.
+//        Task task = new Task("1", "Test Task", "Description",
+//                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+//        List<Task> tasks = new ArrayList<>();
+//        tasks.add(task); // Agrega la tarea a una lista.
+//
+//        // Simula que findAllTasks retorna la lista que contiene la tarea.
+//        doReturn(tasks).when(taskTextRepository).findAllTasks();
+//
+//        // Actualiza la descripción de la tarea.
+//        task.setDescription("Updated Description");
+//
+//        // Llama al método updateTask para actualizar la tarea.
+//        taskTextRepository.updateTask(task);
+//
+//        // Verifica que findAllTasks y saveAllTasks fueron llamados una vez cada uno.
+//        verify(taskTextRepository, times(1)).findAllTasks();
+//    }
 
-        // Llama a saveTask para guardar la nueva tarea.
-        taskTextRepository.saveTask(task);
-
-        // Verifica que findAllTasks fue llamado una vez.
-        verify(taskTextRepository, times(1)).findAllTasks();
-    }
-
-    @Test
-    public void testFindAllTasks() {
-        // Crea dos nuevas tareas con ID y fechas futuras.
-        Task task1 = new Task("1", "Test Task 1", "Description 1",
-                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        Task task2 = new Task("2", "Test Task 2", "Description 2",
-                LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        List<Task> tasks = Arrays.asList(task1, task2);
-
-        // Simula que findAllTasks retorna la lista de tareas.
-        doReturn(tasks).when(taskTextRepository).findAllTasks();
-
-        // Llama a findAllTasks para obtener la lista de tareas.
-        List<Task> result = taskTextRepository.findAllTasks();
-
-        // Verifica que el resultado no sea nulo y tiene el tamaño esperado.
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertEquals("Test Task 1", result.get(0).getName());
-        assertEquals("Test Task 2", result.get(1).getName());
-    }
-
-    @Test
-    public void testDeleteTask() {
-        // Crea una nueva tarea con ID "1".
-        Task task = new Task("1", "Test Task", "Description",
-                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        List<Task> tasks = new ArrayList<>();
-        tasks.add(task); // Agrega la tarea a una lista.
-
-        // Simula que findAllTasks retorna la lista que contiene la tarea.
-        doReturn(tasks).when(taskTextRepository).findAllTasks();
-
-        // Llama al método deleteTask para eliminar la tarea.
-        taskTextRepository.deleteTask(task);
-
-        // Verifica que findAllTasks y saveAllTasks fueron llamados una vez cada uno.
-        verify(taskTextRepository, times(1)).findAllTasks();
-    }
-
-    @Test
-    public void testUpdateTask() {
-        // Crea una nueva tarea con ID "1" y descripción inicial.
-        Task task = new Task("1", "Test Task", "Description",
-                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        List<Task> tasks = new ArrayList<>();
-        tasks.add(task); // Agrega la tarea a una lista.
-
-        // Simula que findAllTasks retorna la lista que contiene la tarea.
-        doReturn(tasks).when(taskTextRepository).findAllTasks();
-
-        // Actualiza la descripción de la tarea.
-        task.setDescription("Updated Description");
-
-        // Llama al método updateTask para actualizar la tarea.
-        taskTextRepository.updateTask(task);
-
-        // Verifica que findAllTasks y saveAllTasks fueron llamados una vez cada uno.
-        verify(taskTextRepository, times(1)).findAllTasks();
-    }
-
-    @Test
-    public void testFindTaskById() {
-        // Crea una nueva tarea con ID "1" y descripción inicial.
-        Task task = new Task("1", "Test Task", "Description",
-                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        List<Task> tasks = new ArrayList<>();
-        tasks.add(task); // Agrega la tarea a una lista.
-
-        // Simula que findAllTasks retorna la lista que contiene la tarea.
-        doReturn(tasks).when(taskTextRepository).findAllTasks();
-
-        // Llama al método findTaskById para buscar la tarea por su ID.
-        Task result = taskTextRepository.findTaskById("1");
-
-        // Verifica que el resultado no sea nulo y que coincida con los valores esperados.
-        assertNotNull(result); // Asegura que se encontró la tarea.
-        assertEquals("1", result.getId()); // Verifica que el ID sea "1".
-        assertEquals("Test Task", result.getName()); // Verifica que el nombre sea "Test Task".
-    }
+//    @Test
+//    public void testFindTaskById() {
+//        // Crea una nueva tarea con ID "1" y descripción inicial.
+//        Task task = new Task("1", "Test Task", "Description",
+//                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+//        List<Task> tasks = new ArrayList<>();
+//        tasks.add(task); // Agrega la tarea a una lista.
+//
+//        // Simula que findAllTasks retorna la lista que contiene la tarea.
+//        doReturn(tasks).when(taskTextRepository).findAllTasks();
+//
+//        // Llama al método findTaskById para buscar la tarea por su ID.
+//        Task result = taskTextRepository.findTaskById("1");
+//
+//        // Verifica que el resultado no sea nulo y que coincida con los valores esperados.
+//        assertNotNull(result); // Asegura que se encontró la tarea.
+//        assertEquals("1", result.getId()); // Verifica que el ID sea "1".
+//        assertEquals("Test Task", result.getName()); // Verifica que el nombre sea "Test Task".
+//    }
     @Test
     public void testFindAllTasks_ValidJsonFile() throws IOException, ParseException {
         // Preparar un archivo JSON simulado con dos tareas

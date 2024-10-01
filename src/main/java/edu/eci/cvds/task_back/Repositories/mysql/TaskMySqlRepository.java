@@ -1,19 +1,13 @@
-package edu.eci.cvds.task_back.Repositories;
-
-import edu.eci.cvds.task_back.Domain.Task;
+package edu.eci.cvds.task_back.Repositories.mysql;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.JpaRepository;
+import edu.eci.cvds.task_back.Domain.Task;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-/**
- * Repositorio para la gestión de tareas utilizando MongoDB como almacenamiento.
- * Implementa los métodos definidos en {@link TaskRepository} y los combina con
- * las funcionalidades proporcionadas por {@link MongoRepository}.
- */
 @Repository
-public interface TaskMongoRepository extends TaskRepository,MongoRepository<Task,String>{
+public interface TaskMySqlRepository extends JpaRepository<Task, String>, TaskRepository {
 
     @Override
     public default void saveTask(Task task){

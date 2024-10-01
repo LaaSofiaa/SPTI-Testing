@@ -1,12 +1,18 @@
 package edu.eci.cvds.task_back.Domain;
 
-import edu.eci.cvds.task_back.Repositories.TaskMongoRepository;
+import edu.eci.cvds.task_back.Repositories.mongo.TaskMongoRepository;
+import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
-import edu.eci.cvds.task_back.Repositories.TaskTextRepository;
+import edu.eci.cvds.task_back.Repositories.text.TaskTextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 /**
  * Clase de configuración para los repositorios de tareas.
@@ -16,6 +22,9 @@ import org.springframework.context.annotation.Configuration;
  * TaskMongoRepository o TaskTextRepository.
  */
 @Configuration
+
+@EnableJpaRepositories(basePackages = "edu.eci.cvds.task_back.Repositories.mysql")
+@EnableMongoRepositories(basePackages = "edu.eci.cvds.task_back.Repositories.mongo")
 public class TaskConfig {
 
     @Value("${task.repository.type}")
@@ -23,6 +32,7 @@ public class TaskConfig {
 
     private final TaskMongoRepository taskMongoRepository;
     private final TaskTextRepository taskTextRepository;
+    private final TaskMySqlRepository taskMySqlRepository;
 
     /**
      * Constructor que inyecta las implementaciones de los repositorios.
@@ -31,11 +41,17 @@ public class TaskConfig {
      * @param taskTextRepository Repositorio de tareas basado en archivos de texto.
      */
     @Autowired
-    public TaskConfig(TaskMongoRepository taskMongoRepository, TaskTextRepository taskTextRepository) {
+    public TaskConfig(TaskMongoRepository taskMongoRepository, TaskTextRepository taskTextRepository,TaskMySqlRepository taskMySqlRepository) {
         this.taskMongoRepository = taskMongoRepository;
         this.taskTextRepository = taskTextRepository;
+        this.taskMySqlRepository = taskMySqlRepository;
     }
-
+//    @Bean(name="entityManagerFactory")
+//    public LocalSessionFactoryBean sessionFactory() {
+//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+//
+//        return sessionFactory;
+//    }
     /**
      * Define el bean que selecciona el repositorio a utilizar en función del tipo configurado.
      * @return Una instancia de TaskRepository (puede ser Mongo o Text).
@@ -47,7 +63,10 @@ public class TaskConfig {
             return taskMongoRepository;
         } else if ("text".equalsIgnoreCase(repositoryType)) {
             return taskTextRepository;
-        } else {
+        } else if ("MySql".equalsIgnoreCase(repositoryType)){
+            return taskMySqlRepository;
+        }
+        else {
             throw new IllegalArgumentException("Tipo de repositorio no soportado");
         }
     }
