@@ -20,6 +20,9 @@ public class Task {
     private String dueDate;
     private String creationDate;
     private Boolean isCompleted = false;
+    private String difficulty;
+    private int priority;
+    private double estimatedTime;
 
     /**
      * Constructor para crear una nueva tarea.
@@ -28,12 +31,15 @@ public class Task {
      * @param description Descripción de la tarea.
      * @param dueDate Fecha de vencimiento de la tarea.
      */
-    public Task(String id, String name, String description, String dueDate) {
+    public Task(String id, String name, String description, String dueDate, String difficulty, int priority, double estimatedTime) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.creationDate = LocalDate.now().toString();
         this.dueDate = dueDate;
+        this.difficulty = difficulty;
+        this.priority = priority;
+        this.estimatedTime =estimatedTime;
     }
 
     // Getters y setters
@@ -74,6 +80,30 @@ public class Task {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public double getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(double estimatedTime) {
+        this.estimatedTime = estimatedTime;
     }
 }
 
