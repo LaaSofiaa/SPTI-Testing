@@ -35,8 +35,8 @@ public class TaskServiceTest {
     @Test
     void testGetTask() {
         // Crear un objeto Task con ID "1" y otros detalles
-        Task task = new Task("1", "Test Task", "Description", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        task.setId("1");
         // Configurar el comportamiento del mock para devolver el task creado al buscar por ID "1"
         when(taskRepository.findTaskById("1")).thenReturn(task);
 
@@ -50,12 +50,15 @@ public class TaskServiceTest {
         // Verificar que el nombre de la tarea resultante es "Test Task"
         assertEquals("Test Task", result.getName());
     }
-
+//
     @Test
     void testGetTasks() {
         // Crear dos objetos Task con IDs y otros detalles
-        Task task1 = new Task("1", "Test Task 1", "Description 1", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        Task task2 = new Task("2", "Test Task 2", "Description 2", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Task task1 = new Task( "Test Task 1", "Description 1", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Task task2 = new Task( "Test Task 2", "Description 2", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        task1.setId("1");
+        task2.setId("2");
 
         // Agrupar las tareas en una lista
         List<Task> tasks = Arrays.asList(task1, task2);
@@ -79,7 +82,9 @@ public class TaskServiceTest {
     @Test
     void testSaveTask() {
         // Crear un objeto Task con un ID, nombre, descripción y fecha de vencimiento
-        Task task = new Task("1", "Test Task", "Description", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        task.setId("1");
 
         // Llamar al método saveTask del servicio para guardar la tarea
         taskService.saveTask(task);
@@ -91,7 +96,10 @@ public class TaskServiceTest {
     @Test
     void testMarkTaskAsCompleted() {
         // Crear un objeto Task con un ID, nombre, descripción y fecha de vencimiento
-        Task task = new Task("1", "Test Task", "Description", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        task.setId("1");
+
         // Inicializar el estado de completado de la tarea como falso
         task.setIsCompleted(false);
 
@@ -110,7 +118,9 @@ public class TaskServiceTest {
     @Test
     void testDeleteTask() {
         // Crear un objeto Task con un ID, nombre, descripción y fecha de vencimiento
-        Task task = new Task("1", "Test Task", "Description", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        task.setId("1");
 
         // Configurar el comportamiento del repositorio para que devuelva la tarea cuando se busque por ID
         when(taskRepository.findTaskById("1")).thenReturn(task);
@@ -127,7 +137,9 @@ public class TaskServiceTest {
     @Test
     void SucessfullIDQuery() {
         // Crear un objeto Task con ID "2" y otros detalles
-        Task task = new Task("2", "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        task.setId("2");
 
         // Configurar el comportamiento del mock para devolver el task creado al buscar por ID "2"
         when(taskRepository.findTaskById("2")).thenReturn(task);
@@ -142,7 +154,6 @@ public class TaskServiceTest {
     }
     @Test
     void UnsucessfullIDQuery() {
-
 
         // Se intenta obtener una tarea que no existe con su ID
         Task result = taskService.getTask("2");
@@ -169,7 +180,9 @@ public class TaskServiceTest {
         assertEquals(0, results.size());
 
         // Crear un objeto Task con ID "2" y otros detalles
-        Task task = new Task("2", "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        task.setId("2");
 
         // Guardar la tarea
         taskService.saveTask(task);
@@ -197,8 +210,9 @@ public class TaskServiceTest {
     void successfulTaskDelete() {
 
         // Crear un objeto Task con ID "2" y otros detalles
-        Task task = new Task("2", "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
+        task.setId("2");
         // Guardar la tarea
         taskService.saveTask(task);
 
@@ -224,8 +238,8 @@ public class TaskServiceTest {
     void successfulTaskDeleteAndGetNullwithID() {
 
         // Crear un objeto Task con ID "2" y otros detalles
-        Task task = new Task("2", "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        task.setId("2");
         // Guardar la tarea
         taskService.saveTask(task);
 

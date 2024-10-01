@@ -91,6 +91,7 @@ public class Task {
         this.id = id;
     }
 
+
     public String getDifficulty() {
         return difficulty;
     }
@@ -115,11 +116,11 @@ public class Task {
         this.estimatedTime = estimatedTime;
     }
 
+
     /**
      * Asigna un ID aleatorio a una tarea si no lo tiene.
      * @return La tarea con el ID asignado.
      */
-
     private void setRandomId() {
         String CHARACTERS = "0123456789";
         Random random = new Random();

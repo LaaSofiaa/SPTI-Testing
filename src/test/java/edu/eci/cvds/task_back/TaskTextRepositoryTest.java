@@ -30,22 +30,22 @@ public class TaskTextRepositoryTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-//
-//    @Test
-//    public void testSaveTask() {
-//        // Crea una nueva tarea con ID "1" y una fecha futura.
-//        Task task = new Task("1", "Test Task", "Description",
-//                LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-//
-//        // Simula que findAllTasks retorna una lista vacía.
-//        doReturn(new ArrayList<>()).when(taskTextRepository).findAllTasks();
-//
-//        // Llama a saveTask para guardar la nueva tarea.
-//        taskTextRepository.saveTask(task);
-//
-//        // Verifica que findAllTasks fue llamado una vez.
-//        verify(taskTextRepository, times(1)).findAllTasks();
-//    }
+
+    @Test
+    public void testSaveTask() {
+        // Crea una nueva tarea con ID "1" y una fecha futura.
+        Task task = new Task("Test Task", "Description",
+        LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        // Simula que findAllTasks retorna una lista vacía.
+        doReturn(new ArrayList<>()).when(taskTextRepository).findAllTasks();
+
+        // Llama a saveTask para guardar la nueva tarea.
+        taskTextRepository.saveTask(task);
+
+        // Verifica que findAllTasks fue llamado una vez.
+        verify(taskTextRepository, times(1)).findAllTasks();
+    }
 
 //    @Test
 //    public void testFindAllTasks() {
