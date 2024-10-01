@@ -5,7 +5,10 @@ import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Servicio encargado de gestionar la lógica de negocio relacionada con las tareas.
@@ -71,4 +74,26 @@ public class TaskService {
             taskRepository.deleteTask(taskRepo);
         }
     }
+
+    /**
+     * genera un número aleatorio de tareas (entre 100 y 1000)
+     * y asigna valores aleatorios para sus propiedades.
+     */
+    public void RandomTask(){
+        Random random = new Random();
+        int randomTasks = random.nextInt(100,1001);
+        String[] difficulties = {"Alto", "Medio", "Bajo"};
+
+        for(int i =0; i< randomTasks;i++){
+            String name = "Task" + (i+1);
+            String description = "Description" +(i+1);
+            String dueDate = LocalDate.now().plusDays(random.nextInt(30) + 1).toString();
+            String difficulty = difficulties[random.nextInt(difficulties.length)];
+            Integer priority = random.nextInt(1,6);
+            double estimatedTime = random.nextDouble()*10;
+            Task task = new Task(name,description,dueDate,difficulty,priority,estimatedTime);
+            saveTask(task);
+        }
+    }
+
 }
