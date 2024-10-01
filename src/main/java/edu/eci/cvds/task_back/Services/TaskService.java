@@ -5,7 +5,9 @@ import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Servicio encargado de gestionar la lógica de negocio relacionada con las tareas.
@@ -71,4 +73,22 @@ public class TaskService {
             taskRepository.deleteTask(taskRepo);
         }
     }
+
+//    public void RandomTask(){
+//        Random random = new Random();
+//        int randomTasks = random.nextInt(100,1000);
+//        String[] difficulties = {"Alto", "Medio", "Bajo"};
+//        List<Task> tasks = new ArrayList<>();
+//
+//        for(int i =0; i< randomTasks;i++){
+//
+//
+//           // Task task = new Task(name,description,dueDate,difficulty,priority,estimatedTime);
+//            // tasks.add(task);
+//
+//        }
+//
+//
+//    }
+
 }
