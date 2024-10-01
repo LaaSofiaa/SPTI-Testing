@@ -6,7 +6,7 @@ import edu.eci.cvds.task_back.Domain.Task;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface TaskMySqlRepository extends JpaRepository<Task, String>, TaskRepository {
 
     @Override

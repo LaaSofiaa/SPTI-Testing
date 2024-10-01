@@ -21,6 +21,7 @@ import org.json.simple.parser.JSONParser;
  */
 @Repository
 public class TaskTextRepository implements TaskRepository {
+
     private final static String filePath = "src/main/resources/tasks.json"; // Ruta del archivo JSON
 
     /**
@@ -28,11 +29,12 @@ public class TaskTextRepository implements TaskRepository {
      * se le asigna un ID aleatorio.
      * @param task La tarea a guardar.
      */
+
     @Override
     public void saveTask(Task task) {
-        Task t = setRandomId(task);
+        setRandomId(task);
         List<Task> tasks = findAllTasks();
-        tasks.add(t);
+        tasks.add(task);
         saveAllTasks(tasks);
     }
 
@@ -40,6 +42,7 @@ public class TaskTextRepository implements TaskRepository {
      * Recupera todas las tareas almacenadas en el archivo JSON.
      * @return Lista de todas las tareas.
      */
+
     @Override
     public List<Task> findAllTasks() {
         JSONParser parser = new JSONParser();
@@ -50,14 +53,14 @@ public class TaskTextRepository implements TaskRepository {
 
             for (Object task : tasks) {
                 JSONObject taskJson = (JSONObject) task;
-                String id = taskJson.get("id").toString();
+                String id = (String) taskJson.get("id");
                 String title = (String) taskJson.get("name");
                 String description = (String) taskJson.get("description");
-                // Convertir cadenas de fecha a LocalDate
                 String dueDate = (String) taskJson.get("dueDate");
                 String creationDate = (String) taskJson.get("creationDate");
                 boolean completed = (boolean) taskJson.get("isCompleted");
-                Task passedTask = new Task(title, description, dueDate); //revisar
+                Task passedTask = new Task(title, description, dueDate);
+                passedTask.setId(id);
                 passedTask.setCreationDate(creationDate);
                 passedTask.setIsCompleted(completed);
                 taskList.add(passedTask);
@@ -75,6 +78,7 @@ public class TaskTextRepository implements TaskRepository {
      * Elimina una tarea del archivo JSON.
      * @param task La tarea a eliminar.
      */
+
     @Override
     public void deleteTask(Task task) {
         List<Task> tasks = findAllTasks();
@@ -86,6 +90,7 @@ public class TaskTextRepository implements TaskRepository {
      * Actualiza una tarea existente en el archivo JSON.
      * @param task La tarea a actualizar.
      */
+
     @Override
     public void updateTask(Task task) {
         List<Task> tasks = findAllTasks();
@@ -104,6 +109,7 @@ public class TaskTextRepository implements TaskRepository {
      * @param id El identificador de la tarea.
      * @return La tarea encontrada o {@code null} si no existe.
      */
+
     @Override
     public Task findTaskById(String id) {
         return findAllTasks().stream()
@@ -116,6 +122,7 @@ public class TaskTextRepository implements TaskRepository {
      * Guarda todas las tareas en el archivo JSON.
      * @param tasks Lista de tareas a guardar.
      */
+
     private void saveAllTasks(List<Task> tasks) {
         JSONArray jsonArray = new JSONArray();
         for(Task task : tasks) {
@@ -142,7 +149,8 @@ public class TaskTextRepository implements TaskRepository {
      * @param task La tarea a la que se le asignará el ID.
      * @return La tarea con el ID asignado.
      */
-    private Task setRandomId(Task task) {
+
+    private void setRandomId(Task task) {
         String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
         String taskId = "";
@@ -151,7 +159,7 @@ public class TaskTextRepository implements TaskRepository {
             char character = CHARACTERS.charAt(index);
             taskId += character;
         }
-//        task.setId(taskId);
-        return task;
+        task.setId(taskId);
     }
+
 }

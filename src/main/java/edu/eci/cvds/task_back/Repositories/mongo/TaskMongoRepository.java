@@ -17,6 +17,7 @@ public interface TaskMongoRepository extends TaskRepository,MongoRepository<Task
 
     @Override
     public default void saveTask(Task task){
+        //task.setMongoId(task.getId().toString());
         save(task);
     }
     @Override
@@ -32,5 +33,7 @@ public interface TaskMongoRepository extends TaskRepository,MongoRepository<Task
         return findById(id).orElse(null);
     }
     @Override
-    public default void updateTask(Task task){ save(task); }
+    public default void updateTask(Task task){
+        saveTask(task);
+    }
 }

@@ -1,11 +1,10 @@
 package edu.eci.cvds.task_back.Domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * Representa una tarea en el sistema de gestión de tareas.
@@ -16,8 +15,9 @@ import java.time.LocalDate;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Generación automática del ID
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)  // Generación automática del ID
+    //@Column(columnDefinition = "string")
+    private String id;
     private String name;
     private String description;
     private String dueDate;
@@ -33,16 +33,16 @@ public class Task {
     public Task(String name, String description, String dueDate) {
         this.name = name;
         this.description = description;
-        this.creationDate = LocalDate.now().toString();
         this.dueDate = dueDate;
     }
 
     // Constructor predeterminado
     public Task() {
+        this.creationDate = LocalDate.now().toString();
     }
 
     // Getters y setters
-    public Long getId() {
+    public String getId() {
         return id;  // ID se generará automáticamente
     }
 
@@ -76,5 +76,25 @@ public class Task {
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    /**
+     * Asigna un ID aleatorio a una tarea si no lo tiene.
+     * @return La tarea con el ID asignado.
+     */
+
+    private void setRandomId() {
+        String CHARACTERS = "0123456789";
+        Random random = new Random();
+        String taskId = "";
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            char character = CHARACTERS.charAt(index);
+            taskId += character;
+        }
+        //Long newId = Long.parseLong(taskId);
+        //setId(taskId);
     }
 }
