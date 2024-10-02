@@ -26,10 +26,24 @@ function loadTask() {
             ? `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}')" checked disabled />` 
             : `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}')" />`;
 
+            
+            let priorityColor;
+            switch (task.priority) {
+                case '1': priorityColor = '#afd1c6'; break;   
+                case '2': priorityColor = '#15505d'; break; 
+                case '3': priorityColor = '#acfb03'; break; 
+                case '4': priorityColor = '#3c895f'; break;  
+                case '5': priorityColor = '#7bd179'; break; 
+                default: priorityColor = 'gray';
+            }
+
             taskhtml+= `
             <div class="task ${isCompleted}">
                 ${buttonCheck}
-                <h2>${task.name}</h2>   
+                <div>
+                <div class="priority-indicator"></div>
+                <h2>${task.name}</h2> 
+                </div> 
                 <p>${task.description}</p>
                 <p>Creation date: ${task.creationDate}</p>
                 <p>Due date: ${task.dueDate}</p>
@@ -52,7 +66,7 @@ function addTask(){
     const taskName = document.getElementById("taskTitle").value;
     const description = document.getElementById("taskDescription").value;
     const date = document.getElementById("taskDueDate").value;
-    const difficultyTask = document.querySelector('input[name="taskDifficulty"]:checked').value;
+    const difficultyTask = document.getElementById("taskDifficulty").value;
     const priorityTask = document.getElementById("taskPriority").value;
     const time = document.getElementById("averageTime").value;
     console.log(difficultyTask);

@@ -54,6 +54,7 @@ main{
 .form-group label, .date-container label {
     font-size: 18px;
     color: #15505d;
+    
 }
 .form-group input, 
 .form-group textarea {
@@ -106,6 +107,7 @@ main{
 #taskDescription{
     height: 200px;
 }
+
 /*estilo de las tareas*/
 #task-container{
     width: calc(60%);
@@ -202,7 +204,7 @@ button {
 }
 
 .addButton {
-    font-weight: bold; /
+    font-weight: bold; 
 }
 
 .generate-button {
@@ -238,4 +240,10 @@ header nav ul li a:hover{
     
 }
 
-
+.priority-indicator {
+    width: 15px; 
+    height: 15px; 
+    border-radius: 100%; 
+    display: inline-block; 
+    margin-right: 10px; 
+}
