@@ -31,15 +31,15 @@
             <textarea id="taskDescription" placeholder="Enter a description (no more than 50 characters)" maxlength="50"></textarea>
         </div>
         <div class="form-group">
-            <label>Difficulty</label>
-            <div class="radio-group">
-                <label><input type="radio" name="taskDifficulty" value="High"> High</label>
-                <label><input type="radio" name="taskDifficulty" value="Medium"> Middle</label>
-                <label><input type="radio" name="taskDifficulty" value="Low"> Low</label>
-            </div>
+            <label><b>Difficulty</b></label>
+            <select id="taskDifficulty">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
         </div>
         <div class="form-group">
-            <label for="taskPriority">Priority</label>
+            <label for="taskPriority"><b>Priority</b></label>
             <select id="taskPriority">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -49,7 +49,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="averageTime">Average Time</label>
+            <label for="averageTime"><b>Average Time</b></label>
             <input type="number" id="averageTime" placeholder="Enter average time" step="0.1" min="0">
         </div>
         <div class="date-container">
@@ -64,7 +64,7 @@
             </div>
             <button onclick="addTask()">Add</button>
         </div>
-        <button onclick="generateRandomTasks()">Generate random tasks</button>
+        <button class="addButton" onclick="generateRandomTasks()">Generate Random Tasks</button>
     </div>
     <div id="task-container">
     </div>
