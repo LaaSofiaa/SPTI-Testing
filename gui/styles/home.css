@@ -12,10 +12,11 @@ header{
     display: flex;
     background-color: #15505d;
     width: 100vw; 
-    padding: 0 0 0 6rem; 
+    padding: 0 6rem 0 6rem; 
     box-sizing: border-box;
     color: white;
     align-items: center;
+    justify-content: space-between;
 }
 
 img{
@@ -122,7 +123,7 @@ main{
     box-sizing: border-box; 
     position: relative;
     width: 40%;
-    height: 200px;
+    height: 300px;
     overflow: hidden;
     padding: 1rem;
     position: relative;
@@ -182,5 +183,59 @@ main{
     background-color: #afd1c6;
 }
 
+nav{
+    flex-grow: 1;
+    text-align: right;
+}
+header nav ul{
+    margin: 0;
+    list-style: none;
+}
+header nav ul li{
+    display: inline-block;
+    gap: 100px;
+}
+header nav ul li a{
+    text-decoration: none;
+    color: white;
+}
+header nav ul li a:hover{
+    color: #afd1c6;
+    bold: 900;
+}
 
+/* Añadir al final del archivo CSS existente */
+ 
+.analytics-container {
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+ 
+.chart-selector {
+    margin-bottom: 2rem;
+}
+ 
+.chart-selector label {
+    font-size: 18px;
+    color: #15505d;
+    margin-right: 1rem;
+}
+ 
+.chart-selector select {
+    padding: 0.5rem;
+    font-size: 16px;
+    border: 1px solid #15505d;
+    border-radius: 5px;
+    background-color: #afd1c6;
+    color: #15505d;
+}
+ 
+.chart-container {
+    width: 100%;
+    height: 400px;
+}
 

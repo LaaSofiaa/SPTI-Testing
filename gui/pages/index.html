@@ -13,7 +13,12 @@
 	<header>
         <img src="../images/logo.png" alt="Logo de la app" class="logo">
         <h1>TaskManager</h1>
-
+        <nav>
+            <ul>
+                <li><a href="../pages/index.html">Tasks</a></li>
+                <li><a href="../pages/insight.html">Insights</a></li>
+            </ul>
+        </nav>
 	</header>
 <main>
     <div class="task-form">
@@ -29,7 +34,7 @@
             <label>Difficulty</label>
             <div class="radio-group">
                 <label><input type="radio" name="taskDifficulty" value="High"> High</label>
-                <label><input type="radio" name="taskDifficulty" value="Medium" checked> Middle</label>
+                <label><input type="radio" name="taskDifficulty" value="Medium"> Middle</label>
                 <label><input type="radio" name="taskDifficulty" value="Low"> Low</label>
             </div>
         </div>
@@ -45,7 +50,7 @@
         </div>
         <div class="form-group">
             <label for="averageTime">Average Time</label>
-            <input type="text" id="averageTime" placeholder="Enter average time">
+            <input type="number" id="averageTime" placeholder="Enter average time" step="0.1" min="0">
         </div>
         <div class="date-container">
             <div class="date-input">
@@ -59,10 +64,12 @@
             </div>
             <button onclick="addTask()">Add</button>
         </div>
+        <button onclick="generateRandomTasks()">Generate random tasks</button>
     </div>
     <div id="task-container">
     </div>
 </main>
 <script src="../scripts/script.js"></script>
+<script src="../scripts/home.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 *Funcion para cargar las tareas
 */
 function loadTask() {
-    fetch("http://localhost:8080/taskManager/getTasks", {
+    fetch("http://localhost:80/taskManager/getTasks", {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -33,6 +33,8 @@ function loadTask() {
                 <p>${task.description}</p>
                 <p>Creation date: ${task.creationDate}</p>
                 <p>Due date: ${task.dueDate}</p>
+                <p>Difficulty: ${task.difficulty}</p>
+                <p>Average Time: ${task.estimatedTime}</p>
                 <button class="delete-button" onclick="deleteTask('${task.id}')"><i class="fas fa-trash-alt"></i></button>
             </div>` 
         }
@@ -50,7 +52,13 @@ function addTask(){
     const taskName = document.getElementById("taskTitle").value;
     const description = document.getElementById("taskDescription").value;
     const date = document.getElementById("taskDueDate").value;
-    if (!taskName || !description || !date) {
+    const difficultyTask = document.querySelector('input[name="taskDifficulty"]:checked').value;
+    const priorityTask = document.getElementById("taskPriority").value;
+    const time = document.getElementById("averageTime").value;
+    console.log(difficultyTask);
+    console.log(priorityTask);
+    console.log(time);
+    if (!taskName || !description || !date || !difficultyTask || !priorityTask || !time) {
         alert('Please fill all the fields');
         return;
     }
@@ -62,15 +70,18 @@ function addTask(){
         alert('The description is too long');
         return;
     }
-   
+    if (time < 0){
+        alert('You cannot add negative time');
+        return;
+   }
     let currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     let selectedDate = new Date(date);
     if (selectedDate < currentDate) {
         alert('The due date must be greater than the current date');
         return;
-    };   
-    fetch("http://localhost:8080/taskManager/saveTask",
+    }; 
+    fetch("http://localhost:80/taskManager/saveTask",
         {
             headers: {
                 "Accept": "application/json",
@@ -80,18 +91,21 @@ function addTask(){
             body: JSON.stringify({
                 name: taskName,
                 description: description,
-                dueDate: date
+                dueDate: date,
+                difficulty: difficultyTask,
+                priority: priorityTask,
+                estimatedTime: time
             })
         })
         .then(function (res) { console.log(res); loadTask(); })
         .catch(function (res) { console.log(res) })
-        loadTask();
+        //loadTask();
     }
     /*
     *Funcion para eliminar tareas
     */
     function deleteTask(taskId) {
-        fetch(`http://localhost:8080/taskManager/delete?id=${taskId}`, {
+        fetch(`http://localhost:80/taskManager/delete?id=${taskId}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -115,7 +129,7 @@ function addTask(){
     */
     function disabledButton(id){
         console.log(id);
-        fetch(`http://localhost:8080/taskManager/markTaskAsCompleted?id=${id}`, {
+        fetch(`http://localhost:80/taskManager/markTaskAsCompleted?id=${id}`, {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
@@ -133,7 +147,25 @@ function addTask(){
             console.log('Error:', error);
         });
     }
-    
+    function generateRandomTasks(){
+        fetch(`http://localhost:80/taskManager/generateTasks`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function (res) {
+            if (res.ok) {
+                loadTask();
+            } else {
+                console.log('Failed to delete task');
+            }
+        })
+        .catch(function (error) {
+            console.log('Error:', error);
+        });
+    }
     
     window.addTask = addTask;
     window.deleteTask = deleteTask;

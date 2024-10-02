@@ -59,7 +59,10 @@ public class TaskTextRepository implements TaskRepository {
                 String dueDate = (String) taskJson.get("dueDate");
                 String creationDate = (String) taskJson.get("creationDate");
                 boolean completed = (boolean) taskJson.get("isCompleted");
-                Task passedTask = new Task(title, description, dueDate);
+                String difficulty = (String) taskJson.get("difficulty");
+                Integer priority = (Integer) taskJson.get("priority");
+                double estimatedTime = (double) taskJson.get("estimatedTime");
+                Task passedTask = new Task(title, description, dueDate, difficulty,priority,estimatedTime);
                 passedTask.setId(id);
                 passedTask.setCreationDate(creationDate);
                 passedTask.setIsCompleted(completed);
@@ -133,6 +136,9 @@ public class TaskTextRepository implements TaskRepository {
             taskJson.put("dueDate", task.getDueDate());
             taskJson.put("creationDate", task.getCreationDate());
             taskJson.put("isCompleted", task.getIsCompleted());
+            taskJson.put("difficulty", task.getDifficulty());
+            taskJson.put("priority", task.getPriority());
+            taskJson.put("estimatedTime", task.getEstimatedTime());
             jsonArray.add(taskJson);
         }
         System.out.println(jsonArray);

@@ -82,7 +82,7 @@ public class TaskService {
     public void RandomTask(){
         Random random = new Random();
         int randomTasks = random.nextInt(100,1001);
-        String[] difficulties = {"Alto", "Medio", "Bajo"};
+        String[] difficulties = {"High", "Middle", "Low"};
 
         for(int i =0; i< randomTasks;i++){
             String name = "Task" + (i+1);
