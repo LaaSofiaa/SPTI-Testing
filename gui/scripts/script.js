@@ -52,7 +52,7 @@ function addTask(){
     const taskName = document.getElementById("taskTitle").value;
     const description = document.getElementById("taskDescription").value;
     const date = document.getElementById("taskDueDate").value;
-    const difficultyTask = document.querySelector('input[name="taskDifficulty"]:checked').value;
+    const difficultyTask = document.getElementById("taskDifficulty").value;
     const priorityTask = document.getElementById("taskPriority").value;
     const time = document.getElementById("averageTime").value;
     console.log(difficultyTask);

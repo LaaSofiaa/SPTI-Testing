@@ -26,7 +26,7 @@ async function loadDifficultyDiagram() {
 
     var ctx = document.getElementById("myCanvasTask").getContext('2d');
 
-    let dataValues = {"High": 0, "Medium": 0, "Low": 0};
+    let dataValues = {"High": 0, "Middle": 0, "Low": 0};
 
     // Recorrer los datos y contar las dificultades
     for (let i = 0; i < data.length; i++) {
@@ -34,14 +34,14 @@ async function loadDifficultyDiagram() {
     }
 
     // Crear el gráfico de barras
-    const difficulties = ['High', 'Medium', 'Low'];
+    const difficulties = ['High', 'Middle', 'Low'];
     var myChart = new Chart(ctx, {
         type: 'bar', // Puedes cambiar a 'line' o 'pie' según tus necesidades
         data: {
             labels: difficulties,
             datasets: [{
                 label: 'Número de Tareas por Dificultad', // Etiqueta de la serie
-                data: [dataValues['High'], dataValues['Medium'], dataValues['Low']],
+                data: [dataValues['High'], dataValues['Middle'], dataValues['Low']],
                 backgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']],
                 borderWidth: 2,
                 borderColor: '#000', // Color del borde
@@ -212,7 +212,7 @@ async function loadTotalTimeDiagram() {
 
     var ctx = document.getElementById("myFullTimeTask").getContext('2d');
 
-    let dataValues = {"High": 0, "Medium": 0, "Low": 0};
+    let dataValues = {"High": 0, "Middle": 0, "Low": 0};
 
     // Recorrer los datos y contar los tiempos estimados de las tareas completadas
     for (let i = 0; i < data.length; i++) {
@@ -221,14 +221,14 @@ async function loadTotalTimeDiagram() {
         }   
     }
 
-    const difficulties = ['High', 'Medium', 'Low'];
+    const difficulties = ['High', 'Middle', 'Low'];
     var myChart = new Chart(ctx, {
         type: 'pie', // Tipo de gráfico: pastel
         data: {
             labels: difficulties,
             datasets: [{
                 label: 'Tiempo Total Invertido por Dificultad', // Etiqueta de la serie
-                data: [dataValues['High'], dataValues['Medium'], dataValues['Low']],
+                data: [dataValues['High'], dataValues['Middle'], dataValues['Low']],
                 backgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']],
                 hoverBackgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']], // Colores al pasar el mouse
                 borderColor: '#fff', // Color del borde
