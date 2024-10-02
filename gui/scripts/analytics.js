@@ -1,212 +1,297 @@
-/*function loadDifficultyDiagram(){
-    fetch("http://localhost:80/taskManager/getTasks")
-    .then(res => res.json())
-    .then(data => {
-        const difficulties = ['High', 'Medium', 'Low'];
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: difficulties,
+const colors = {
+    PURPLE: '#afd1c6',
+    PINK: '#15505d',
+    GREEN: '#acfb03',
+    ORANGE: '#3c895f',
+    BLUE: '#7bd179'
+}
 
-            }
-        })
-}*/
-
-
-
-
-
-let myChart;
- 
-function createChart(type, data, options) {
-    const ctx = document.getElementById('analyticsChart').getContext('2d');
-    if (myChart) {
-        myChart.destroy();
+// callTasks ahora devuelve la promesa de los datos.
+async function callTasks() {
+    try {
+        const res = await fetch("http://localhost:80/taskManager/getTasks");
+        if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        const data = await res.json();
+        return data; // Devuelve los datos obtenidos
+    } catch (error) {
+        console.error('Error fetching the tasks:', error);
     }
-    myChart = new Chart(ctx, {
-        type: type,
-        data: data,
-        options: options
-    });
 }
- 
-function difficultyHistogram() {
-    // Gráfico de barras para el histograma de dificultad
-    createChart('bar', {
-        labels: ['Fácil', 'Medio', 'Difícil'],
-        datasets: [{
-            label: 'Número de tareas',
-            data: [5, 10, 3], // Datos de ejemplo
-            backgroundColor: ['#66c2a5', '#fc8d62', '#8da0cb']
-        }]
-    }, {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Histograma de Dificultad'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return `Número de tareas: ${context.parsed.y}`;
-                    }
-                }
-            }
+
+async function loadDifficultyDiagram() {
+    const data = await callTasks(); // Espera los datos de la función callTasks
+    if (!data) return; // Si no hay datos, salir de la función para evitar errores.
+
+    var ctx = document.getElementById("myCanvasTask").getContext('2d');
+
+    let dataValues = {"High": 0, "Medium": 0, "Low": 0};
+
+    // Recorrer los datos y contar las dificultades
+    for (let i = 0; i < data.length; i++) {
+        dataValues[data[i].difficulty] += 1;
+    }
+
+    // Crear el gráfico de barras
+    const difficulties = ['High', 'Medium', 'Low'];
+    var myChart = new Chart(ctx, {
+        type: 'bar', // Puedes cambiar a 'line' o 'pie' según tus necesidades
+        data: {
+            labels: difficulties,
+            datasets: [{
+                label: 'Número de Tareas por Dificultad', // Etiqueta de la serie
+                data: [dataValues['High'], dataValues['Medium'], dataValues['Low']],
+                backgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']],
+                borderWidth: 2,
+                borderColor: '#000', // Color del borde
+                hoverBackgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']], // Color al pasar el mouse
+            }]
         },
-        scales: {
-            y: {
-                beginAtZero: true,
+        options: {
+            responsive: true,
+            plugins: {
                 title: {
                     display: true,
-                    text: 'Número de tareas'
-                }
-            },
-            x: {
-                title: {
+                    text: 'Distribución de Tareas por Dificultad' // Título del gráfico
+                },
+                legend: {
                     display: true,
-                    text: 'Nivel de dificultad'
-                }
-            }
-        }
-    });
-}
- 
-function tasksCompletedOverTime() {
-    // Gráfico de líneas para tareas finalizadas por tiempo
-    createChart('line', {
-        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-        datasets: [{
-            label: 'Tareas finalizadas',
-            data: [12, 19, 3, 5, 2, 3], // Datos de ejemplo
-            borderColor: '#8da0cb',
-            tension: 0.1
-        }]
-    }, {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Número de tareas finalizadas por tiempo'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return `Tareas finalizadas: ${context.parsed.y}`;
-                    }
-                }
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Número de tareas'
-                }
-            },
-            x: {
-                title: {
-                    display: true,
-                    text: 'Mes'
-                }
-            }
-        }
-    });
-}
- 
-function taskAveragesByPriority() {
-    // Gráfico de barras para promedios de tareas por prioridad
-    createChart('bar', {
-        labels: ['Baja', 'Media', 'Alta'],
-        datasets: [{
-            label: 'Tiempo promedio (horas)',
-            data: [2, 4, 6], // Datos de ejemplo
-            backgroundColor: ['#66c2a5', '#fc8d62', '#8da0cb']
-        }]
-    }, {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Promedios de tareas por prioridad'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return `Tiempo promedio: ${context.parsed.y} horas`;
-                    }
-                }
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Tiempo promedio (horas)'
-                }
-            },
-            x: {
-                title: {
-                    display: true,
-                    text: 'Nivel de prioridad'
-                }
-            }
-        }
-    });
-}
- 
-function totalTimeSpent() {
-    // Gráfico circular para tiempo total invertido por tareas realizadas
-    createChart('pie', {
-        labels: ['Proyecto A', 'Proyecto B', 'Proyecto C', 'Proyecto D'],
-        datasets: [{
-            data: [30, 50, 20, 10], // Datos de ejemplo
-            backgroundColor: ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3']
-        }]
-    }, {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Tiempo total invertido por tareas realizadas'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        let label = context.label || '';
-                        if (label) {
-                            label += ': ';
+                    position: 'top', // Posición de la leyenda
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw; // Tooltip con la etiqueta y valor
                         }
-                        label += context.parsed + ' horas';
-                        return label;
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Dificultad' // Etiqueta del eje X
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Número de Tareas' // Etiqueta del eje Y
+                    },
+                    beginAtZero: true // Comenzar el eje Y en 0
+                }
+            }
+        }
+    });
+}
+
+
+async function loadPriorityDiagram() {
+    const data = await callTasks(); // Espera los datos de la función callTasks
+    if (!data) return; // Si no hay datos, salir de la función para evitar errores.
+
+    var ctx = document.getElementById("myCanvasPriority").getContext('2d');
+    let dataValues = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0};
+
+    // Recorrer los datos y contar las prioridades
+    for (let i = 0; i < data.length; i++) {
+        dataValues[data[i].priority] += 1;
+    }
+
+    // Crear el gráfico de barras
+    const priorities = [1, 2, 3, 4, 5];
+    var myChart = new Chart(ctx, {
+        type: 'bar', // Puedes cambiar a 'line' o 'pie' según tus necesidades
+        data: {
+            labels: priorities,
+            datasets: [{
+                label: 'Número de Tareas por Prioridad', // Etiqueta de la serie
+                data: [dataValues[1], dataValues[2], dataValues[3], dataValues[4], dataValues[5]],
+                backgroundColor: [colors['GREEN'], colors['PINK'], colors['BLUE'], colors['PURPLE'], colors['ORANGE']],
+                borderWidth: 2,
+                borderColor: '#000', // Color del borde
+                hoverBackgroundColor: [colors['GREEN'], colors['PINK'], colors['BLUE'], colors['PURPLE'], colors['ORANGE']], // Color al pasar el mouse
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Distribución de Tareas por Prioridad' // Título del gráfico
+                },
+                legend: {
+                    display: true,
+                    position: 'top', // Posición de la leyenda
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw; // Tooltip con la etiqueta y valor
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Prioridad' // Etiqueta del eje X
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Número de Tareas' // Etiqueta del eje Y
+                    },
+                    beginAtZero: true // Comenzar el eje Y en 0
+                }
+            }
+        }
+    });
+}
+
+
+async function loadTimeDiagram() {
+    const data = await callTasks(); 
+    if (!data) return; 
+
+    let timeSum = {};  
+
+    for (let i = 0; i < data.length; i++) {
+        let taskTime = data[i].estimatedTime;
+
+        if(data[i].isCompleted){
+            if (timeSum[taskTime]) {
+                timeSum[taskTime.toFixed(1)] += 1;
+            } else {
+                timeSum[taskTime.toFixed(1)] = taskTime;
+            }
+        }
+    }
+
+    let times = Object.keys(timeSum); 
+    let avgTimes = times.map( t => timeSum[t] );  
+
+        // Configuración del gráfico
+        var ctx = document.getElementById("myCanvasTime").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: times,  // Etiquetas (tiempos)
+                datasets: [{
+                    label: 'Tiempo Promedio',
+                    data: avgTimes,  
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tiempo (Horas)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Valores'
+                        }
+                    }
+                }
+            }
+        });
+}
+
+async function loadTotalTimeDiagram() {
+    const data = await callTasks(); 
+    if (!data) return; 
+
+    var ctx = document.getElementById("myFullTimeTask").getContext('2d');
+
+    let dataValues = {"High": 0, "Medium": 0, "Low": 0};
+
+    // Recorrer los datos y contar los tiempos estimados de las tareas completadas
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].isCompleted) {
+            dataValues[data[i].difficulty] += data[i].estimatedTime;
+        }   
+    }
+
+    const difficulties = ['High', 'Medium', 'Low'];
+    var myChart = new Chart(ctx, {
+        type: 'pie', // Tipo de gráfico: pastel
+        data: {
+            labels: difficulties,
+            datasets: [{
+                label: 'Tiempo Total Invertido por Dificultad', // Etiqueta de la serie
+                data: [dataValues['High'], dataValues['Medium'], dataValues['Low']],
+                backgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']],
+                hoverBackgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']], // Colores al pasar el mouse
+                borderColor: '#fff', // Color del borde
+                borderWidth: 2 // Ancho del borde
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Tiempo Total Invertido por Dificultad' // Título del gráfico
+                },
+                legend: {
+                    display: true,
+                    position: 'top', // Posición de la leyenda
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' horas'; // Tooltip con la etiqueta y valor
+                        }
                     }
                 }
             }
         }
     });
 }
- 
-document.getElementById('chartType').addEventListener('change', function() {
-    switch(this.value) {
-        case 'difficultyHistogram':
-            difficultyHistogram();
+
+                
+
+
+document.getElementById('chartType').addEventListener("change", function(){
+    const selectedChart = this.value;
+    var container = document.querySelector(".chart-container");
+    console.log(container);
+    switch (selectedChart){
+        case "difficultyHistogram":
+            container.innerHTML = `<canvas id="myCanvasTask"></canvas>`;
+            loadDifficultyDiagram();
             break;
-        case 'tasksCompletedOverTime':
-            tasksCompletedOverTime();
+        case "tasksCompletedOverTime":
+            container.innerHTML = `<canvas id="myCanvasTime"></canvas>`;
+            loadTimeDiagram();
             break;
-        case 'taskAveragesByPriority':
-            taskAveragesByPriority();
+        case "taskAveragesByPriority":
+            container.innerHTML = `<canvas id="myCanvasPriority"></canvas>`;
+            loadPriorityDiagram();
             break;
-        case 'totalTimeSpent':
-            totalTimeSpent();
+        case "totalTimeSpent":
+            container.innerHTML = `<canvas id="myFullTimeTask"></canvas>`;
+            loadTotalTimeDiagram();
             break;
     }
-});
- 
-// Inicializar con el primer gráfico
-difficultyHistogram();
+})
+
+
+
+
+
+
+
+
 
 
     

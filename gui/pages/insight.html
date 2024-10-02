@@ -5,16 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TaskManager - Analytics</title>
 <link rel="stylesheet" href="../styles/home.css">
+<link rel="stylesheet" href="../styles/analytics.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <header>
-<img src="../images/logo.png" alt="Logo de la app" class="logo">
-<h1>TaskManager - Analytics</h1>
 </header>
+<body>
+    <header>
+        <img src="../images/logo.png" alt="Logo de la app" class="logo">
+        <h1>TaskManager</h1>
+        <nav>
+            <ul>
+                <li><a href="../pages/index.html">Tasks</a></li>
+                <li><a href="../pages/insight.html">Insights</a></li>
+            </ul>
+        </nav>
+	</header>
+</body>
 <main class="analytics-container">
 <div class="chart-selector">
-<label for="chartType">Select Chart:</label>
+<label for="chartType"><b>Select Chart:</b></label>
 <select id="chartType">
 <option value="difficultyHistogram">Histograma de Dificultad</option>
 <option value="tasksCompletedOverTime">Número de tareas finalizadas por tiempo</option>
@@ -23,9 +34,8 @@
 </select>
 </div>
 <div class="chart-container">
-<canvas id="analyticsChart"></canvas>
 </div>
 </main>
-<script src="analytics.js"></script>
+<script src="../scripts/analytics.js"></script>
 </body>
 </html>
