@@ -1,6 +1,12 @@
 
 
-/*estilo title,description*/
+main{
+    display: flex;
+    width: 100%; 
+    justify-content: center;
+    padding: 50px 0 80px 0;
+
+}
 
 .task-form {
     display: flex;
@@ -8,13 +14,11 @@
     gap: 1rem;
     width: calc(40%);
     display: flex;
-    height: 50vh; 
     margin-left: 4rem; 
-    flex-direction: column;
     align-content: center;
-    margin-top: 80px;
     height: fit-content;
     position: sticky; 
+    margin-top: 30px;
     top: 70px; 
     left: 0; 
     z-index: 1000;
@@ -78,31 +82,35 @@
 
 /*estilo de las tareas*/
 #task-container{
-    width: calc(60%);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8%;
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-auto-rows: 220px;
+    grid-row-gap: 45px;
+    grid-column-gap: 50px;
     height: fit-content;
     max-width: 100%;
+    padding-bottom: 10px;
+    justify-items: center;
+    padding: 0 4rem 0 4rem;
 }
 .task {
-    align-items: center;
     background-color: #15505d;
     color: white;
     border-radius: 10px;
     box-sizing: border-box; 
     position: relative;
-    width: 38%;
-    height: 250px;
     overflow: hidden;
-    padding: 1rem;
     position: relative;
     margin-top: 2rem;
+    padding: 25px;
     transition: transform 0.3s ease;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
 }
-.task-header{
-    display: flex;
-}
+
 .delete-button {
     position: absolute;
     bottom: 10px; 
@@ -180,14 +188,15 @@ button {
     display: flex;
     position: relative;
     gap: 5px;
+    padding-bottom: 15px;
 }
 
 .circle {
     border-radius: 50%;
     width: 25px; 
     height: 25px; 
-    margin: auto 0 auto 10px;
-    display: flex; /* Usar flexbox para centrar el contenido */
+    margin: 0;
+    display: flex; 
     align-items: center; /* Centra verticalmente el contenido */
     justify-content: center; /* Centra horizontalmente el contenido */
 }
@@ -197,7 +206,9 @@ button {
     font-size: 14px; /* Ajusta el tamaño de la fuente según sea necesario */
     font-weight: bold; /* Opcional: hace que el número sea más destacado */
 }
-
+.task-priority h2{
+    margin: 0;
+}
 .first-priority{
     background-color: #acfb03;
 }
