@@ -75,16 +75,7 @@ Usando el mismo código del proyecto realizado en el laboratorio 4 se generó un
                 distribution: 'temurin'
                 cache: maven
             - name: Build with Maven
-              run: mvn package -DskipTests 
-              - name: Deploy to Azure WebApp
-                uses: azure/webapps-deploy@v2
-                with:
-                  app-name: nombre App Service
-                  publish-profile: secreto creado en GitHub
-                  package:  nombre archivo .jar
-    ```
-   
-En deploy no se muestra los accesos por temas de confidencialidad del proyecto. 
+            -run: echo "En construccion..."
 
 
 2.Se agregaron los siguientes tests:
@@ -155,7 +146,7 @@ En deploy no se muestra los accesos por temas de confidencialidad del proyecto.
 
   ```
 
--Dado que tengo 1 tarea registrada, Cuándo la elimino y consulto a nivel de servicio, Entonces el resultado de la consulta no retornará ningún resultado.
+-Dado que tengo 1 tarea registrada, cuándo la elimino y consulto a nivel de servicio, entonces el resultado de la consulta no retornará ningún resultado.
 
   ```java
         @Test
@@ -178,3 +169,148 @@ En deploy no se muestra los accesos por temas de confidencialidad del proyecto.
 3. Verificar que la ejecución del workflow es exitosa.
 
 ![image](https://github.com/user-attachments/assets/5d182e90-da3f-4869-9bae-356cc16731b2)
+
+
+### Desplegando en Azure usando CI/CD (Continous Deployment / Continous Delivery)
+
+1. En Azure se creó un servicio de App Service con recursos que facturen 0 dólares.
+
+   a) Primero se ingresó a Azure con nuestra cuenta institucional y se accede a AzureDevOps.
+
+   ![image](https://github.com/user-attachments/assets/1cab2829-9e07-4a10-8499-b785cc8cf31c)
+
+   b)Se ingresa a servicos gratuitos.
+
+   ![image](https://github.com/user-attachments/assets/24626185-c332-4707-a6b8-fb77e7d1b0cb)
+
+   c)Aqui debe aparecer soluciones nube para estudiantes.
+
+   ![image](https://github.com/user-attachments/assets/dc06a244-4206-46d6-9901-37cedfe94b9e)
+   ![image](https://github.com/user-attachments/assets/4c2b254a-86fa-4c04-a368-1a304efe099e)
+
+   d) Se dirige a AppServices y luego crear Aplicación Web, donde se llena los espacios obligatorios para el proyecto.
+
+   ![image](https://github.com/user-attachments/assets/b74cb51b-4a41-4d8f-8d9e-cb4798fc08f1)
+
+   e) Ahora, pasamos a la opción Revisar y Crear
+
+   ![image](https://github.com/user-attachments/assets/b3a6c157-34e1-4f7d-a0b2-58791f5bc9d8)
+
+   f) Nos dirigimos al inicio de la página para mirar si se creo correctamnete el dominio del proyecto.
+
+   ![image](https://github.com/user-attachments/assets/1e028340-22d5-403f-b959-11988fb3e53b)
+   
+   g) Ahora, se cambia a la pestaña de Centro de Implentación para conectar correctamnete el proyecto.
+
+   ![image](https://github.com/user-attachments/assets/c4dc79e1-e993-4309-8543-063cf209c1eb)
+   ![image](https://github.com/user-attachments/assets/407535fd-ae3d-4ff3-ac8c-dbd89831da32)
+
+
+   h)En este momento, debería salirnos uan nueva ventana para terminar de hace rla configuración del despliegue de la aplicación con las opciones que son necesarias para la 0 facturacióon.
+
+    ![image](https://github.com/user-attachments/assets/e3dc89f0-854c-401f-b9b6-daf12a2533c2)
+   ![image](https://github.com/user-attachments/assets/5799b61f-8502-4b69-a5da-adcee7de8ca0)
+
+   i) Aquí nos saldra una ventana que nos dira que la implementación fue exitosa.
+
+   ![image](https://github.com/user-attachments/assets/c425a751-e766-41d1-adc6-ad91345afd3c)
+
+
+3. Se Cnfigura el job deploy que se creo en el paso 2, usando el action azure/webapps-deploy@v2 despliega el jar generado a tu servicio de App Service. Las llaves necesarias para poder tener la conexión con Azure y el proyecto las da GitHub.
+
+![image](https://github.com/user-attachments/assets/cf00f95e-d92b-4296-925d-d443041dbf0b)
+![image](https://github.com/user-attachments/assets/c3e0387a-9bd5-4f30-9d35-1b56d874b938)
+![image](https://github.com/user-attachments/assets/73674320-4250-45bf-8dcd-d7e1ee7902c7)
+
+
+
+    ```java
+   
+      name: Build and Test Java Spring Boot Application 
+       
+      on:
+        push:
+          branches: [ "main" ]
+        pull_request:
+          branches: [ "main" ]
+       
+      jobs:
+        build:
+          runs-on: ubuntu-latest
+          steps:
+            - uses: actions/checkout@v3
+            - name: Set up JDK 21
+              uses: actions/setup-java@v3
+              with:
+                java-version: '21'
+                distribution: 'temurin'
+                cache: maven
+            
+            - name: Build with Maven
+              run: mvn compile
+      
+        test:
+          runs-on: ubuntu-latest
+          needs: build
+          steps:
+            - uses: actions/checkout@v3
+            - name: Set up JDK 21
+              uses: actions/setup-java@v3
+              with:
+                java-version: '21'
+                distribution: 'temurin'
+                cache: maven
+      
+            
+            - name: Run tests
+              run: mvn verify
+      
+        deploy:
+          runs-on: ubuntu-latest
+          needs: test
+          steps:
+            - uses: actions/checkout@v3
+            - name: Set up JDK 21
+              uses: actions/setup-java@v3
+              with:
+                java-version: '21'
+                distribution: 'temurin'
+                cache: maven
+            - name: Build with Maven
+              run: mvn package -DskipTests 
+              - name: Deploy to Azure WebApp
+                uses: azure/webapps-deploy@v2
+                with:
+                  app-name: nombre App Service
+                  publish-profile: secreto creado en GitHub
+                  package:  nombre archivo .jar
+    ```
+   
+En deploy no se muestra los accesos por temas de confidencialidad del proyecto. 
+
+4. Se verifica qué el endpoint de la aplicación generado en App Service . En este punto la aplicación no debería funcionar.
+
+![image](https://github.com/user-attachments/assets/5564e23b-e164-449a-b9b5-5b1702766b97)
+
+*¿Donde se puede ver el mensaje de error de la aplicación o logs?* : 
+Para ver los mensajes de error o logs de la aplicación, se revisa los detalles en la pestaña Actions de GitHub cuando el pipeline falle, donde cada step del workflow mostrará sus logs. Si se ejecuta la aplicación localmente, los logs aparecerán en la consola. Si el problema es el puerto incorrecto, se ajusta el archivo application.properties para usar el puerto adecuado  server.port=80.
+
+5. Se crea una base de datos MySQL con facturación de 0 dólares, se hace que los datos de conexión sean con una o varias variables de entorno tanto en App Service como en el archivo application.properties del proyecto.
+
+   a) En este caso, se tomo la base de satos MySql de Azure, donde se configura la conexión, el usario y la contraseña.
+
+   ![image](https://github.com/user-attachments/assets/b2c84479-3cc4-4dab-8b82-51cba928e970)
+
+   b)Con la configuración anteriormente hecha, en azure ya se establece la base de datos.
+   
+   ![image](https://github.com/user-attachments/assets/8a9a3ea7-85c5-46ed-9bc3-e5a22a1f7926)
+
+   c) Ahora vamos a variables de entorno donde agregamos o editamos la conexión de esta.
+
+   ![image](https://github.com/user-attachments/assets/e0af26fa-3dee-4b1f-9cd9-b6ab4ca4b2b7)
+   ![image](https://github.com/user-attachments/assets/7fef1f50-187b-4ae6-acf9-e3cce110622e)
+
+
+
+
+
