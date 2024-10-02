@@ -66,5 +66,17 @@ public class taskController {
         return taskService.getTasks();
     }
 
+    /**
+     * Endpoint para obtener todas las tareas.
+     * @return Lista de tareas almacenadas en el sistema.
+     * Permite obtener todas las tareas creadas. Las tareas se retornan en formato JSON.
+     * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
+     */
+    @CrossOrigin(origins = "*")
+    @GetMapping("generateTasks")
+    public void generateTasks(){
+        taskService.RandomTask();
+    }
+
 }
 

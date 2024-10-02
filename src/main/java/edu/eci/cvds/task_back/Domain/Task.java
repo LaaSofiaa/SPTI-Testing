@@ -42,6 +42,7 @@ public class Task {
         this.difficulty = difficulty;
         this.priority = priority;
         this.estimatedTime = estimatedTime;
+        this.creationDate = LocalDate.now().toString();
 
     }
 
