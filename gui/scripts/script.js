@@ -25,16 +25,26 @@ function loadTask() {
             let buttonCheck = task.isCompleted 
             ? `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}')" checked disabled />` 
             : `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}')" />`;
+            const colors = `
+            ${1 === task.priority ? 'first-priority' : ''}
+            ${2 === task.priority ? 'second-priority' : ''}
+            ${3 === task.priority ? 'third-priority' : ''}
+            ${4 === task.priority ? 'four-priority' : ''}
+            ${5 === task.priority ? 'five-priority' : ''}
+            `;
 
             taskhtml+= `
             <div class="task ${isCompleted}">
                 ${buttonCheck}
-                <h2>${task.name}</h2>   
-                <p>${task.description}</p>
-                <p>Creation date: ${task.creationDate}</p>
-                <p>Due date: ${task.dueDate}</p>
-                <p>Difficulty: ${task.difficulty}</p>
-                <p>Average Time: ${task.estimatedTime}</p>
+                <div class="task-priority">
+                    <div class="circle ${colors}"><span>${task.priority}</span></div>
+                    <h2>${task.name}</h2> 
+                </div>  
+                <p style="opacity: 0.8;"> ${task.description}</p>
+                <p style="opacity: 0.8;"><i class="fas fa-calendar-alt"></i> Creation date: ${task.creationDate}</p>
+                <p style="opacity: 0.8;"><i class="fas fa-calendar-check"></i> Due date: ${task.dueDate}</p>
+                <p style="opacity: 0.8;"><i class="fas fa-exclamation-circle"></i> Difficulty: ${task.difficulty}</p>
+                <p style="opacity: 0.8;"><i class="fas fa-clock"></i> Estimated Time: ${task.estimatedTime.toFixed(1)} hours</p>
                 <button class="delete-button" onclick="deleteTask('${task.id}')"><i class="fas fa-trash-alt"></i></button>
             </div>` 
         }
@@ -52,7 +62,7 @@ function addTask(){
     const taskName = document.getElementById("taskTitle").value;
     const description = document.getElementById("taskDescription").value;
     const date = document.getElementById("taskDueDate").value;
-    const difficultyTask = document.getElementById("taskDifficulty").value;
+    const difficultyTask = document.querySelector('input[name="taskDifficulty"]:checked').value;
     const priorityTask = document.getElementById("taskPriority").value;
     const time = document.getElementById("averageTime").value;
     console.log(difficultyTask);

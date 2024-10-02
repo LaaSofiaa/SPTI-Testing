@@ -40,7 +40,7 @@ async function loadDifficultyDiagram() {
         data: {
             labels: difficulties,
             datasets: [{
-                label: 'Número de Tareas por Dificultad', // Etiqueta de la serie
+                label: 'Number Of Tasks By Difficulty', // Etiqueta de la serie
                 data: [dataValues['High'], dataValues['Middle'], dataValues['Low']],
                 backgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']],
                 borderWidth: 2,
@@ -53,7 +53,7 @@ async function loadDifficultyDiagram() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Distribución de Tareas por Dificultad' // Título del gráfico
+                    text: 'Task Distribution by Difficulty' // Título del gráfico
                 },
                 legend: {
                     display: true,
@@ -71,13 +71,13 @@ async function loadDifficultyDiagram() {
                 x: {
                     title: {
                         display: true,
-                        text: 'Dificultad' // Etiqueta del eje X
+                        text: 'Difficulty' // Etiqueta del eje X
                     }
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'Número de Tareas' // Etiqueta del eje Y
+                        text: 'Number Of Tasks' // Etiqueta del eje Y
                     },
                     beginAtZero: true // Comenzar el eje Y en 0
                 }
@@ -106,7 +106,7 @@ async function loadPriorityDiagram() {
         data: {
             labels: priorities,
             datasets: [{
-                label: 'Número de Tareas por Prioridad', // Etiqueta de la serie
+                label: 'Number Of Tasks By Priority', // Etiqueta de la serie
                 data: [dataValues[1], dataValues[2], dataValues[3], dataValues[4], dataValues[5]],
                 backgroundColor: [colors['GREEN'], colors['PINK'], colors['BLUE'], colors['PURPLE'], colors['ORANGE']],
                 borderWidth: 2,
@@ -119,7 +119,7 @@ async function loadPriorityDiagram() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Distribución de Tareas por Prioridad' // Título del gráfico
+                    text: 'Task Distribution by Priority' // Título del gráfico
                 },
                 legend: {
                     display: true,
@@ -137,13 +137,13 @@ async function loadPriorityDiagram() {
                 x: {
                     title: {
                         display: true,
-                        text: 'Prioridad' // Etiqueta del eje X
+                        text: 'Priority' // Etiqueta del eje X
                     }
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'Número de Tareas' // Etiqueta del eje Y
+                        text: 'Number Of Tasks' // Etiqueta del eje Y
                     },
                     beginAtZero: true // Comenzar el eje Y en 0
                 }
@@ -181,7 +181,7 @@ async function loadTimeDiagram() {
             data: {
                 labels: times,  // Etiquetas (tiempos)
                 datasets: [{
-                    label: 'Tiempo Promedio',
+                    label: 'Average Time',
                     data: avgTimes,  
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -192,13 +192,13 @@ async function loadTimeDiagram() {
                     x: {
                         title: {
                             display: true,
-                            text: 'Tiempo (Horas)'
+                            text: 'Time (Hours)'
                         }
                     },
                     y: {
                         title: {
                             display: true,
-                            text: 'Valores'
+                            text: 'Number Of Tasks Completed'
                         }
                     }
                 }
@@ -227,7 +227,7 @@ async function loadTotalTimeDiagram() {
         data: {
             labels: difficulties,
             datasets: [{
-                label: 'Tiempo Total Invertido por Dificultad', // Etiqueta de la serie
+                label: 'Total Time Spent by Difficulty', // Etiqueta de la serie
                 data: [dataValues['High'], dataValues['Middle'], dataValues['Low']],
                 backgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']],
                 hoverBackgroundColor: [colors['PINK'], colors['BLUE'], colors['PURPLE']], // Colores al pasar el mouse
@@ -240,7 +240,7 @@ async function loadTotalTimeDiagram() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Tiempo Total Invertido por Dificultad' // Título del gráfico
+                    text: 'Total Time Spent by Difficulty' // Título del gráfico
                 },
                 legend: {
                     display: true,
@@ -249,7 +249,7 @@ async function loadTotalTimeDiagram() {
                 tooltip: {
                     callbacks: {
                         label: function(tooltipItem) {
-                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' horas'; // Tooltip con la etiqueta y valor
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' hours'; 
                         }
                     }
                 }
@@ -258,13 +258,8 @@ async function loadTotalTimeDiagram() {
     });
 }
 
-                
-
-
-document.getElementById('chartType').addEventListener("change", function(){
-    const selectedChart = this.value;
+ function loadGraphic(selectedChart){
     var container = document.querySelector(".chart-container");
-    console.log(container);
     switch (selectedChart){
         case "difficultyHistogram":
             container.innerHTML = `<canvas id="myCanvasTask"></canvas>`;
@@ -283,11 +278,19 @@ document.getElementById('chartType').addEventListener("change", function(){
             loadTotalTimeDiagram();
             break;
     }
+ }               
+
+document.getElementById('chartType').addEventListener("change", function(){
+    const selectedChart = this.value;
+    loadGraphic(selectedChart);
 })
 
 
 
-
+document.addEventListener('DOMContentLoaded', function(){
+    var container = document.querySelector("#chartType").value;
+    loadGraphic(container);
+})
 
 
 

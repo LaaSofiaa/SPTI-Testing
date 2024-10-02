@@ -1,41 +1,7 @@
 
-/*estilo del cuerpo*/
-body{
-    background-color: #daede5;
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    padding: 0;
-    overflow-x:hidden;
-}
-/*estilo del header*/
-header{
-    display: flex;
-    background-color: #15505d;
-    width: 100%; 
-    padding: 0 6rem 0 6rem; 
-    color: white;
-    align-items: center;
-    align-content: space-between;
-}
-#header-task{
-    display: flex;
-    align-items: center;
-}
-img{
-    height: 50px;
-}
-h1{
-    margin-left: 1rem;
-}
 
 /*estilo title,description*/
-main{
-    display: flex;
-    align-content: space-between;
-    margin: 2rem; 
-    gap: 6%;
-    width: 100vw; 
-}
+
 .task-form {
     display: flex;
     flex-direction: column;
@@ -56,6 +22,7 @@ main{
 .form-group label, .date-container label {
     font-size: 18px;
     color: #15505d;
+    
 }
 .form-group input, 
 .form-group textarea {
@@ -108,6 +75,7 @@ main{
 #taskDescription{
     height: 200px;
 }
+
 /*estilo de las tareas*/
 #task-container{
     width: calc(60%);
@@ -124,8 +92,8 @@ main{
     border-radius: 10px;
     box-sizing: border-box; 
     position: relative;
-    width: 40%;
-    height: 200px;
+    width: 38%;
+    height: 250px;
     overflow: hidden;
     padding: 1rem;
     position: relative;
@@ -146,9 +114,9 @@ main{
     font-size: 1.5em; 
     padding: 0;
 }
-.task h4{
+.task p{
     margin-top: 2px;
-    margin-left: 10px;
+    margin-bottom: 8px;
 }
 .task-checkbox {
     position: absolute;
@@ -157,7 +125,10 @@ main{
     transform: scale(2);
 }
 .COMPLETED{
-    background: #3c895f;
+    background: #1f877e;
+}
+.COMPLETED h2{
+    text-decoration: line-through;
 }
 .task:hover{
     border: 1px solid #eefb03;
@@ -183,23 +154,110 @@ main{
     border-radius: 8px;
     font-size: 16px;
     background-color: #afd1c6;
-}
-/*index2*/
-
-header nav ul{
-    display: flex;
-    gap: 10px;
-    margin: 0;
-    list-style: none;
+    margin-top: 10px; 
 }
 
-header nav ul li a{
-    text-decoration: none;
+/*generatebutton*/
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: #15505d;
     color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;  
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
 }
-header nav ul li a:hover{
-    color: #afd1c6;
-    
+
+.addButton {
+    font-weight: bold; 
+
 }
+
+.task-priority {
+    display: flex;
+    position: relative;
+    gap: 5px;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 25px; 
+    height: 25px; 
+    margin: auto 0 auto 10px;
+    display: flex; /* Usar flexbox para centrar el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido */
+}
+
+.circle span {
+    color: white; /* Cambia el color del texto a blanco para mejor contraste */
+    font-size: 14px; /* Ajusta el tamaño de la fuente según sea necesario */
+    font-weight: bold; /* Opcional: hace que el número sea más destacado */
+}
+
+.first-priority{
+    background-color: #acfb03;
+}
+.second-priority{
+    background-color: #2bb5c5;
+}
+.third-priority{
+    background-color: #7bd179;
+}
+.four-priority{
+    background-color: #afd1c6;
+}
+.five-priority{
+    background-color: #3da06a;
+}
+
+#radio-b {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+}
+
+.opcion-radio {
+    margin-left: 15px; /* Espacio entre cada opción */
+}
+
+.opcion-radio input[type=radio] {
+    position: absolute;
+    opacity: 0; /* Oculta el input original */
+}
+
+.opcion-radio input[type=radio] + label:before {
+    content: '';
+    background: #F4F5F8;
+    border-radius: 100%;
+    border: 1px solid #a6aec6;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    position: relative;
+    top: -.2em;
+    margin-right: .5em;
+    vertical-align: middle; /* Alinea verticalmente el label con el radio */
+    cursor: pointer;
+    transition: all 250ms ease;
+}
+
+.opcion-radio input[type=radio]:checked + label:before {
+    background-color: #afd1c6;
+    box-shadow: inset 0 0 0 4px #F4F5F8;
+}
+
+.opcion-radio label {
+    display: inline-block;
+    line-height: 32px; /* Ajusta la altura de línea para alinear mejor */
+}
+
+
+
+
+
 
 

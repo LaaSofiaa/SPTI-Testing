@@ -1,1 +1,55 @@
+/*estilo del cuerpo*/
+body{
+    background-color: #daede5;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0;
+    overflow-x:hidden;
+}
+/*estilo del header*/
+header{
+    display: flex;
+    background-color: #15505d;
+    width: 100%; 
+    padding: 0 6rem 0 6rem; 
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+}
+#header-task{
+    display: flex;
+    align-items: center;
+}
+#navbar{
+    margin-right: 16%;
+}
+img{
+    height: 50px;
+}
+h1{
+    margin-left: 1rem;
+}
+/*index2*/
 
+header nav ul{
+    display: flex;
+    gap: 70%;
+    margin: 0;
+    list-style: none;
+}
+
+header nav ul li a{
+    text-decoration: none;
+    color: white;
+}
+header nav ul li a:hover{
+    color: #afd1c6;
+    
+}
+main{
+    display: flex;
+    align-content: space-between;
+    margin: 2rem; 
+    gap: 6%;
+    width: 100vw; 
+}

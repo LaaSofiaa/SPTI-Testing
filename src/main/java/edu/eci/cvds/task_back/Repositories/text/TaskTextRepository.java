@@ -60,9 +60,10 @@ public class TaskTextRepository implements TaskRepository {
                 String creationDate = (String) taskJson.get("creationDate");
                 boolean completed = (boolean) taskJson.get("isCompleted");
                 String difficulty = (String) taskJson.get("difficulty");
-                Integer priority = (Integer) taskJson.get("priority");
+                Long priority = (Long) taskJson.get("priority");
+                Integer taskP = priority.intValue();
                 double estimatedTime = (double) taskJson.get("estimatedTime");
-                Task passedTask = new Task(title, description, dueDate, difficulty,priority,estimatedTime);
+                Task passedTask = new Task(title, description, dueDate, difficulty,taskP,estimatedTime);
                 passedTask.setId(id);
                 passedTask.setCreationDate(creationDate);
                 passedTask.setIsCompleted(completed);
