@@ -88,6 +88,14 @@
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
+						<configuration>
+							<excludes>
+								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mongo/TaskMongoRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mysql/TaskMySqlRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/text/TaskTextRepository*</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 					<execution>
 						<id>report</id>
@@ -95,7 +103,14 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-
+						<configuration>
+							<excludes>
+								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mongo/TaskMongoRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mysql/TaskMySqlRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/text/TaskTextRepository*</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 					<execution>
 						<id>jacoco-check</id>
