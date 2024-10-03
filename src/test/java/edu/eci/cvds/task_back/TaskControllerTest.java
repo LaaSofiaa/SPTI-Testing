@@ -40,8 +40,8 @@ public class TaskControllerTest {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(taskController).build();
 
-        task1 = new Task( "Test Task 1", "Description 1", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        task2 = new Task( "Test Task 2", "Description 2", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        task1 = new Task( "Test Task 1", "Description 1", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"high",3,3.8);
+        task2 = new Task( "Test Task 2", "Description 2", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"high",3,3.8);
     }
 
     @Test
@@ -93,5 +93,13 @@ public class TaskControllerTest {
 
         // Verificar que el método getTasks del taskService fue llamado una vez
         verify(taskService, times(1)).getTasks();
+    }
+
+    @Test
+    public void testGenerateTasks() throws Exception {
+        mockMvc.perform(get("/taskManager/generateTasks"))
+                .andExpect(status().isOk());
+
+        verify(taskService).RandomTask();
     }
 }

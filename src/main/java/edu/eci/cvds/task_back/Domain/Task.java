@@ -92,7 +92,6 @@ public class Task {
         this.id = id;
     }
 
-
     public String getDifficulty() {
         return difficulty;
     }
@@ -115,23 +114,5 @@ public class Task {
 
     public void setEstimatedTime(double estimatedTime) {
         this.estimatedTime = estimatedTime;
-    }
-
-
-    /**
-     * Asigna un ID aleatorio a una tarea si no lo tiene.
-     * @return La tarea con el ID asignado.
-     */
-    private void setRandomId() {
-        String CHARACTERS = "0123456789";
-        Random random = new Random();
-        String taskId = "";
-        for (int i = 0; i < 6; i++) {
-            int index = random.nextInt(CHARACTERS.length());
-            char character = CHARACTERS.charAt(index);
-            taskId += character;
-        }
-        //Long newId = Long.parseLong(taskId);
-        //setId(taskId);
     }
 }
