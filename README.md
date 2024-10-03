@@ -9,7 +9,7 @@
 
 *-Laura Sofia Gil Chaves.*
 
-### Parte I -Creando los Pipelines (CI - Continous Integration)
+## Parte I -Creando los Pipelines (CI - Continous Integration)
 Usando el mismo código del proyecto realizado en el laboratorio 4 se generó un nuevo repositorio, para hacer los siguientes pasos:
 
 1. Se configuró en github actions un workflow que contiene 3 jobs, el primer job se llamará build, el segundo test y el tercero deploy, además, este workflow se disparará (events/trigger) on: pull_request, se tuvó que cumplir con lo siguientes requisitos.
@@ -311,6 +311,49 @@ Para ver los mensajes de error o logs de la aplicación, se revisa los detalles 
    ![image](https://github.com/user-attachments/assets/7fef1f50-187b-4ae6-acf9-e3cce110622e)
 
 
+## PARTE II. GRÁFICOS
 
+### Generación de datos por procedimientos
+
+1. Se agregaron 3 nuevos campos, nivel de dificultad (Alto, medio, Bajo), prioridad(de 1 a 5) donde 1 es baja prioridad y 5 alta y tiempo promedio de desarrollo a la entidad Tarea existente. Aqui se agregó un nuevo método que genera "proceduralmente" nuevas tareas, aleatoriamente entre 100 y 1000.
+
+    ```java
+       public void RandomTask(){
+           Random random = new Random();
+           int randomTasks = random.nextInt(100,1001);
+           String[] difficulties = {"High", "Middle", "Low"};
+   
+           for(int i =0; i< randomTasks;i++){
+               String name = "Task" + (i+1);
+               String description = "Description" +(i+1);
+               String dueDate = LocalDate.now().plusDays(random.nextInt(30) + 1).toString();
+               String difficulty = difficulties[random.nextInt(difficulties.length)];
+               Integer priority = random.nextInt(1,6);
+               double estimatedTime = random.nextDouble()*10;
+               Task task = new Task(name,description,dueDate,difficulty,priority,estimatedTime);
+               saveTask(task);
+           }
+    }
+   
+   ```
+2. Se escogió la bibloteca Chart.js gracias a:
+
+   Pros |	Contras
+   
+------------- | -------------
+Ofrece una API intuitiva para comenzar rápidamente a crear gráficos.  | Aunque es personalizable, puede no ser tan flexible para necesidades avanzadas.
+
+Soporta gráficos de barras, líneas, circulares, radiales, entre otros. | Puede tener problemas de rendimiento con grandes conjuntos de datos.
+
+Tiene soporte incorporado para animaciones atractivas. | Solo funciona en entornos web compatibles con JavaScript.
+
+Se adapta bien a diferentes tamaños de pantalla.  | Aunque es razonablemente rápido, no es la biblioteca más ligera en comparación con otras opciones
+   
+
+Realiza una página nueva en la estructura, esta página será la de "analítica" o "insights", en está página se podrá seleccionar entre las siguientes gráficas:
+Histograma de Dificultad
+Número de tareas finalizadas por tiempo
+Promedios de tareas por prioridad
+Tiempo total invertido por tareas realizadas.
 
 
