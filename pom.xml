@@ -110,15 +110,16 @@
 										<limit>
 											<counter>CLASS</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.05</minimum>
+											<minimum>0.85</minimum>
 										</limit>
 									</limits>
 								</rule>
 							</rules>
 							<excludes>
-								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/TaskMongoRepository*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/TaskMySqlRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/TaskBackApplication</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mongo/TaskMongoRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mysql/TaskMySqlRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/text/TaskTextRepository*</exclude>
 							</excludes>
 						</configuration>
 					</execution>

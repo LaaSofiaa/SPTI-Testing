@@ -66,6 +66,21 @@ public class TaskConfigTest {
     }
 
     @Test
+    public void testTaskRepositoryMySql() {
+        // Configurar el tipo de repositorio a "MySql"
+        repositoryType = "MySql";
+        taskConfig = new TaskConfig(taskMongoRepository, taskTextRepository, taskMySqlRepository);
+
+        // Aquí se usa reflexión para establecer el valor de la propiedad
+        ReflectionTestUtils.setField(taskConfig, "repositoryType", repositoryType);
+
+        TaskRepository repository = taskConfig.taskRepository();
+
+        assertNotNull(repository);
+        assertTrue(repository instanceof TaskMySqlRepository);
+    }
+
+    @Test
     public void testTaskRepositoryUnsupportedType() {
         // Configurar el tipo de repositorio a un valor no soportado
         repositoryType = "unsupported";
