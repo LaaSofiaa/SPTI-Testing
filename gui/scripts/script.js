@@ -23,8 +23,8 @@ function loadTask() {
             const task = data[i];
             let isCompleted = task.isCompleted ? 'COMPLETED' : '';
             let buttonCheck = task.isCompleted 
-            ? `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}')" checked disabled />` 
-            : `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}')" />`;
+            ? `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}',this)" checked disabled />` 
+            : `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}',this)" />`;
             const colors = `
             ${1 === task.priority ? 'first-priority' : ''}
             ${2 === task.priority ? 'second-priority' : ''}
@@ -45,7 +45,7 @@ function loadTask() {
                 <p style="opacity: 0.8;"><i class="fas fa-calendar-check"></i> Due date: ${task.dueDate}</p>
                 <p style="opacity: 0.8;"><i class="fas fa-exclamation-circle"></i> Difficulty: ${task.difficulty}</p>
                 <p style="opacity: 0.8;"><i class="fas fa-clock"></i> Estimated Time: ${task.estimatedTime.toFixed(1)} hours</p>
-                <button class="delete-button" onclick="deleteTask('${task.id}')"><i class="fas fa-trash-alt"></i></button>
+                <button class="delete-button" onclick="deleteTask('${task.id}',this)"><i class="fas fa-trash-alt"></i></button>
             </div>` 
         }
         document.getElementById("task-container").innerHTML = taskhtml;
@@ -65,9 +65,6 @@ function addTask(){
     const difficultyTask = document.querySelector('input[name="taskDifficulty"]:checked').value;
     const priorityTask = document.getElementById("taskPriority").value;
     const time = document.getElementById("averageTime").value;
-    console.log(difficultyTask);
-    console.log(priorityTask);
-    console.log(time);
     if (!taskName || !description || !date || !difficultyTask || !priorityTask || !time) {
         alert('Please fill all the fields');
         return;
@@ -114,7 +111,7 @@ function addTask(){
     /*
     *Funcion para eliminar tareas
     */
-    function deleteTask(taskId) {
+    function deleteTask(taskId,button) {
         fetch(`http://localhost:80/taskManager/delete?id=${taskId}`, {
             method: 'DELETE',
             headers: {
@@ -124,8 +121,7 @@ function addTask(){
         })
         .then(function (res) {
             if (res.ok) {
-                console.log('Task deleted successfully');
-                loadTask();
+                button.parentElement.remove();
             } else {
                 console.log('Failed to delete task');
             }
@@ -137,7 +133,7 @@ function addTask(){
     /*
     *Funcion para marcar una tarea como completada
     */
-    function disabledButton(id){
+    function disabledButton(id,button){
         console.log(id);
         fetch(`http://localhost:80/taskManager/markTaskAsCompleted?id=${id}`, {
             method: 'PATCH',
@@ -148,7 +144,12 @@ function addTask(){
         })
         .then(function (res) {
             if (res.ok) {
-                loadTask();
+                const parent = button.parentElement;
+                button.checked = true;
+                button. disabled = true;
+                parent.setAttribute('style', 'background-color: #1f877e');
+                parent.querySelector('.task-priority').querySelector('h2').setAttribute('style','text-decoration: line-through');
+
             } else {
                 console.log('Failed to delete task');
             }
@@ -177,8 +178,6 @@ function addTask(){
         });
     }
     
-    window.addTask = addTask;
-    window.deleteTask = deleteTask;
     $(document).ready(function () {
         loadTask();
     });
