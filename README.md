@@ -11,7 +11,7 @@
 
 ## Parte I -Creando los Pipelines (CI - Continous Integration)
 
-URL PÚBLICA:
+URL PÚBLICA: https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net
 
 Usando el mismo código del proyecto realizado en el laboratorio 4 se generó un nuevo repositorio, para hacer los siguientes pasos:
 
