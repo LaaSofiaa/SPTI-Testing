@@ -10,15 +10,18 @@
 *-Laura Sofia Gil Chaves.*
 
 ## Parte I -Creando los Pipelines (CI - Continous Integration)
+
+URL PÚBLICA:
+
 Usando el mismo código del proyecto realizado en el laboratorio 4 se generó un nuevo repositorio, para hacer los siguientes pasos:
 
-1. Se configuró en github actions un workflow que contiene 3 jobs, el primer job se llamará build, el segundo test y el tercero deploy, además, este workflow se disparará (events/trigger) on: pull_request, se tuvó que cumplir con lo siguientes requisitos.
+1. Se configuró en github actions un workflow que contiene 3 jobs, el primer job se llamó build, el segundo test y el tercero deploy, además, este workflow disparó (events/trigger) on: pull_request, se tuvó que cumplir con lo siguientes requisitos.
    
     -build: realizar hasta la fase compile de maven.
     
     -test: realizar la fase de verify. 
     
-    *¿se puede lograr que se ejecute sin necesidad de compilar el proyecto?* : No es posible ejecutar mvn verify sin antes compilar el proyecto. Maven sigue una secuencia de fases que incluye la compilación antes de la verificación.
+    *¿Se puede lograr que se ejecute sin necesidad de compilar el proyecto?* : No es posible ejecutar mvn verify sin antes compilar el proyecto. Maven sigue una secuencia de fases que incluye la compilación antes de la verificación.
     
     -deploy: por ahora deberá imprimir en consola "En construcción ...", necesita (needs) que se haya ejecutado test antes de iniciar.
 
@@ -183,7 +186,7 @@ Usando el mismo código del proyecto realizado en el laboratorio 4 se generó un
 
    ![image](https://github.com/user-attachments/assets/24626185-c332-4707-a6b8-fb77e7d1b0cb)
 
-   c)Aqui debe aparecer soluciones nube para estudiantes.
+   c)Aquí debe aparecer soluciones nube para estudiantes.
 
    ![image](https://github.com/user-attachments/assets/dc06a244-4206-46d6-9901-37cedfe94b9e)
    ![image](https://github.com/user-attachments/assets/4c2b254a-86fa-4c04-a368-1a304efe099e)
@@ -206,17 +209,17 @@ Usando el mismo código del proyecto realizado en el laboratorio 4 se generó un
    ![image](https://github.com/user-attachments/assets/407535fd-ae3d-4ff3-ac8c-dbd89831da32)
 
 
-   h)En este momento, debería salirnos uan nueva ventana para terminar de hace rla configuración del despliegue de la aplicación con las opciones que son necesarias para la 0 facturacióon.
+   h) En este momento, debería salirnos una nueva ventana para terminar de hacer la configuración del despliegue de la aplicación con las opciones que son necesarias para la 0 facturacióon.
 
     ![image](https://github.com/user-attachments/assets/e3dc89f0-854c-401f-b9b6-daf12a2533c2)
    ![image](https://github.com/user-attachments/assets/5799b61f-8502-4b69-a5da-adcee7de8ca0)
 
-   i) Aquí nos saldra una ventana que nos dira que la implementación fue exitosa.
+   i) Aquí nos saldrá una ventana que nos dirá que la implementación fue exitosa.
 
    ![image](https://github.com/user-attachments/assets/c425a751-e766-41d1-adc6-ad91345afd3c)
 
 
-3. Se Cnfigura el job deploy que se creo en el paso 2, usando el action azure/webapps-deploy@v2 despliega el jar generado a tu servicio de App Service. Las llaves necesarias para poder tener la conexión con Azure y el proyecto las da GitHub.
+3. Se configura el job deploy que se creó en el paso 2, usando el action azure/webapps-deploy@v2 se despliega el jar generado al servicio de App Service. Las llaves necesarias para poder tener la conexión con Azure y el proyecto las da GitHub.
 
 ![image](https://github.com/user-attachments/assets/cf00f95e-d92b-4296-925d-d443041dbf0b)
 ![image](https://github.com/user-attachments/assets/c3e0387a-9bd5-4f30-9d35-1b56d874b938)
@@ -297,7 +300,7 @@ Para ver los mensajes de error o logs de la aplicación, se revisa los detalles 
 
 5. Se crea una base de datos MySQL con facturación de 0 dólares, se hace que los datos de conexión sean con una o varias variables de entorno tanto en App Service como en el archivo application.properties del proyecto.
 
-   a) En este caso, se tomo la base de satos MySql de Azure, donde se configura la conexión, el usario y la contraseña.
+   a) En este caso, se tomo la base de satos MySql de Azure, donde se configura la conexión, el usuario y la contraseña.
 
    ![image](https://github.com/user-attachments/assets/b2c84479-3cc4-4dab-8b82-51cba928e970)
 
@@ -305,7 +308,7 @@ Para ver los mensajes de error o logs de la aplicación, se revisa los detalles 
    
    ![image](https://github.com/user-attachments/assets/8a9a3ea7-85c5-46ed-9bc3-e5a22a1f7926)
 
-   c) Ahora vamos a variables de entorno donde agregamos o editamos la conexión de esta.
+   c) Ahora vamos a variables de entorno, donde agregamos o editamos la conexión de esta.
 
    ![image](https://github.com/user-attachments/assets/e0af26fa-3dee-4b1f-9cd9-b6ab4ca4b2b7)
    ![image](https://github.com/user-attachments/assets/7fef1f50-187b-4ae6-acf9-e3cce110622e)
@@ -338,22 +341,26 @@ Para ver los mensajes de error o logs de la aplicación, se revisa los detalles 
    ```
 2. Se escogió la bibloteca Chart.js gracias a:
 
-   Pros |	Contras
+![image](https://github.com/user-attachments/assets/658a63bf-5664-4d91-a6a0-befc1e764278)
+
+En el contexto de nuestro proyecto de gestión de tareas, donde se esten creando gráficos, los contras de chart.js no parecen ser una limitación significativa. La capacidad de crear gráficos básicos y responsivos, junto con su facilidad de uso y buen soporte para animaciones, lo hace una opción adecuada para implementar sin necesidad de funcionalidades avanzadas o alta interactividad.
+
+3. Se realizó una página nueva en la estructura TaskManager -Analytics donde se visulizan las siguientes gráficas:
    
-------------- | -------------
-Ofrece una API intuitiva para comenzar rápidamente a crear gráficos.  | Aunque es personalizable, puede no ser tan flexible para necesidades avanzadas.
+*Histograma de Dificultad*
 
-Soporta gráficos de barras, líneas, circulares, radiales, entre otros. | Puede tener problemas de rendimiento con grandes conjuntos de datos.
+![image](https://github.com/user-attachments/assets/9c648d60-37b5-4749-98d1-262042f45534)
 
-Tiene soporte incorporado para animaciones atractivas. | Solo funciona en entornos web compatibles con JavaScript.
+*Número de tareas finalizadas por tiempo*
 
-Se adapta bien a diferentes tamaños de pantalla.  | Aunque es razonablemente rápido, no es la biblioteca más ligera en comparación con otras opciones
-   
+![image](https://github.com/user-attachments/assets/5603ccdf-cfb3-4652-ac48-b5fe549b03ef)
 
-Realiza una página nueva en la estructura, esta página será la de "analítica" o "insights", en está página se podrá seleccionar entre las siguientes gráficas:
-Histograma de Dificultad
-Número de tareas finalizadas por tiempo
-Promedios de tareas por prioridad
-Tiempo total invertido por tareas realizadas.
+*Promedios de tareas por prioridad*
 
+![image](https://github.com/user-attachments/assets/cedc5baa-9008-49e5-9d8b-3abc44a3019f)
+
+
+*Tiempo total invertido por tareas realizadas*
+
+![image](https://github.com/user-attachments/assets/7446f669-d61c-4b7b-bda3-3e100df315a4)
 
