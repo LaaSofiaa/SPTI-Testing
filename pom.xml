@@ -56,9 +56,19 @@
 			<version>1.1.1</version>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version> 6.6.1.Final</version>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.33</version>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,6 +88,14 @@
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
+						<configuration>
+							<excludes>
+								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mongo/TaskMongoRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mysql/TaskMySqlRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/text/TaskTextRepository*</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 					<execution>
 						<id>report</id>
@@ -85,7 +103,14 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-
+						<configuration>
+							<excludes>
+								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mongo/TaskMongoRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mysql/TaskMySqlRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/text/TaskTextRepository*</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 					<execution>
 						<id>jacoco-check</id>
@@ -107,8 +132,9 @@
 							</rules>
 							<excludes>
 								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/TaskMongoRepository*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/TaskMySqlRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mongo/TaskMongoRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/mysql/TaskMySqlRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/text/TaskTextRepository*</exclude>
 							</excludes>
 						</configuration>
 					</execution>

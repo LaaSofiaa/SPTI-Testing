@@ -1,0 +1,46 @@
+/*estilo del cuerpo*/
+body{
+    background-color: #daede5;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+/*estilo del header*/
+header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #15505d;
+    color: white;
+    padding: 0 5rem 0 4rem; 
+    box-sizing: border-box; 
+    width: 100%; 
+}
+#header-task{
+    display: flex;
+    align-items: center;
+}
+
+img{
+    height: 50px;
+}
+h1{
+    margin-left: 1rem;
+}
+/*index2*/
+nav ul {
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+    display: flex; 
+    gap: 50px; 
+}
+
+header nav ul li a{
+    text-decoration: none;
+    color: white;
+}
+header nav ul li a:hover{
+    color: #afd1c6;
+    
+}
+

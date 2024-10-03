@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskManager - Analytics</title>
+<link rel="stylesheet" href="../styles/nav.css">
+<link rel="stylesheet" href="../styles/analytics.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+    </header>
+    <main class="analytics-container">
+        <div class="chart-selector">
+            <label for="chartType"><b>Select Chart:</b></label>
+            <select id="chartType">
+            <option value="difficultyHistogram">Difficulty Histogram</option>
+            <option value="tasksCompletedOverTime">Tasks Completed Over Time</option>
+            <option value="taskAveragesByPriority">Tasks Averages By Priority</option>
+            <option value="totalTimeSpent">Total time Spent</option>
+            </select>
+        </div>
+        <div class="chart-container">
+        </div>
+    </main>
+    <script src="../scripts/home.js"></script>
+    <script src="../scripts/analytics.js"></script>
+</body>
+
+</html>

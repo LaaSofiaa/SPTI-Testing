@@ -1,13 +1,18 @@
 package edu.eci.cvds.task_back.Domain;
 
-import edu.eci.cvds.task_back.Repositories.TaskMongoRepository;
-import edu.eci.cvds.task_back.Repositories.TaskMySqlRepository;
+import edu.eci.cvds.task_back.Repositories.mongo.TaskMongoRepository;
+import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
-import edu.eci.cvds.task_back.Repositories.TaskTextRepository;
+import edu.eci.cvds.task_back.Repositories.text.TaskTextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 /**
  * Clase de configuración para los repositorios de tareas.
@@ -17,6 +22,9 @@ import org.springframework.context.annotation.Configuration;
  * TaskMongoRepository o TaskTextRepository.
  */
 @Configuration
+
+@EnableJpaRepositories(basePackages = "edu.eci.cvds.task_back.Repositories.mysql")
+@EnableMongoRepositories(basePackages = "edu.eci.cvds.task_back.Repositories.mongo")
 public class TaskConfig {
 
     @Value("${task.repository.type}")
@@ -38,7 +46,12 @@ public class TaskConfig {
         this.taskTextRepository = taskTextRepository;
         this.taskMySqlRepository = taskMySqlRepository;
     }
-
+//    @Bean(name="entityManagerFactory")
+//    public LocalSessionFactoryBean sessionFactory() {
+//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+//
+//        return sessionFactory;
+//    }
     /**
      * Define el bean que selecciona el repositorio a utilizar en función del tipo configurado.
      * @return Una instancia de TaskRepository (puede ser Mongo o Text).
