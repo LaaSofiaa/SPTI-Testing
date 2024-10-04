@@ -9,7 +9,7 @@ const colors = {
 // callTasks ahora devuelve la promesa de los datos.
 async function callTasks() {
     try {
-        const res = await fetch("http://localhost:80/taskManager/getTasks");
+        const res = await fetch("https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/getTasks");
         if (!res.ok) {
             throw new Error(`HTTP error! Status: ${res.status}`);
         }
