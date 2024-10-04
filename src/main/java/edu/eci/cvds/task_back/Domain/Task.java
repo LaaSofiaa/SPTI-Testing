@@ -18,6 +18,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.UUID)  // Generación automática del ID
     //@Column(columnDefinition = "string")
     private String id;
+    private String userId;
     private String name;
     private String description;
     private String dueDate;
@@ -44,6 +45,16 @@ public class Task {
         this.estimatedTime = estimatedTime;
         this.creationDate = LocalDate.now().toString();
 
+    }
+
+    public Task(String userId, String name, String description, String dueDate, String difficulty, Integer priority, double estimatedTime) {
+        this.userId = userId;
+        this.name = name;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.difficulty = difficulty;
+        this.priority = priority;
+        this.estimatedTime = estimatedTime;
     }
 
     // Constructor predeterminado

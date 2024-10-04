@@ -1,4 +1,5 @@
 package edu.eci.cvds.task_back.Repositories.mysql;
+import edu.eci.cvds.task_back.Domain.User;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,6 +26,11 @@ public interface TaskMySqlRepository extends JpaRepository<Task, String>, TaskRe
     public default Task findTaskById(String id){
         return findById(id).orElse(null);
     }
+//    @Override
+//    public default List<Task> findTasksByUser(String idUser){
+//        return findB;
+//    }
+
     @Override
     public default void updateTask(Task task){ save(task); }
 }

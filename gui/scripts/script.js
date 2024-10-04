@@ -2,7 +2,7 @@
 *Funcion para cargar las tareas
 */
 function loadTask() {
-    fetch("http://localhost:80/taskManager/getTasks", {
+    fetch("https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/getTasks", {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -88,7 +88,7 @@ function addTask(){
         alert('The due date must be greater than the current date');
         return;
     }; 
-    fetch("http://localhost:80/taskManager/saveTask",
+    fetch("https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/saveTask",
         {
             headers: {
                 "Accept": "application/json",
@@ -112,7 +112,7 @@ function addTask(){
     *Funcion para eliminar tareas
     */
     function deleteTask(taskId,button) {
-        fetch(`http://localhost:80/taskManager/delete?id=${taskId}`, {
+        fetch(`https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/delete?id=${taskId}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -135,7 +135,7 @@ function addTask(){
     */
     function disabledButton(id,button){
         console.log(id);
-        fetch(`http://localhost:80/taskManager/markTaskAsCompleted?id=${id}`, {
+        fetch(`https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/markTaskAsCompleted?id=${id}`, {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
@@ -159,7 +159,7 @@ function addTask(){
         });
     }
     function generateRandomTasks(){
-        fetch(`http://localhost:80/taskManager/generateTasks`, {
+        fetch(`https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/generateTasks`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
