@@ -23,5 +23,6 @@ public interface UserMySqlRepository extends JpaRepository<User, String>{
     default void modifyUser(User user){
         save(user);
     }
-
+    User findByUserName(String userName);
+    User findByEmail(String email);
 }

@@ -14,7 +14,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/taskManager")
-public class userController {
+public class UserController {
     @Autowired
     private UserService userService;
 
@@ -35,7 +35,7 @@ public class userController {
     public ResponseEntity<?> deleteUser(@RequestParam String userId){
         try{
             if(userService.deleteUser(userId)){
-                return new ResponseEntity<>("User deleted succesfully",HttpStatus.OK);
+                return new ResponseEntity<>("User deleted successfully",HttpStatus.OK);
             }
             else{
                 return new ResponseEntity<>("User doesn't exist",HttpStatus.INTERNAL_SERVER_ERROR);
@@ -50,7 +50,7 @@ public class userController {
     public ResponseEntity<?> modifyUser(@RequestBody User user){
         try{
             if(userService.modifyUser(user)){
-                return new ResponseEntity<>("User modified succesfully",HttpStatus.OK);
+                return new ResponseEntity<>("User modified successfully",HttpStatus.OK);
             }
             else{
                 return new ResponseEntity<>("User doesn't exist",HttpStatus.INTERNAL_SERVER_ERROR);

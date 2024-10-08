@@ -11,11 +11,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)  // Generación automática del ID
     //@Column(columnDefinition = "string")
     private String id;
-    private String name;
+    private String userName;
     private String email;
     private String passwd;
-    public User(String name, String email, String passwd) {
-        this.name = name;
+    public User(String userName, String email, String passwd) {
+        this.userName = userName;
         this.email = email;
         this.passwd = passwd;
     }
@@ -23,12 +23,12 @@ public class User {
 
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String name) {
+        this.userName = userName;
     }
 
     public String getEmail() {

@@ -6,6 +6,7 @@ import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +25,8 @@ public class UserService {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
     }
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     /**
      * Recupera una tarea por su ID.
      * @param id El identificador de la tarea.
@@ -96,13 +98,17 @@ public class UserService {
 
     public void createUser(User user) throws Exception{
         try{
+            user.setPasswd(passwordEncoder.encode(user.getPasswd())); //encripta la contraseña
             this.userRepository.createUser(user);
-
         }
         catch (Exception e){
             throw new Exception(e.getMessage());
         }
 
+    }
+
+    public User findByUserName(String userName){
+        return userRepository.findByUserName(userName);
     }
 
     public boolean deleteUser(String userId) throws Exception {
@@ -118,7 +124,6 @@ public class UserService {
         catch (Exception e){
             throw new Exception(e.getMessage());
         }
-
     }
 
     public boolean modifyUser(User user) throws Exception {
@@ -132,10 +137,13 @@ public class UserService {
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-
-
     }
 
-    public void authentication(String email, String passwd) {
+    public boolean authentication(String email, String passwd) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && passwordEncoder.matches(passwd, user.getPasswd())) {
+            return true;
+        }else{
+            return false;}
     }
 }

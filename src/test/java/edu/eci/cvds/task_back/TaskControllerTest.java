@@ -1,6 +1,7 @@
 package edu.eci.cvds.task_back;
 
 
+import edu.eci.cvds.task_back.Controller.UserController;
 import edu.eci.cvds.task_back.Domain.Task;
 import edu.eci.cvds.task_back.Services.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +31,7 @@ public class TaskControllerTest {
     private UserService taskService;
 
     @InjectMocks
-    private edu.eci.cvds.task_back.Controller.userController taskController;
+    private UserController taskController;
 
     private Task task1;
     private Task task2;
