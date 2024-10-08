@@ -30,7 +30,6 @@ public class UserController {
         }
 
     }
-
     @CrossOrigin(origins = "*")
     @DeleteMapping("/deleteUser")
     public ResponseEntity<?> deleteUser(@RequestParam String userId) {
@@ -61,20 +60,22 @@ public class UserController {
         }
 
     }
-
     @CrossOrigin(origins = "*")
     @GetMapping("/authentication")
-    public void deleteUser(@RequestParam String email, @RequestParam String passwd) {
-        userService.authentication(email, passwd);
+    public void deleteUser(@RequestParam String email,@RequestParam String passwd){
+        userService.authentication(email,passwd);
     }
-
     /**
      * Endpoint para guardar una nueva tarea.
-     *
      * @param task Objeto de tipo Task recibido en el cuerpo de la solicitud.
-     *             Esta operación permite crear una nueva tarea.
-     *             La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
+     * Esta operación permite crear una nueva tarea.
+     * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
+    @CrossOrigin(origins = "*")
+    @PostMapping("/saveTaskByUser")
+    public void saveTaskByUser(@RequestParam String userId, @RequestBody Task task){
+        userService.saveTaskByUser(userId, task);
+    }
     @CrossOrigin(origins = "*")
     @PostMapping("/saveTask")
     public ResponseEntity<?> saveTask(@RequestBody Task task) {
@@ -88,10 +89,9 @@ public class UserController {
 
     /**
      * Endpoint para marcar una tarea como completada.
-     *
      * @param id Identificador de la tarea a marcar como completada, recibido como parámetro de solicitud.
-     *           Permite actualizar el estado de la tarea para indicar que ha sido completada.
-     *           La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
+     * Permite actualizar el estado de la tarea para indicar que ha sido completada.
+     * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
     @CrossOrigin(origins = "*")
     @PatchMapping("/markTaskAsCompleted")
@@ -106,10 +106,9 @@ public class UserController {
 
     /**
      * Endpoint para eliminar una tarea.
-     *
      * @param id Identificador de la tarea a eliminar, recibido como parámetro de solicitud.
-     *           Permite eliminar una tarea específica del sistema.
-     *           La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
+     * Permite eliminar una tarea específica del sistema.
+     * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
     @CrossOrigin(origins = "*")
     @DeleteMapping("/delete")
@@ -124,7 +123,6 @@ public class UserController {
 
     /**
      * Endpoint para obtener todas las tareas.
-     *
      * @return Lista de tareas almacenadas en el sistema.
      * Permite obtener todas las tareas creadas. Las tareas se retornan en formato JSON.
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
@@ -132,13 +130,18 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     @CrossOrigin(origins = "*")
     @GetMapping("getTasks")
-    public List<Task> getTasks() {
+    public List<Task> getTasks(){
         return userService.getTasks();
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("getTasksByUser")
+    public List<Task> getTasksByUser(@RequestParam String userId){
+        return userService.getTasksByUser(userId);
     }
 
     /**
      * Endpoint para obtener todas las tareas.
-     *
      * @return Lista de tareas almacenadas en el sistema.
      * Permite obtener todas las tareas creadas. Las tareas se retornan en formato JSON.
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
@@ -154,4 +157,3 @@ public class UserController {
         }
     }
 }
-

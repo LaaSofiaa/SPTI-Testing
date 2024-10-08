@@ -43,11 +43,20 @@ public class UserService {
     public List<Task> getTasks(){
         return taskRepository.findAllTasks();
     }
+    public List<Task> getTasksByUser(String userId){
+        User user = userRepository.getUser(userId);
+        return taskRepository.findTasksByUser(user);
+    }
 
     /**
      * Guarda una nueva tarea en el repositorio.
      * @param task La tarea a guardar.
      */
+    public void saveTaskByUser(String userId, Task task){
+        User user = this.userRepository.getUser(userId);
+        task.setUser(user);
+        taskRepository.saveTask(task);
+    }
     public void saveTask(Task task){
         taskRepository.saveTask(task);
     }
@@ -130,7 +139,7 @@ public class UserService {
         try{
             User oldUser = this.userRepository.getUser(user.getId());
             if (oldUser!=null){
-                this.userRepository.save(user);
+                this.userRepository.modifyUser(user);
                 return true;
             }
             return false;

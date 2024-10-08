@@ -14,6 +14,8 @@ public class User {
     private String userName;
     private String email;
     private String passwd;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Task> tasks;
     public User(String userName, String email, String passwd) {
         this.userName = userName;
         this.email = email;
