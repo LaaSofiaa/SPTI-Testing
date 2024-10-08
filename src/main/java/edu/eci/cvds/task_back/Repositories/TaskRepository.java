@@ -1,6 +1,7 @@
 package edu.eci.cvds.task_back.Repositories;
 
 import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.Domain.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface TaskRepository {
     void deleteTask(Task task);
     Task findTaskById(String id);
     void updateTask(Task task);
+
 }

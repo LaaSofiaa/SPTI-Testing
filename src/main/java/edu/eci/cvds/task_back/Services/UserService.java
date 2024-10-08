@@ -1,30 +1,27 @@
 package edu.eci.cvds.task_back.Services;
 
 import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.Domain.User;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
+import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-/**
- * Servicio encargado de gestionar la lógica de negocio relacionada con las tareas.
- * Interactúa con un repositorio TaskRepository para realizar operaciones CRUD sobre las tareas.
- */
 @Service
-public class TaskService {
+public class UserService {
     private TaskRepository taskRepository;
-
+    private UserMySqlRepository userRepository;
     /**
      * Constructor que inyecta el repositorio de tareas mediante dependencia.
      * @param taskRepository El repositorio que se utilizará para la gestión de tareas.
      */
     @Autowired
-    public TaskService(TaskRepository taskRepository) {
+    public UserService(TaskRepository taskRepository, UserMySqlRepository userRepository) {
+        this.userRepository = userRepository;
         this.taskRepository = taskRepository;
     }
 
@@ -80,23 +77,65 @@ public class TaskService {
      * genera un número aleatorio de tareas (entre 100 y 1000)
      * y asigna valores aleatorios para sus propiedades.
      */
-    public void RandomTask(){
+    public void RandomTask() {
         Random random = new Random();
-        int randomTasks = random.nextInt(100,1001);
+        int randomTasks = random.nextInt(100, 1001);
         String[] difficulties = {"High", "Middle", "Low"};
 
-        for(int i =0; i< randomTasks;i++){
-            String name = "Task" + (i+1);
-            String description = "Description" +(i+1);
+        for (int i = 0; i < randomTasks; i++) {
+            String name = "Task" + (i + 1);
+            String description = "Description" + (i + 1);
             String dueDate = LocalDate.now().plusDays(random.nextInt(30) + 1).toString();
             String difficulty = difficulties[random.nextInt(difficulties.length)];
-            Integer priority = random.nextInt(1,6);
-            double estimatedTime = random.nextDouble()*10;
-            Task task = new Task(name,description,dueDate,difficulty,priority,estimatedTime);
+            Integer priority = random.nextInt(1, 6);
+            double estimatedTime = random.nextDouble() * 10;
+            Task task = new Task(name, description, dueDate, difficulty, priority, estimatedTime);
             saveTask(task);
         }
     }
 
+    public void createUser(User user) throws Exception{
+        try{
+            this.userRepository.createUser(user);
+
+        }
+        catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+    }
+
+    public boolean deleteUser(String userId) throws Exception {
+
+        try{
+            User user = this.userRepository.getUser(userId);
+            if(user!=null){
+                this.userRepository.deleteUser(user);
+                return true;
+            }
+            return false;
+        }
+        catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+    }
+
+    public boolean modifyUser(User user) throws Exception {
+        try{
+            User oldUser = this.userRepository.getUser(user.getId());
+            if (oldUser!=null){
+                this.userRepository.save(user);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
 
 
+    }
+
+    public void authentication(String email, String passwd) {
+    }
 }
