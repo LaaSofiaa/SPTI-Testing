@@ -14,7 +14,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/taskManager")
-public class userController {
+public class UserController {
     @Autowired
     private UserService userService;
 
@@ -73,8 +73,13 @@ public class userController {
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
     @CrossOrigin(origins = "*")
+    @PostMapping("/saveTaskByUser")
+    public void saveTaskByUser(@RequestParam String userId, @RequestBody Task task){
+        userService.saveTaskByUser(userId, task);
+    }
+    @CrossOrigin(origins = "*")
     @PostMapping("/saveTask")
-    public void saveTask(@RequestBody Task task){
+    public void saveTask(@RequestParam String userId, @RequestBody Task task){
         userService.saveTask(task);
     }
 
@@ -112,6 +117,12 @@ public class userController {
     @GetMapping("getTasks")
     public List<Task> getTasks(){
         return userService.getTasks();
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("getTasksByUser")
+    public List<Task> getTasksByUser(@RequestParam String userId){
+        return userService.getTasksByUser(userId);
     }
 
     /**

@@ -18,7 +18,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.UUID)  // Generación automática del ID
     //@Column(columnDefinition = "string")
     private String id;
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     private String name;
     private String description;
     private String dueDate;
@@ -47,8 +49,8 @@ public class Task {
 
     }
 
-    public Task(String userId, String name, String description, String dueDate, String difficulty, Integer priority, double estimatedTime) {
-        this.userId = userId;
+    public Task(User user, String name, String description, String dueDate, String difficulty, Integer priority, double estimatedTime) {
+        this.user = user;
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
@@ -125,5 +127,13 @@ public class Task {
 
     public void setEstimatedTime(double estimatedTime) {
         this.estimatedTime = estimatedTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

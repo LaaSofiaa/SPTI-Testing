@@ -1,9 +1,8 @@
 package edu.eci.cvds.task_back.Domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class User {
@@ -14,6 +13,8 @@ public class User {
     private String name;
     private String email;
     private String passwd;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Task> tasks;
     public User(String name, String email, String passwd) {
         this.name = name;
         this.email = email;
