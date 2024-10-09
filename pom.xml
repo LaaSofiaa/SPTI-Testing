@@ -99,6 +99,8 @@
 								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
 								<exclude>edu/eci/cvds/task_back/Repositories/**</exclude>
 								<exclude>edu/eci/cvds/task_back/Controller/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Config/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Domain/**</exclude>
 							</excludes>
 						</configuration>
 					</execution>
@@ -113,6 +115,8 @@
 								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
 								<exclude>edu/eci/cvds/task_back/Repositories/**</exclude>
 								<exclude>edu/eci/cvds/task_back/Controller/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Config/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Domain/**</exclude>
 							</excludes>
 						</configuration>
 					</execution>
@@ -138,6 +142,8 @@
 								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
 								<exclude>edu/eci/cvds/task_back/Repositories/**</exclude>
 								<exclude>edu/eci/cvds/task_back/Controller/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Config/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Domain/**</exclude>
 							</excludes>
 						</configuration>
 					</execution>
