@@ -52,10 +52,16 @@ public class UserService {
      * Guarda una nueva tarea en el repositorio.
      * @param task La tarea a guardar.
      */
-    public void saveTaskByUser(String userId, Task task){
-        User user = this.userRepository.getUser(userId);
-        task.setUser(user);
-        taskRepository.saveTask(task);
+    public void saveTaskByUser(String userId, Task task) throws Exception{
+        try{
+            User user = this.userRepository.getUser(userId);
+            if(user==null) throw new Exception("The user doesn't exist");
+            task.setUser(user);
+            taskRepository.saveTask(task);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
     }
     public void saveTask(Task task){
         taskRepository.saveTask(task);
@@ -107,6 +113,8 @@ public class UserService {
 
     public void createUser(User user) throws Exception{
         try{
+
+            if(userRepository.findByEmail(user.getEmail())!=null) throw new Exception("The email has already been used");
             user.setPasswd(passwordEncoder.encode(user.getPasswd())); //encripta la contraseña
             this.userRepository.createUser(user);
         }
@@ -116,8 +124,8 @@ public class UserService {
 
     }
 
-    public User findByUserName(String userName){
-        return userRepository.findByUserName(userName);
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
     public boolean deleteUser(String userId) throws Exception {

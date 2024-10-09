@@ -1,11 +1,14 @@
 package edu.eci.cvds.task_back.Controller;
 
+import org.bson.json.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import edu.eci.cvds.task_back.Services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import edu.eci.cvds.task_back.Domain.User;
+
+import java.util.Map;
 
 
 @RestController
@@ -14,7 +17,7 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
         try {
@@ -24,10 +27,12 @@ public class LoginController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String passwd) {
+    public ResponseEntity<String> login(@RequestBody Map<String, String> loginData) {
         try {
+            String email = loginData.get("email");
+            String passwd = loginData.get("passwd");
             if (userService.authentication(email, passwd)) {
                 return new ResponseEntity<>("Login successful!", HttpStatus.OK);
             } else {

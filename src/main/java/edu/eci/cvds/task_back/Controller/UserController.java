@@ -4,7 +4,7 @@ import edu.eci.cvds.task_back.Domain.Task;
 import edu.eci.cvds.task_back.Domain.User;
 import edu.eci.cvds.task_back.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +19,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @CrossOrigin(origins = "*")
-    @PostMapping("/createUser")
-    public ResponseEntity<?> createUser(@RequestBody User user) {
-        try {
-            userService.createUser(user);
-            return new ResponseEntity<>("User created succesfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
+//    @CrossOrigin(origins = "*")
+//    @PostMapping("/createUser")
+//    public ResponseEntity<?> createUser(@RequestBody User user) {
+//        try {
+//            userService.createUser(user);
+//            return new ResponseEntity<>("User created succesfully", HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
     @CrossOrigin(origins = "*")
     @DeleteMapping("/deleteUser")
     public ResponseEntity<?> deleteUser(@RequestParam String userId) {
@@ -60,11 +59,6 @@ public class UserController {
         }
 
     }
-    @CrossOrigin(origins = "*")
-    @GetMapping("/authentication")
-    public void deleteUser(@RequestParam String email,@RequestParam String passwd){
-        userService.authentication(email,passwd);
-    }
     /**
      * Endpoint para guardar una nueva tarea.
      * @param task Objeto de tipo Task recibido en el cuerpo de la solicitud.
@@ -73,8 +67,14 @@ public class UserController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/saveTaskByUser")
-    public void saveTaskByUser(@RequestParam String userId, @RequestBody Task task){
-        userService.saveTaskByUser(userId, task);
+    public ResponseEntity<?> saveTaskByUser(@RequestParam String userId, @RequestBody Task task){
+        try{
+            userService.saveTaskByUser(userId, task);
+            return new ResponseEntity<>("Task saved succesfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
     @CrossOrigin(origins = "*")
     @PostMapping("/saveTask")
@@ -127,7 +127,7 @@ public class UserController {
      * Permite obtener todas las tareas creadas. Las tareas se retornan en formato JSON.
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     @CrossOrigin(origins = "*")
     @GetMapping("getTasks")
     public List<Task> getTasks(){

@@ -9,14 +9,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)  // Generación automática del ID
     //@Column(columnDefinition = "string")
     private String id;
-    private String userName;
+    private String username;
     private String email;
     private String passwd;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;
-    public User(String userName, String email, String passwd) {
-        this.userName = userName;
+    public User(String username, String email, String passwd) {
+        this.username = username;
         this.email = email;
         this.passwd = passwd;
     }
@@ -24,12 +24,12 @@ public class User {
 
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String name) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
