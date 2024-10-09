@@ -6,6 +6,7 @@ import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +25,8 @@ public class UserService {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
     }
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     /**
      * Recupera una tarea por su ID.
      * @param id El identificador de la tarea.
@@ -41,11 +43,26 @@ public class UserService {
     public List<Task> getTasks(){
         return taskRepository.findAllTasks();
     }
+    public List<Task> getTasksByUser(String userId){
+        User user = userRepository.getUser(userId);
+        return taskRepository.findTasksByUser(user);
+    }
 
     /**
      * Guarda una nueva tarea en el repositorio.
      * @param task La tarea a guardar.
      */
+    public void saveTaskByUser(String userId, Task task) throws Exception{
+        try{
+            User user = this.userRepository.getUser(userId);
+            if(user==null) throw new Exception("The user doesn't exist");
+            task.setUser(user);
+            taskRepository.saveTask(task);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+    }
     public void saveTask(Task task){
         taskRepository.saveTask(task);
     }
@@ -96,13 +113,19 @@ public class UserService {
 
     public void createUser(User user) throws Exception{
         try{
-            this.userRepository.createUser(user);
 
+            if(userRepository.findByEmail(user.getEmail())!=null) throw new Exception("The email has already been used");
+            user.setPasswd(passwordEncoder.encode(user.getPasswd())); //encripta la contraseña
+            this.userRepository.createUser(user);
         }
         catch (Exception e){
             throw new Exception(e.getMessage());
         }
 
+    }
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
     public boolean deleteUser(String userId) throws Exception {
@@ -118,24 +141,26 @@ public class UserService {
         catch (Exception e){
             throw new Exception(e.getMessage());
         }
-
     }
 
     public boolean modifyUser(User user) throws Exception {
         try{
             User oldUser = this.userRepository.getUser(user.getId());
             if (oldUser!=null){
-                this.userRepository.save(user);
+                this.userRepository.modifyUser(user);
                 return true;
             }
             return false;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-
-
     }
 
-    public void authentication(String email, String passwd) {
+    public boolean authentication(String email, String passwd) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && passwordEncoder.matches(passwd, user.getPasswd())) {
+            return true;
+        }else{
+            return false;}
     }
 }

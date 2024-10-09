@@ -26,10 +26,8 @@ public interface TaskMySqlRepository extends JpaRepository<Task, String>, TaskRe
     public default Task findTaskById(String id){
         return findById(id).orElse(null);
     }
-//    @Override
-//    public default List<Task> findTasksByUser(String idUser){
-//        return findB;
-//    }
+    @Override
+    public List<Task> findTasksByUser(User user);
 
     @Override
     public default void updateTask(Task task){ save(task); }

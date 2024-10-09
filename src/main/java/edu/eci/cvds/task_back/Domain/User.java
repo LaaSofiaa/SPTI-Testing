@@ -1,9 +1,7 @@
 package edu.eci.cvds.task_back.Domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
@@ -11,11 +9,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)  // Generación automática del ID
     //@Column(columnDefinition = "string")
     private String id;
-    private String name;
+    private String username;
     private String email;
     private String passwd;
-    public User(String name, String email, String passwd) {
-        this.name = name;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Task> tasks;
+    public User(String username, String email, String passwd) {
+        this.username = username;
         this.email = email;
         this.passwd = passwd;
     }
@@ -23,12 +24,12 @@ public class User {
 
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
