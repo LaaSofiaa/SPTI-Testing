@@ -148,12 +148,24 @@ public class UserController {
      */
     @CrossOrigin(origins = "*")
     @GetMapping("generateTasks")
-    public ResponseEntity<?> generateTasks() {
+    public ResponseEntity<?> generateTasks(@RequestParam String idUser) {
         try {
-            userService.RandomTask();
-            return new ResponseEntity<>("Task successfully generated", HttpStatus.OK);
+            userService.RandomTask(idUser);
+            return new ResponseEntity<>("Tasks successfully generated", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("getUser")
+    public ResponseEntity<?> getUser(@RequestParam String idUser) {
+        try{
+            User user = userService.getUser(idUser);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
