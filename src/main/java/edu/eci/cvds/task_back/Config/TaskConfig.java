@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Domain;
+package edu.eci.cvds.task_back.Config;
 
 import edu.eci.cvds.task_back.Repositories.mongo.TaskMongoRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
@@ -6,13 +6,10 @@ import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import edu.eci.cvds.task_back.Repositories.text.TaskTextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 /**
  * Clase de configuración para los repositorios de tareas.

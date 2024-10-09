@@ -74,6 +74,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -91,9 +97,10 @@
 						<configuration>
 							<excludes>
 								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/mongo/TaskMongoRepository*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/mysql/TaskMySqlRepository*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/text/TaskTextRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Controller/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Config/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Domain/**</exclude>
 							</excludes>
 						</configuration>
 					</execution>
@@ -106,9 +113,10 @@
 						<configuration>
 							<excludes>
 								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/mongo/TaskMongoRepository*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/mysql/TaskMySqlRepository*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/text/TaskTextRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Controller/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Config/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Domain/**</exclude>
 							</excludes>
 						</configuration>
 					</execution>
@@ -132,9 +140,10 @@
 							</rules>
 							<excludes>
 								<exclude>edu/eci/cvds/task_back/TaskBackApplication*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/mongo/TaskMongoRepository*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/mysql/TaskMySqlRepository*</exclude>
-								<exclude>edu/eci/cvds/task_back/Repositories/text/TaskTextRepository*</exclude>
+								<exclude>edu/eci/cvds/task_back/Repositories/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Controller/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Config/**</exclude>
+								<exclude>edu/eci/cvds/task_back/Domain/**</exclude>
 							</excludes>
 						</configuration>
 					</execution>

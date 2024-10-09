@@ -2,7 +2,7 @@ package edu.eci.cvds.task_back;
 
 
 import edu.eci.cvds.task_back.Domain.Task;
-import edu.eci.cvds.task_back.Services.TaskService;
+import edu.eci.cvds.task_back.Services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,10 +27,10 @@ public class TaskControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private TaskService taskService;
+    private UserService taskService;
 
     @InjectMocks
-    private edu.eci.cvds.task_back.Controller.taskController taskController;
+    private edu.eci.cvds.task_back.Controller.UserController taskController;
 
     private Task task1;
     private Task task2;
