@@ -156,11 +156,18 @@ public class UserService {
         }
     }
 
-    public boolean authentication(String email, String passwd) {
-        User user = userRepository.findByEmail(email);
-        if (user != null && passwordEncoder.matches(passwd, user.getPasswd())) {
-            return true;
-        }else{
-            return false;}
+    public String authentication(String email, String passwd) throws Exception {
+        try{
+            User user = userRepository.findByEmail(email);
+            if (user != null && passwordEncoder.matches(passwd, user.getPasswd())) {
+                return user.getId();
+            }
+            else{
+                throw new Exception("User doesn't exist or invalid credentials");
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
     }
 }

@@ -33,8 +33,9 @@ public class LoginController {
         try {
             String email = loginData.get("email");
             String passwd = loginData.get("passwd");
-            if (userService.authentication(email, passwd)) {
-                return new ResponseEntity<>("Login successful!", HttpStatus.OK);
+            String id = userService.authentication(email, passwd) ;
+            if(id!=null){
+                return new ResponseEntity<>(id, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
             }
