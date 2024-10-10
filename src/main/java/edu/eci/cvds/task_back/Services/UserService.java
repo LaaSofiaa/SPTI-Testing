@@ -172,9 +172,9 @@ public class UserService {
         }
 
     }
-    public User getUser(String id) throws Exception {
+    public String getUsername(String id) throws Exception {
         try{
-            User user = userRepository.getUser(id);
+            String user = userRepository.getUserName(id);
             if (user != null) {
                 return user;
             }
