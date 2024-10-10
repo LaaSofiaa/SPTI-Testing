@@ -147,11 +147,11 @@ public class UserController {
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
     @CrossOrigin(origins = "*")
-    @GetMapping("generateTasks")
+    @PostMapping ("generateTasks")
     public ResponseEntity<?> generateTasks(@RequestParam String idUser) {
         try {
             userService.RandomTask(idUser);
-            return new ResponseEntity<>("Tasks successfully generated", HttpStatus.OK);
+            return new ResponseEntity<>("Tareas en proceso de generación", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -161,7 +161,7 @@ public class UserController {
     @GetMapping("getUser")
     public ResponseEntity<?> getUser(@RequestParam String idUser) {
         try{
-            User user = userService.getUser(idUser);
+            String user = userService.getUsername(idUser);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
