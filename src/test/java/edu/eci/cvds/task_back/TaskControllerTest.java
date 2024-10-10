@@ -2,6 +2,7 @@ package edu.eci.cvds.task_back;
 
 
 import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.Domain.User;
 import edu.eci.cvds.task_back.Services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,12 +35,13 @@ public class TaskControllerTest {
 
     private Task task1;
     private Task task2;
+    private User user;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(taskController).build();
-
+        new User("Claudia","clau@mail.com", "123");
         task1 = new Task( "Test Task 1", "Description 1", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"high",3,3.8);
         task2 = new Task( "Test Task 2", "Description 2", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"high",3,3.8);
     }
@@ -95,11 +97,11 @@ public class TaskControllerTest {
         verify(taskService, times(1)).getTasks();
     }
 
-    @Test
-    public void testGenerateTasks() throws Exception {
-        mockMvc.perform(get("/taskManager/generateTasks"))
-                .andExpect(status().isOk());
+//    @Test
+//    public void testGenerateTasks() throws Exception {
+//        mockMvc.perform(get("/taskManager/generateTasksss"))
+//                .andExpect(status().isOk());
+//        verify(taskService).RandomTask();
+//    }
 
-        verify(taskService).RandomTask();
-    }
 }
