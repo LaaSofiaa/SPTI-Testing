@@ -115,7 +115,7 @@ public class UserController {
     public ResponseEntity<?> deleteTask(@RequestParam String id) {
         try{
             userService.deleteTask(id);
-            return new ResponseEntity<>("Task successfullu deleted",HttpStatus.OK);
+            return new ResponseEntity<>("Task successfully deleted",HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -151,6 +151,17 @@ public class UserController {
     public ResponseEntity<?> generateTasks(@RequestParam String idUser) {
         try {
             userService.RandomTask(idUser);
+            return new ResponseEntity<>("Tareas en proceso de generación", HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping ("generateTasksss")
+    public ResponseEntity<?> generateTasks() {
+        try {
+            userService.RandomTask();
             return new ResponseEntity<>("Tareas en proceso de generación", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
