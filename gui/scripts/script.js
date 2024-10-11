@@ -159,8 +159,8 @@ function addTask(){
         });
     }
     function generateRandomTasks(){
-        fetch(`https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/generateTasks`, {
-            method: 'GET',
+        fetch(`https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/generateTasksss`, {
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
