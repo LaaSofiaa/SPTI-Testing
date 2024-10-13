@@ -12,6 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -21,8 +25,8 @@ import static org.mockito.Mockito.*;
 
 class TaskServiceTest {
 
-    @Mock
-    private TaskRepository taskRepository;
+    //@Mock
+    //private TaskRepository taskRepository;
     @Mock
     private TaskMySqlRepository taskMySqlRepository;
     @Mock
@@ -97,6 +101,10 @@ class TaskServiceTest {
     /*Pruebas Lab5*/
 
 
+
+
+// Dado que no hay ninguna tarea registrada,
+// Cuándo la consulto a nivel de servicio, Entonces la consulta no retornará ningún resultado
     @Test
     void UnsucessfullIDQuery() {
 
@@ -112,6 +120,106 @@ class TaskServiceTest {
         // Verificar que la tarea consultada con el ID no existe
         assertNull(result);
     }
+
+//  Dado que tengo 1 tarea registrada, Cuando lo consulto a nivel de servicio,
+//  Entonces la consulta será exitosa validando el campo id.
+    @Test
+    void SucessfullIDQuery() {
+        // Crear un objeto Task con ID "7" y otros detalles
+        Task task = new Task("Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), "high", 3, 3.8);
+        task.setId("7");
+
+        // Configurar el comportamiento del mock para devolver el task creado al buscar por ID "7"
+        when(taskMySqlRepository.findTaskById("7")).thenReturn(task);
+
+        // Llamar al método getTask en el servicio para obtener la tarea por ID
+        Task result = taskService.getTask("7");
+
+        // Verificar que el resultado no es nulo
+        assertNotNull(result);
+        // Comprobar que el ID de la tarea resultante es "7"
+        assertEquals("7", result.getId());
+    }
+
+//  Dado que no hay ninguna tarea registrada,
+//  Cuándo lo creo a nivel de servicio, Entonces la creación será exitosa.
+    @Test
+    void testSaveTask() {
+        // Crear un objeto Task con un ID, nombre, descripción y fecha de vencimiento
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"high",3,3.8);
+
+        task.setId("1");
+
+        // Llamar al método saveTask del servicio para guardar la tarea
+        taskService.saveTask(task);
+
+        // Verificar que el método saveTask del repositorio fue llamado una vez con el objeto Task
+        verify(taskMySqlRepository, times(1)).saveTask(task);
+    }
+
+//  Dado que tengo 1 tarea registrada,
+//  Cuándo la elimino a nivel de servicio, Entonces la eliminación será exitosa.
+    @Test
+    void successfulTaskDelete() {
+        // Crear un objeto Task con ID "2" y otros detalles
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"high",3,3.8);
+
+        task.setId("2");
+        // Guardar la tarea
+        taskService.saveTask(task);
+
+        when(taskMySqlRepository.findAllTasks()).thenReturn(Collections.singletonList(task));
+
+        // Llamar al método getTasks en el servicio para obtener todas las tareas
+        List<Task> results = taskService.getTasks();
+
+        // Verificar que la lista contiene una tarea
+        assertEquals(1, results.size());
+
+        taskService.deleteTask("2");
+
+        // Configurar el comportamiento del mock para devolver una lista con la tarea creada
+        when(taskMySqlRepository.findAllTasks()).thenReturn(Collections.emptyList());
+
+        List<Task> result2 = taskService.getTasks();
+
+        assertEquals(0,result2.size());
+    }
+
+//  Dado que tengo 1 tarea registrada, Cuándo la elimino y consulto a nivel de servicio,
+//  Entonces el resultado de la consulta no retornará ningún resultado.
+    @Test
+    void successfulTaskDeleteAndGetNullwithID() {
+
+        // Crear un objeto Task con ID "2" y otros detalles
+        Task task = new Task( "Test Task", "Description", LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"high",3,3.8);
+        task.setId("2");
+        // Guardar la tarea
+        taskService.saveTask(task);
+
+        when(taskMySqlRepository.findAllTasks()).thenReturn(Collections.singletonList(task));
+
+        // Llamar al método getTasks en el servicio para obtener todas las tareas
+        List<Task> results = taskService.getTasks();
+
+        // Verificar que la lista contiene una tarea
+        assertEquals(1, results.size());
+
+        taskService.deleteTask("2");
+
+        // Configurar el comportamiento del mock para devolver una lista con la tarea creada
+        when(taskMySqlRepository.findAllTasks()).thenReturn(Collections.emptyList());
+
+        List<Task> result2 = taskService.getTasks();
+
+        assertEquals(0,result2.size());
+
+        when(taskMySqlRepository.findTaskById("2")).thenReturn(null);
+
+        Task taskFinal = taskService.getTask("2");
+        assertNull(taskFinal);
+    }
+
 
     @Test
     public void testGettersAndSetters() {
