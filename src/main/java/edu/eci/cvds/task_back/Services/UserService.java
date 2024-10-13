@@ -94,11 +94,34 @@ public class UserService {
      * genera un número aleatorio de tareas (entre 100 y 1000)
      * y asigna valores aleatorios para sus propiedades.
      */
-    public void RandomTask() {
+    public void RandomTask(String idUser) throws Exception {
         Random random = new Random();
         int randomTasks = random.nextInt(100, 1001);
         String[] difficulties = {"High", "Middle", "Low"};
 
+        for (int i = 0; i < randomTasks; i++) {
+            try{
+                String name = "Task" + (i + 1);
+                String description = "Description" + (i + 1);
+                String dueDate = LocalDate.now().plusDays(random.nextInt(30) + 1).toString();
+                String difficulty = difficulties[random.nextInt(difficulties.length)];
+                Integer priority = random.nextInt(1, 6);
+                double estimatedTime = random.nextDouble() * 10;
+                Task task = new Task(name, description, dueDate, difficulty, priority, estimatedTime);
+                saveTaskByUser(idUser, task);
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    /** * genera un número aleatorio de tareas (entre 100 y 1000)
+     ** y asigna valores aleatorios para sus propiedades. */
+    public void RandomTask() {
+        Random random = new Random();
+        int randomTasks = random.nextInt(100, 1001);
+        String[] difficulties = {"High", "Middle", "Low"};
         for (int i = 0; i < randomTasks; i++) {
             String name = "Task" + (i + 1);
             String description = "Description" + (i + 1);
@@ -107,15 +130,14 @@ public class UserService {
             Integer priority = random.nextInt(1, 6);
             double estimatedTime = random.nextDouble() * 10;
             Task task = new Task(name, description, dueDate, difficulty, priority, estimatedTime);
-            saveTask(task);
-        }
+            saveTask(task);    }
     }
 
     public void createUser(User user) throws Exception{
         try{
 
             if(userRepository.findByEmail(user.getEmail())!=null) throw new Exception("The email has already been used");
-            user.setPasswd(passwordEncoder.encode(user.getPasswd())); //encripta la contraseña
+            //user.setPasswd(passwordEncoder.encode(user.getPasswd())); //encripta la contraseña
             this.userRepository.createUser(user);
         }
         catch (Exception e){
@@ -124,9 +146,6 @@ public class UserService {
 
     }
 
-    public User findByUsername(String username){
-        return userRepository.findByUsername(username);
-    }
 
     public boolean deleteUser(String userId) throws Exception {
 
@@ -159,7 +178,7 @@ public class UserService {
     public String authentication(String email, String passwd) throws Exception {
         try{
             User user = userRepository.findByEmail(email);
-            if (user != null && passwordEncoder.matches(passwd, user.getPasswd())) {
+            if (user != null && user.getPasswd().equals(passwd) && user.getEmail().equals(email)){
                 return user.getId();
             }
             else{
@@ -169,5 +188,18 @@ public class UserService {
             throw new Exception(e.getMessage());
         }
 
+    }
+    public String getUsername(String id) throws Exception {
+        try{
+            String user = userRepository.getUserName(id);
+            if (user != null) {
+                return user;
+            }
+            else{
+                throw new Exception("User doesn't exist");
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 }
