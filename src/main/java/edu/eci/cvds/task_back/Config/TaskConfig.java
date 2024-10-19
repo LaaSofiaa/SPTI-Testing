@@ -1,8 +1,10 @@
 package edu.eci.cvds.task_back.Config;
 
+import edu.eci.cvds.task_back.Auth.JwtAuthenticationFilter;
 import edu.eci.cvds.task_back.Repositories.mongo.TaskMongoRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
+import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.text.TaskTextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Clase de configuración para los repositorios de tareas.
@@ -29,6 +38,8 @@ public class TaskConfig {
     private final TaskMongoRepository taskMongoRepository;
     private final TaskTextRepository taskTextRepository;
     private final TaskMySqlRepository taskMySqlRepository;
+    @Autowired
+    private  UserMySqlRepository userRepository;
 
     /**
      * Constructor que inyecta las implementaciones de los repositorios.
@@ -65,5 +76,25 @@ public class TaskConfig {
         else {
             throw new IllegalArgumentException("Tipo de repositorio no soportado");
         }
+    }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
+        return config.getAuthenticationManager();
+    }
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailService());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public UserDetailsService userDetailService(){
+        return email -> this.userRepository.findByUsername(email);
     }
 }
