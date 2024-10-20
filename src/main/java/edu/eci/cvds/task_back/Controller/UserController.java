@@ -157,6 +157,10 @@ public class UserController {
         }
     }
 
+    /**
+     * Genera un número aleatorio de tareas y las almacena en el sistema.
+     * @return Una respuesta indicando que las tareas están en proceso de generación.
+     */
     @CrossOrigin(origins = "*")
     @PostMapping ("generateTasksss")
     public ResponseEntity<?> generateTasks() {
@@ -168,6 +172,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Recupera el nombre de usuario basado en su ID.
+     * @param idUser El ID del usuario cuyo nombre se desea recuperar.
+     * @return El nombre del usuario o un mensaje de error si no se encuentra.
+     */
     @CrossOrigin(origins = "*")
     @GetMapping("getUser")
     public ResponseEntity<?> getUser(@RequestParam String idUser) {

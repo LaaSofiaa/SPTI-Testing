@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class TaskBackApplication {
-
 	/**
 	 * Método principal que se utiliza para lanzar la aplicación Spring Boot.
 	 * @param args Argumentos de línea de comandos.
@@ -18,5 +17,4 @@ public class TaskBackApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TaskBackApplication.class, args);
 	}
-
 }
