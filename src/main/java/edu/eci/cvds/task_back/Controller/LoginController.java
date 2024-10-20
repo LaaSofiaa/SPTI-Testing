@@ -10,7 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * Controlador para manejar las operaciones de autenticación de usuarios.
+ * Incluye el registro de nuevos usuarios y el inicio de sesión.
+ */
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
@@ -20,17 +23,30 @@ public class LoginController {
 
     @Autowired
     private AuthService authService;
+
+    /**
+     * Maneja la solicitud de registro de un nuevo usuario.
+     * @param request Contiene la información del usuario a registrar.
+     * @return Respuesta HTTP con el estado de la operación.
+     */
     @CrossOrigin(origins = "*")
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         try {
             return  ResponseEntity.ok(authService.register(request));
             //userService.createUser(user);
             //return new ResponseEntity<>(new AuthResponse(), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(new AuthResponse(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * Maneja la solicitud de inicio de sesión de un usuario.
+     *
+     * @param request Contiene las credenciales del usuario para iniciar sesión.
+     * @return Respuesta HTTP con el token de autenticación y el estado de la operación.
+     */
     @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {

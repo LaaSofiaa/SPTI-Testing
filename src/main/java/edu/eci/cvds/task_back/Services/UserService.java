@@ -63,6 +63,10 @@ public class UserService {
         }
 
     }
+    /**
+     * Guarda una tarea en el repositorio.
+     * @param task La tarea a guardar.
+     */
     public void saveTask(Task task){
         taskRepository.saveTask(task);
     }
@@ -91,8 +95,10 @@ public class UserService {
     }
 
     /**
-     * genera un número aleatorio de tareas (entre 100 y 1000)
+     * Genera un número aleatorio de tareas (entre 100 y 1000)
      * y asigna valores aleatorios para sus propiedades.
+     * @param idUser El ID del usuario al que se le asignarán las tareas generadas.
+     * @throws Exception si ocurre un error al guardar la tarea.
      */
     public void RandomTask(String idUser) throws Exception {
         Random random = new Random();
@@ -116,8 +122,10 @@ public class UserService {
         }
     }
 
-    /** * genera un número aleatorio de tareas (entre 100 y 1000)
-     ** y asigna valores aleatorios para sus propiedades. */
+    /**
+     * Genera un número aleatorio de tareas (entre 100 y 1000)
+     * y asigna valores aleatorios para sus propiedades.
+     */
     public void RandomTask() {
         Random random = new Random();
         int randomTasks = random.nextInt(100, 1001);
@@ -133,9 +141,13 @@ public class UserService {
             saveTask(task);    }
     }
 
+    /**
+     * Crea un nuevo usuario en el sistema.
+     * @param user El usuario a crear.
+     * @throws Exception si el email ya está en uso.
+     */
     public void createUser(User user) throws Exception{
         try{
-
             if(userRepository.findByEmail(user.getEmail())!=null) throw new Exception("The email has already been used");
             //user.setPasswd(passwordEncoder.encode(user.getPasswd())); //encripta la contraseña
             this.userRepository.createUser(user);
@@ -143,10 +155,14 @@ public class UserService {
         catch (Exception e){
             throw new Exception(e.getMessage());
         }
-
     }
 
-
+    /**
+     * Elimina un usuario del sistema.
+     * @param userId El ID del usuario a eliminar.
+     * @return true si el usuario fue eliminado, false si no existía.
+     * @throws Exception si ocurre un error al eliminar el usuario.
+     */
     public boolean deleteUser(String userId) throws Exception {
 
         try{
@@ -162,6 +178,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Modifica un usuario existente en el sistema.
+     * @param user El usuario a modificar.
+     * @return true si el usuario fue modificado, false si no existía.
+     * @throws Exception si ocurre un error al modificar el usuario.
+     */
     public boolean modifyUser(User user) throws Exception {
         try{
             User oldUser = this.userRepository.getUser(user.getId());
@@ -175,6 +197,13 @@ public class UserService {
         }
     }
 
+    /**
+     * Autentica a un usuario mediante su email y contraseña.
+     * @param email  El email del usuario.
+     * @param passwd La contraseña del usuario.
+     * @return El ID del usuario autenticado.
+     * @throws Exception si el usuario no existe o las credenciales son inválidas.
+     */
     public String authentication(String email, String passwd) throws Exception {
         try{
             User user = userRepository.findByEmail(email);
@@ -189,6 +218,13 @@ public class UserService {
         }
 
     }
+
+    /**
+     * Recupera el nombre de usuario mediante su ID.
+     * @param id El ID del usuario.
+     * @return El nombre del usuario.
+     * @throws Exception si el usuario no existe.
+     */
     public String getUsername(String id) throws Exception {
         try{
             String user = userRepository.getUserName(id);
