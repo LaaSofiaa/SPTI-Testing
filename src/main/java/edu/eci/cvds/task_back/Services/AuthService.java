@@ -40,9 +40,7 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request) throws Exception{
         try {
 
-            if (userRepository.findByUsername(request.getUsername()) != null) {
-                throw new Exception("Username is already taken!");
-            }
+
             if (request.getUsername() == null || request.getUsername().isEmpty()) {
                 throw new Exception("Username is required!");
             }
@@ -54,6 +52,9 @@ public class AuthService {
             }
             if (!isValidPassword(request.getPasswd())) {
                 throw new Exception("Password must be at least 8 characters long, with one uppercase letter, one number, and one special character!");
+            }
+            if (userRepository.findByUsername(request.getUsername()) != null) {
+                throw new Exception("Username is already taken!");
             }
             Role userRole = (request.getUsername().equals("ADMIN")) ? Role.ADMIN : Role.USER;
 //            User user = User.builder()

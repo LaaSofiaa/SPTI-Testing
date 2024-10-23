@@ -1,9 +1,9 @@
 package edu.eci.cvds.task_back;
 
 
+import edu.eci.cvds.task_back.Domain.Role;
 import edu.eci.cvds.task_back.Domain.Task;
 import edu.eci.cvds.task_back.Domain.User;
-import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
 import edu.eci.cvds.task_back.Services.UserService;
@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -414,5 +415,66 @@ class TaskServiceTest {
         assertEquals(id, user.getId());
     }
 
+    @Test
+    void testUserMethods() {
+        // Prueba de getPassword
+        assertEquals("password", user.getPassword());
 
+        // Prueba de isAccountNonExpired
+        assertTrue(user.isAccountNonExpired());
+
+        // Prueba de isAccountNonLocked
+        assertTrue(user.isAccountNonLocked());
+
+        // Prueba de isCredentialsNonExpired
+        assertTrue(user.isCredentialsNonExpired());
+
+        // Prueba de isEnabled
+        assertTrue(user.isEnabled());
+    }
+
+    @Test
+    void testUserConstructor() {
+        // Crear un nuevo usuario utilizando el constructor con parámetros
+        User newUser = new User("Alice", "alice@mail.com", "securepass", Role.USER);
+
+        // Verificar que los atributos se inicializaron correctamente
+        assertEquals("Alice", newUser.getUsername());
+        assertEquals("alice@mail.com", newUser.getEmail());
+        assertEquals("securepass", newUser.getPassword());
+    }
+    @Test
+    void testMarkTaskAsCompleted() throws Exception {
+        // Configurar el mock para devolver la tarea
+        when(taskMySqlRepository.findTaskById(taskId1)).thenReturn(task1);
+
+        // Llamar al método
+        taskService.markTaskAsCompleted(taskId1);
+
+        // Verificar que la tarea fue marcada como completada
+        assertTrue(task1.getIsCompleted());
+
+        // Verificar que se actualizó la tarea en el repositorio
+        verify(taskMySqlRepository, times(1)).updateTask(task1);
+    }
+
+    @Test
+    void testGetTasksByUser() {
+        // Crear una lista de tareas para el usuario
+        List<Task> tasks = new ArrayList<>();
+        tasks.add(task1);
+        tasks.add(task2);
+
+        // Configurar el mock para devolver las tareas del usuario
+        when(taskMySqlRepository.findTasksByUser(user)).thenReturn(tasks);
+
+        // Llamar al método
+        List<Task> resultTasks = taskService.getTasksByUser(userId);
+
+        // Verificar que se devuelven las tareas correctas
+        assertEquals(2, resultTasks.size());
+        assertTrue(resultTasks.contains(task1));
+        assertTrue(resultTasks.contains(task2));
+    }
+    
 }
