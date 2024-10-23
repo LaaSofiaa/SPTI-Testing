@@ -112,14 +112,21 @@ public class AuthService {
      * @param request Contiene las credenciales del usuario (nombre de usuario y contraseña).
      * @return AuthResponse con el token JWT generado y el ID del usuario autenticado.
      */
-    public AuthResponse login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request) throws Exception{
 
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPasswd()));
-        UserDetails user=userRepository.findByUsername(request.getUsername());
-        String token=jwtService.getToken(user);
-        AuthResponse response = new AuthResponse(token);
-        String userId = userRepository.findByUsername(request.getUsername()).getId();
-        response.setUserId(userId);
-        return response;
+        UserDetails user = userRepository.findByUsername(request.getUsername());
+        if (user == null) {
+            throw new Exception("User does not exist!");
+        }
+        try{
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPasswd()));
+            String token = jwtService.getToken(user);
+            AuthResponse response = new AuthResponse(token);
+            String userId = userRepository.findByUsername(request.getUsername()).getId();
+            response.setUserId(userId);
+            return response;
+        }catch(Exception e){
+            throw new Exception("Invalid credentials!");
+        }
     }
 }

@@ -49,7 +49,7 @@ public class LoginController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
             return  ResponseEntity.ok(authService.login(request));
 
@@ -62,7 +62,7 @@ public class LoginController {
 //                return new ResponseEntity<>(new AuthResponse(), HttpStatus.UNAUTHORIZED);
 //            }
         } catch (Exception e) {
-            return new ResponseEntity<>(new AuthResponse(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

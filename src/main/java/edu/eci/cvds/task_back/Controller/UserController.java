@@ -151,7 +151,7 @@ public class UserController {
     public ResponseEntity<?> generateTasks(@RequestParam String idUser) {
         try {
             userService.RandomTask(idUser);
-            return new ResponseEntity<>("Tareas en proceso de generación", HttpStatus.OK);
+            return new ResponseEntity<>("Tasks being generated", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -166,7 +166,7 @@ public class UserController {
     public ResponseEntity<?> generateTasks() {
         try {
             userService.RandomTask();
-            return new ResponseEntity<>("Tareas en proceso de generación", HttpStatus.OK);
+            return new ResponseEntity<>("Tasks being generated", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
