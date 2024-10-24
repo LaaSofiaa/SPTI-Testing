@@ -151,23 +151,32 @@ public class UserController {
     public ResponseEntity<?> generateTasks(@RequestParam String idUser) {
         try {
             userService.RandomTask(idUser);
-            return new ResponseEntity<>("Tareas en proceso de generación", HttpStatus.OK);
+            return new ResponseEntity<>("Tasks being generated", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    /**
+     * Genera un número aleatorio de tareas y las almacena en el sistema.
+     * @return Una respuesta indicando que las tareas están en proceso de generación.
+     */
     @CrossOrigin(origins = "*")
     @PostMapping ("generateTasksss")
     public ResponseEntity<?> generateTasks() {
         try {
             userService.RandomTask();
-            return new ResponseEntity<>("Tareas en proceso de generación", HttpStatus.OK);
+            return new ResponseEntity<>("Tasks being generated", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    /**
+     * Recupera el nombre de usuario basado en su ID.
+     * @param idUser El ID del usuario cuyo nombre se desea recuperar.
+     * @return El nombre del usuario o un mensaje de error si no se encuentra.
+     */
     @CrossOrigin(origins = "*")
     @GetMapping("getUser")
     public ResponseEntity<?> getUser(@RequestParam String idUser) {
