@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY="CVDSLABORATORIO7ABCDEFGHIJKLMNOPQRSTUVWXYZJAMES";
+    @Value("${SECRET_KEY}")
+    private String secretKey;
 
     /**
      * Genera un token JWT para el usuario proporcionado.
@@ -59,7 +61,7 @@ public class JwtService {
      * @return Key que representa la clave utilizada para firmar el token.
      */
     public Key getKey(){
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
