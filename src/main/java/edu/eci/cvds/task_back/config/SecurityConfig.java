@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Config;
+package edu.eci.cvds.task_back.config;
 
 import edu.eci.cvds.task_back.Auth.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;

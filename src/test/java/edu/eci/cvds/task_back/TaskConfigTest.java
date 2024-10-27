@@ -1,6 +1,6 @@
 package edu.eci.cvds.task_back;
 
-import edu.eci.cvds.task_back.Config.TaskConfig;
+import edu.eci.cvds.task_back.config.TaskConfig;
 import edu.eci.cvds.task_back.Repositories.mongo.TaskMongoRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.text.TaskTextRepository;
