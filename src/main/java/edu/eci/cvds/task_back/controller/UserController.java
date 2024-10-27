@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Controller;
+package edu.eci.cvds.task_back.controller;
 
 import edu.eci.cvds.task_back.Domain.Task;
 import edu.eci.cvds.task_back.Domain.User;

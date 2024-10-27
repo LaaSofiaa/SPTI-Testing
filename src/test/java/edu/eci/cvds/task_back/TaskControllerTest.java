@@ -31,7 +31,7 @@ public class TaskControllerTest {
     private UserService taskService;
 
     @InjectMocks
-    private edu.eci.cvds.task_back.Controller.UserController taskController;
+    private edu.eci.cvds.task_back.controller.UserController taskController;
 
     private Task task1;
     private Task task2;
