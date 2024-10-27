@@ -19,16 +19,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @CrossOrigin(origins = "*")
-//    @PostMapping("/createUser")
-//    public ResponseEntity<?> createUser(@RequestBody User user) {
-//        try {
-//            userService.createUser(user);
-//            return new ResponseEntity<>("User created succesfully", HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
     @CrossOrigin(origins = "*")
     @DeleteMapping("/deleteUser")
     public ResponseEntity<?> deleteUser(@RequestParam String userId) {
@@ -127,7 +117,7 @@ public class UserController {
      * Permite obtener todas las tareas creadas. Las tareas se retornan en formato JSON.
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
-    //@PreAuthorize("hasRole('USER')")
+
     @CrossOrigin(origins = "*")
     @GetMapping("getTasks")
     public List<Task> getTasks(){

@@ -40,7 +40,6 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request) throws Exception{
         try {
 
-
             if (request.getUsername() == null || request.getUsername().isEmpty()) {
                 throw new Exception("Username is required!");
             }
@@ -57,17 +56,8 @@ public class AuthService {
                 throw new Exception("Username is already taken!");
             }
             Role userRole = (request.getUsername().equals("ADMIN")) ? Role.ADMIN : Role.USER;
-//            User user = User.builder()
-//                    .username(request.getUsername())
-//                    .email(request.getEmail())
-//                    .passwd(request.getPasswd())
-//                    .role(Role.USER)
-//                    .build();
 
             User user = new User(request.getUsername(), request.getEmail(), request.getPasswd(), userRole);
-//            return  AuthResponse.builder()
-//                    .token(this.jwtService.getToken(user))
-//                    .build();
             this.createUser(user);
             AuthResponse authResponse = new AuthResponse(this.jwtService.getToken(user));
             String userId = userRepository.findByUsername(request.getUsername()).getId();

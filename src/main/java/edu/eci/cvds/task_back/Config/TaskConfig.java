@@ -1,6 +1,5 @@
 package edu.eci.cvds.task_back.Config;
 
-import edu.eci.cvds.task_back.Auth.JwtAuthenticationFilter;
 import edu.eci.cvds.task_back.Repositories.mongo.TaskMongoRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
@@ -53,12 +52,7 @@ public class TaskConfig {
         this.taskTextRepository = taskTextRepository;
         this.taskMySqlRepository = taskMySqlRepository;
     }
-//    @Bean(name="entityManagerFactory")
-//    public LocalSessionFactoryBean sessionFactory() {
-//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//
-//        return sessionFactory;
-//    }
+
     /**
      * Define el bean que selecciona el repositorio a utilizar en función del tipo configurado.
      * @return Una instancia de TaskRepository (puede ser Mongo o Text).

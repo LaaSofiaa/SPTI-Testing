@@ -149,7 +149,6 @@ public class UserService {
     public void createUser(User user) throws Exception{
         try{
             if(userRepository.findByEmail(user.getEmail())!=null) throw new Exception("The email has already been used");
-            //user.setPasswd(passwordEncoder.encode(user.getPasswd())); //encripta la contraseña
             this.userRepository.createUser(user);
         }
         catch (Exception e){
