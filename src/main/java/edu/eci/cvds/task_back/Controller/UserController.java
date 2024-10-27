@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://taskManager.com")
     @DeleteMapping("/deleteUser")
     public ResponseEntity<?> deleteUser(@RequestParam String userId) {
         try {
@@ -34,7 +34,7 @@ public class UserController {
 
     }
 
-    @CrossOrigin(origins = "*")
+
     @PatchMapping("/modifyUser")
     public ResponseEntity<?> modifyUser(@RequestBody User user) {
         try {
@@ -55,7 +55,7 @@ public class UserController {
      * Esta operación permite crear una nueva tarea.
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
-    @CrossOrigin(origins = "*")
+
     @PostMapping("/saveTaskByUser")
     public ResponseEntity<?> saveTaskByUser(@RequestParam String userId, @RequestBody Task task){
         try{
@@ -66,7 +66,7 @@ public class UserController {
         }
 
     }
-    @CrossOrigin(origins = "*")
+
     @PostMapping("/saveTask")
     public ResponseEntity<?> saveTask(@RequestBody Task task) {
         try {
@@ -83,7 +83,7 @@ public class UserController {
      * Permite actualizar el estado de la tarea para indicar que ha sido completada.
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
-    @CrossOrigin(origins = "*")
+
     @PatchMapping("/markTaskAsCompleted")
     public ResponseEntity<?> markTaskAsCompleted(@RequestParam String id) {
         try {
@@ -100,7 +100,7 @@ public class UserController {
      * Permite eliminar una tarea específica del sistema.
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
-    @CrossOrigin(origins = "*")
+
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteTask(@RequestParam String id) {
         try{
@@ -118,13 +118,13 @@ public class UserController {
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
 
-    @CrossOrigin(origins = "*")
+
     @GetMapping("getTasks")
     public List<Task> getTasks(){
         return userService.getTasks();
     }
 
-    @CrossOrigin(origins = "*")
+
     @GetMapping("getTasksByUser")
     public List<Task> getTasksByUser(@RequestParam String userId){
         return userService.getTasksByUser(userId);
@@ -151,7 +151,7 @@ public class UserController {
      * Genera un número aleatorio de tareas y las almacena en el sistema.
      * @return Una respuesta indicando que las tareas están en proceso de generación.
      */
-    @CrossOrigin(origins = "*")
+
     @PostMapping ("generateTasksss")
     public ResponseEntity<?> generateTasks() {
         try {
@@ -167,7 +167,7 @@ public class UserController {
      * @param idUser El ID del usuario cuyo nombre se desea recuperar.
      * @return El nombre del usuario o un mensaje de error si no se encuentra.
      */
-    @CrossOrigin(origins = "*")
+    
     @GetMapping("getUser")
     public ResponseEntity<?> getUser(@RequestParam String idUser) {
         try{
