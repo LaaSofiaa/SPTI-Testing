@@ -1,8 +1,17 @@
 /*
 *Funcion para cargar las tareas
 */
+
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 function loadTask() {
-    fetch("https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/getTasks", {
+    fetch("https://localhost:443/taskManager/getTasks", {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -19,34 +28,35 @@ function loadTask() {
         console.log(data);
         let taskList = [];
         let taskhtml = '';
-        for(let i=0; i<data.length;i++){
+        for (let i = 0; i < data.length; i++) {
             const task = data[i];
             let isCompleted = task.isCompleted ? 'COMPLETED' : '';
             let buttonCheck = task.isCompleted 
-            ? `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}',this)" checked disabled />` 
-            : `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}',this)" />`;
+                ? `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}',this)" checked disabled />` 
+                : `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}',this)" />`;
+
             const colors = `
-            ${1 === task.priority ? 'first-priority' : ''}
-            ${2 === task.priority ? 'second-priority' : ''}
-            ${3 === task.priority ? 'third-priority' : ''}
-            ${4 === task.priority ? 'four-priority' : ''}
-            ${5 === task.priority ? 'five-priority' : ''}
+                ${1 === task.priority ? 'first-priority' : ''}
+                ${2 === task.priority ? 'second-priority' : ''}
+                ${3 === task.priority ? 'third-priority' : ''}
+                ${4 === task.priority ? 'four-priority' : ''}
+                ${5 === task.priority ? 'five-priority' : ''}
             `;
 
-            taskhtml+= `
-            <div class="task ${isCompleted}">
-                ${buttonCheck}
-                <div class="task-priority">
-                    <div class="circle ${colors}"><span>${task.priority}</span></div>
-                    <h2>${task.name}</h2> 
-                </div>  
-                <p style="opacity: 0.8;"> ${task.description}</p>
-                <p style="opacity: 0.8;"><i class="fas fa-calendar-alt"></i> Creation date: ${task.creationDate}</p>
-                <p style="opacity: 0.8;"><i class="fas fa-calendar-check"></i> Due date: ${task.dueDate}</p>
-                <p style="opacity: 0.8;"><i class="fas fa-exclamation-circle"></i> Difficulty: ${task.difficulty}</p>
-                <p style="opacity: 0.8;"><i class="fas fa-clock"></i> Estimated Time: ${task.estimatedTime.toFixed(1)} hours</p>
-                <button class="delete-button" onclick="deleteTask('${task.id}',this)"><i class="fas fa-trash-alt"></i></button>
-            </div>` 
+            taskhtml += `
+                <div class="task ${isCompleted}">
+                    ${buttonCheck}
+                    <div class="task-priority">
+                        <div class="circle ${colors}"><span>${escapeHtml(task.priority)}</span></div>
+                        <h2>${escapeHtml(task.name)}</h2> 
+                    </div>  
+                    <p style="opacity: 0.8;"> ${escapeHtml(task.description)}</p>
+                    <p style="opacity: 0.8;"><i class="fas fa-calendar-alt"></i> Fecha de creación: ${escapeHtml(task.creationDate)}</p>
+                    <p style="opacity: 0.8;"><i class="fas fa-calendar-check"></i> Fecha de vencimiento: ${escapeHtml(task.dueDate)}</p>
+                    <p style="opacity: 0.8;"><i class="fas fa-exclamation-circle"></i> Dificultad: ${escapeHtml(task.difficulty)}</p>
+                    <p style="opacity: 0.8;"><i class="fas fa-clock"></i> Tiempo estimado: ${parseFloat(task.estimatedTime).toFixed(1)} horas</p>
+                    <button class="delete-button" onclick="deleteTask('${task.id}',this)"><i class="fas fa-trash-alt"></i></button>
+                </div>` 
         }
         document.getElementById("task-container").innerHTML = taskhtml;
     })
@@ -88,7 +98,7 @@ function addTask(){
         alert('The due date must be greater than the current date');
         return;
     }; 
-    fetch("https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/saveTask",
+    fetch("https://localhost:443/taskManager/saveTask",
         {
             headers: {
                 "Accept": "application/json",
@@ -112,7 +122,7 @@ function addTask(){
     *Funcion para eliminar tareas
     */
     function deleteTask(taskId,button) {
-        fetch(`https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/delete?id=${taskId}`, {
+        fetch(`https://localhost:443/taskManager/delete?id=${taskId}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -135,7 +145,7 @@ function addTask(){
     */
     function disabledButton(id,button){
         console.log(id);
-        fetch(`https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/markTaskAsCompleted?id=${id}`, {
+        fetch(``, {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
@@ -159,7 +169,7 @@ function addTask(){
         });
     }
     function generateRandomTasks(){
-        fetch(`https://taskmanagercvds-bjdmg9hwaaa7erg0.eastus-01.azurewebsites.net/taskManager/generateTasksss`, {
+        fetch(`https://localhost:443/taskManager/markTaskAsCompleted?id=${id}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -182,3 +192,4 @@ function addTask(){
         loadTask();
     });
 
+    

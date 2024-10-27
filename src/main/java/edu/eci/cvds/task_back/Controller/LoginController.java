@@ -28,7 +28,7 @@ public class LoginController {
      * @param request Contiene la información del usuario a registrar.
      * @return Respuesta HTTP con el estado de la operación.
      */
-    @CrossOrigin(origins = "\"https://taskManager.com/R")
+    @CrossOrigin(origins = "https://taskManager.com/R")
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         try {
@@ -44,7 +44,7 @@ public class LoginController {
      * @param request Contiene las credenciales del usuario para iniciar sesión.
      * @return Respuesta HTTP con el token de autenticación y el estado de la operación.
      */
-    @CrossOrigin(origins = "\"https://taskManager.com/L")
+    @CrossOrigin(origins = "https://taskManager.com/L")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
