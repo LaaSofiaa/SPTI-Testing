@@ -3,8 +3,8 @@ package edu.eci.cvds.task_back;
 import edu.eci.cvds.task_back.Auth.AuthResponse;
 import edu.eci.cvds.task_back.Auth.LoginRequest;
 import edu.eci.cvds.task_back.Auth.RegisterRequest;
-import edu.eci.cvds.task_back.Domain.Role;
-import edu.eci.cvds.task_back.Domain.User;
+import edu.eci.cvds.task_back.domain.Role;
+import edu.eci.cvds.task_back.domain.User;
 import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
 import edu.eci.cvds.task_back.Services.AuthService;
 import edu.eci.cvds.task_back.Services.JwtService;
@@ -111,7 +111,7 @@ public class AuthServiceTest {
         verify(userRepository, times(1)).createUser(user);
 
         // Verificar que la contraseña fue codificada correctamente
-        assertEquals("encodedPassword", user.getPasswd());
+        assertEquals("encodedPassword", user.getPassword());
     }
 
 

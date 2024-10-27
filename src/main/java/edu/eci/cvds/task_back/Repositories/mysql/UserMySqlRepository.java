@@ -1,12 +1,8 @@
 package edu.eci.cvds.task_back.Repositories.mysql;
 
-import edu.eci.cvds.task_back.Domain.Task;
-import edu.eci.cvds.task_back.Domain.User;
-import edu.eci.cvds.task_back.Repositories.TaskRepository;
+import edu.eci.cvds.task_back.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface UserMySqlRepository extends JpaRepository<User, String>{

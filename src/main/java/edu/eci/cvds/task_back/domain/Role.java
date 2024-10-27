@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Domain;
+package edu.eci.cvds.task_back.domain;
 
 /**
  * Enum que representa los roles de usuario en el sistema.

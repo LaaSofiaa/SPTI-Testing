@@ -1,7 +1,7 @@
 package edu.eci.cvds.task_back.Repositories.text;
 
-import edu.eci.cvds.task_back.Domain.Task;
-import edu.eci.cvds.task_back.Domain.User;
+import edu.eci.cvds.task_back.domain.Task;
+import edu.eci.cvds.task_back.domain.User;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;

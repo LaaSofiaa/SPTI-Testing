@@ -1,9 +1,8 @@
 package edu.eci.cvds.task_back.Repositories.mysql;
-import edu.eci.cvds.task_back.Domain.User;
+import edu.eci.cvds.task_back.domain.User;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
-import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.domain.Task;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

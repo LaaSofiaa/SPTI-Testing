@@ -4,10 +4,10 @@ import edu.eci.cvds.task_back.Auth.AuthResponse;
 import edu.eci.cvds.task_back.Auth.LoginRequest;
 import edu.eci.cvds.task_back.Auth.RegisterRequest;
 import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
-import edu.eci.cvds.task_back.Domain.Role;
+import edu.eci.cvds.task_back.domain.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import edu.eci.cvds.task_back.Domain.User;
+import edu.eci.cvds.task_back.domain.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -89,7 +89,7 @@ public class AuthService {
         try{
 
             if(userRepository.findByEmail(user.getEmail())!=null) throw new Exception("The email has already been used");
-            user.setPasswd(passwordEncoder.encode(user.getPasswd())); //encripta la contraseña
+            user.setPasswd(passwordEncoder.encode(user.getPassword())); //encripta la contraseña
             this.userRepository.createUser(user);
         }
         catch (Exception e){

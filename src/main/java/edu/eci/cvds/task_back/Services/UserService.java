@@ -1,7 +1,7 @@
 package edu.eci.cvds.task_back.Services;
 
-import edu.eci.cvds.task_back.Domain.Task;
-import edu.eci.cvds.task_back.Domain.User;
+import edu.eci.cvds.task_back.domain.Task;
+import edu.eci.cvds.task_back.domain.User;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,7 +206,7 @@ public class UserService {
     public String authentication(String email, String passwd) throws Exception {
         try{
             User user = userRepository.findByEmail(email);
-            if (user != null && user.getPasswd().equals(passwd) && user.getEmail().equals(email)){
+            if (user != null && user.getPassword().equals(passwd) && user.getEmail().equals(email)){
                 return user.getId();
             }
             else{

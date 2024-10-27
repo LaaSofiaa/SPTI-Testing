@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Domain;
+package edu.eci.cvds.task_back.domain;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -81,10 +81,6 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPasswd() {
-        return passwd;
     }
 
     public String getId(){
