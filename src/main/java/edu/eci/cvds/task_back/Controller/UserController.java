@@ -167,7 +167,7 @@ public class UserController {
      * @param idUser El ID del usuario cuyo nombre se desea recuperar.
      * @return El nombre del usuario o un mensaje de error si no se encuentra.
      */
-    
+
     @GetMapping("getUser")
     public ResponseEntity<?> getUser(@RequestParam String idUser) {
         try{
