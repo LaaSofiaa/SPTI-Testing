@@ -16,8 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.List;
-import java.security.AuthProvider;
-//import org.springframework.security.web.SecurityFilterChain;
+
 
 @EnableWebSecurity
 @Configuration

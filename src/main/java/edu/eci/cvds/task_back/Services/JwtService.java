@@ -13,10 +13,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import io.github.cdimascio.dotenv.Dotenv;
+
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY="CVDSLABORATORIO7ABCDEFGHIJKLMNOPQRSTUVWXYZJAMES";
+    private static final String SECRET_KEY;
+
+    static {
+        Dotenv dotenv = Dotenv.load();
+        SECRET_KEY = dotenv.get("JWT_SECRET_KEY");
+        if (SECRET_KEY == null || SECRET_KEY.isEmpty()) {
+            throw new IllegalStateException("La clave secreta JWT no está configurada en el archivo .env.");
+        }
+    }
 
     /**
      * Genera un token JWT para el usuario proporcionado.
