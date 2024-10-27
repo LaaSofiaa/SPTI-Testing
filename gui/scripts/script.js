@@ -9,8 +9,7 @@ function escapeHtml(unsafe) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-}
-function loadTask() {
+}function loadTask() {
     fetch("https://localhost:443/taskManager/getTasks", {
         headers: {
             "Accept": "application/json",
@@ -26,12 +25,12 @@ function loadTask() {
     })
     .then(function (data) {
         console.log(data);
-        let taskList = [];
-        let taskhtml = '';
-        for (let i = 0; i < data.length; i++) {
-            const task = data[i];
-            let isCompleted = task.isCompleted ? 'COMPLETED' : '';
-            let buttonCheck = task.isCompleted 
+        const taskContainer = document.getElementById("task-container");
+        taskContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevas tareas
+
+        data.forEach(task => {
+            const isCompleted = task.isCompleted ? 'COMPLETED' : '';
+            const buttonCheck = task.isCompleted 
                 ? `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}',this)" checked disabled />` 
                 : `<input type="checkbox" class="task-checkbox" onclick="disabledButton('${task.id}',this)" />`;
 
@@ -41,29 +40,32 @@ function loadTask() {
                 ${3 === task.priority ? 'third-priority' : ''}
                 ${4 === task.priority ? 'four-priority' : ''}
                 ${5 === task.priority ? 'five-priority' : ''}
+            `.trim();
+
+            const taskDiv = document.createElement('div');
+            taskDiv.className = `task ${isCompleted}`;
+            taskDiv.innerHTML = `
+                ${buttonCheck}
+                <div class="task-priority">
+                    <div class="circle ${colors}"><span>${escapeHtml(task.priority)}</span></div>
+                    <h2>${escapeHtml(task.name)}</h2> 
+                </div>  
+                <p style="opacity: 0.8;">${escapeHtml(task.description)}</p>
+                <p style="opacity: 0.8;"><i class="fas fa-calendar-alt"></i> Fecha de creación: ${escapeHtml(task.creationDate)}</p>
+                <p style="opacity: 0.8;"><i class="fas fa-calendar-check"></i> Fecha de vencimiento: ${escapeHtml(task.dueDate)}</p>
+                <p style="opacity: 0.8;"><i class="fas fa-exclamation-circle"></i> Dificultad: ${escapeHtml(task.difficulty)}</p>
+                <p style="opacity: 0.8;"><i class="fas fa-clock"></i> Tiempo estimado: ${parseFloat(task.estimatedTime).toFixed(1)} horas</p>
+                <button class="delete-button" onclick="deleteTask('${task.id}',this)"><i class="fas fa-trash-alt"></i></button>
             `;
 
-            taskhtml += `
-                <div class="task ${isCompleted}">
-                    ${buttonCheck}
-                    <div class="task-priority">
-                        <div class="circle ${colors}"><span>${escapeHtml(task.priority)}</span></div>
-                        <h2>${escapeHtml(task.name)}</h2> 
-                    </div>  
-                    <p style="opacity: 0.8;"> ${escapeHtml(task.description)}</p>
-                    <p style="opacity: 0.8;"><i class="fas fa-calendar-alt"></i> Fecha de creación: ${escapeHtml(task.creationDate)}</p>
-                    <p style="opacity: 0.8;"><i class="fas fa-calendar-check"></i> Fecha de vencimiento: ${escapeHtml(task.dueDate)}</p>
-                    <p style="opacity: 0.8;"><i class="fas fa-exclamation-circle"></i> Dificultad: ${escapeHtml(task.difficulty)}</p>
-                    <p style="opacity: 0.8;"><i class="fas fa-clock"></i> Tiempo estimado: ${parseFloat(task.estimatedTime).toFixed(1)} horas</p>
-                    <button class="delete-button" onclick="deleteTask('${task.id}',this)"><i class="fas fa-trash-alt"></i></button>
-                </div>` 
-        }
-        document.getElementById("task-container").innerHTML = taskhtml;
+            taskContainer.appendChild(taskDiv); // Agregar la tarea al contenedor
+        });
     })
     .catch(function (error) {
         console.log('Error:', error);
     });
 }
+
 
 /*
 *Funcion para añadir una tarea
