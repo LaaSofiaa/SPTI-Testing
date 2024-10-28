@@ -136,7 +136,7 @@ public class UserController {
      * Permite obtener todas las tareas creadas. Las tareas se retornan en formato JSON.
      * La anotación {@code @CrossOrigin} permite solicitudes de origen cruzado de cualquier dominio.
      */
-    
+
     @PostMapping ("generateTasks")
     public ResponseEntity<?> generateTasks(@RequestParam String idUser) {
         try {

@@ -1,10 +1,4 @@
-
-document.addEventListener('DOMContentLoaded', function(){
-    fetch('../components/navBar.html')
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            document.querySelector("header").innerHTML = data;
-        })
-        .catch(error => console.error('Error loading the navbar:',error));
-})
+document.addEventListener('DOMContentLoaded', function() {
+    // Aquí puedes agregar cualquier código que necesites ejecutar al cargar la página
+    console.log("Página cargada. Puedes agregar más funcionalidad aquí.");
+});
