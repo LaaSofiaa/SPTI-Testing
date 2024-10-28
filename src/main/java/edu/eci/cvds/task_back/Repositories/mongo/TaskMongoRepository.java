@@ -1,6 +1,6 @@
 package edu.eci.cvds.task_back.Repositories.mongo;
 
-import edu.eci.cvds.task_back.Domain.Task;
+import edu.eci.cvds.task_back.domain.Task;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

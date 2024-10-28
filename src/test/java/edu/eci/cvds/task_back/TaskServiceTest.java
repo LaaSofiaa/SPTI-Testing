@@ -1,9 +1,9 @@
 package edu.eci.cvds.task_back;
 
 
-import edu.eci.cvds.task_back.Domain.Role;
-import edu.eci.cvds.task_back.Domain.Task;
-import edu.eci.cvds.task_back.Domain.User;
+import edu.eci.cvds.task_back.domain.Role;
+import edu.eci.cvds.task_back.domain.Task;
+import edu.eci.cvds.task_back.domain.User;
 import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
 import edu.eci.cvds.task_back.Services.UserService;
@@ -315,7 +315,7 @@ class TaskServiceTest {
         // Configura el comportamiento simulado para el repositorio de usuarios
         when(userMySqlRepository.findByEmail(user.getEmail())).thenReturn(user);
         // Llama al método de autenticación
-        String authUser = taskService.authentication(user.getEmail(),user.getPasswd());
+        String authUser = taskService.authentication(user.getEmail(),user.getPassword());
         // Verifica que se retorna el usuario autenticado
         assertEquals(user.getId(), authUser);
         verify(userMySqlRepository).findByEmail(user.getEmail());
@@ -405,7 +405,7 @@ class TaskServiceTest {
     public void testSetPasswd() {
         String password = "newPassword";
         user.setPasswd(password);
-        assertEquals(password, user.getPasswd());
+        assertEquals(password, user.getPassword());
     }
 
     @Test

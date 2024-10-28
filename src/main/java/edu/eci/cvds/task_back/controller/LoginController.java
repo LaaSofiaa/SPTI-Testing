@@ -1,9 +1,8 @@
-package edu.eci.cvds.task_back.Controller;
+package edu.eci.cvds.task_back.controller;
 
 import edu.eci.cvds.task_back.Auth.LoginRequest;
 import edu.eci.cvds.task_back.Auth.RegisterRequest;
 import edu.eci.cvds.task_back.Services.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import edu.eci.cvds.task_back.Services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +16,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class LoginController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
+
+    public LoginController(AuthService authService, UserService userService) {
+        this.authService = authService;
+        this.userService = userService;
+    }
 
     /**
      * Maneja la solicitud de registro de un nuevo usuario.

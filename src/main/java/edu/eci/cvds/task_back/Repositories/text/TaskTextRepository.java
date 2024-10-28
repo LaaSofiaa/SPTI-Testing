@@ -1,7 +1,7 @@
 package edu.eci.cvds.task_back.Repositories.text;
 
-import edu.eci.cvds.task_back.Domain.Task;
-import edu.eci.cvds.task_back.Domain.User;
+import edu.eci.cvds.task_back.domain.Task;
+import edu.eci.cvds.task_back.domain.User;
 import edu.eci.cvds.task_back.Repositories.TaskRepository;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -27,7 +27,7 @@ public class TaskTextRepository implements TaskRepository {
         return List.of();
     }
 
-    private final static String filePath = "src/main/resources/tasks.json"; // Ruta del archivo JSON
+    private static final String filePath = "src/main/resources/tasks.json"; // Ruta del archivo JSON
 
     /**
      * Guarda una nueva tarea en el archivo JSON. Si la tarea no tiene un ID,

@@ -1,10 +1,8 @@
-package edu.eci.cvds.task_back.Domain;
+package edu.eci.cvds.task_back.domain;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Random;
-import java.util.UUID;
 
 /**
  * Representa una tarea en el sistema de gestión de tareas.

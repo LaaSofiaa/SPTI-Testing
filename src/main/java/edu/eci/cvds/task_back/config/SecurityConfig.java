@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Config;
+package edu.eci.cvds.task_back.config;
 
 import edu.eci.cvds.task_back.Auth.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,15 @@ import java.util.List;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AuthenticationProvider authProvider;
+
     @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
-    @Autowired
-    private AuthenticationProvider authProvider;
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,AuthenticationProvider authProvider){
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.authProvider = authProvider;
+    }
 
     /**
      * Configura la cadena de filtros de seguridad.

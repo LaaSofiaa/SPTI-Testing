@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Config;
+package edu.eci.cvds.task_back.config;
 
 import edu.eci.cvds.task_back.Repositories.mongo.TaskMongoRepository;
 import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
@@ -37,8 +37,7 @@ public class TaskConfig {
     private final TaskMongoRepository taskMongoRepository;
     private final TaskTextRepository taskTextRepository;
     private final TaskMySqlRepository taskMySqlRepository;
-    @Autowired
-    private  UserMySqlRepository userRepository;
+    private  final UserMySqlRepository userRepository;
 
     /**
      * Constructor que inyecta las implementaciones de los repositorios.
@@ -47,10 +46,12 @@ public class TaskConfig {
      * @param taskTextRepository Repositorio de tareas basado en archivos de texto.
      */
     @Autowired
-    public TaskConfig(TaskMongoRepository taskMongoRepository, TaskTextRepository taskTextRepository,TaskMySqlRepository taskMySqlRepository) {
+    public TaskConfig(TaskMongoRepository taskMongoRepository, TaskTextRepository taskTextRepository,TaskMySqlRepository taskMySqlRepository,
+                      UserMySqlRepository userRepository) {
         this.taskMongoRepository = taskMongoRepository;
         this.taskTextRepository = taskTextRepository;
         this.taskMySqlRepository = taskMySqlRepository;
+        this.userRepository = userRepository;
     }
 
     /**
