@@ -10,7 +10,7 @@ function escapeHtml(unsafe) {
 
 // Cargar todas las tareas y renderizarlas en el contenedor de tareas
 function loadTask() {
-    fetch("https://localhost:443/taskManager/getTasks", {
+    fetch("http://localhost:3000/taskManager/getTasks", {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -83,7 +83,7 @@ function addTask() {
         return alert('La fecha de vencimiento debe ser posterior a la fecha actual');
     }
 
-    fetch("https://localhost:443/taskManager/saveTask", {
+    fetch("http://localhost:3000/taskManager/saveTask", {
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify({
@@ -105,7 +105,7 @@ function addTask() {
 function deleteTask(taskId, buttonElement) {
     if (!confirm('¿Estás seguro de que deseas eliminar esta tarea?')) return;
 
-    fetch(`https://localhost:443/taskManager/deleteTask?id=${taskId}`, {
+    fetch(`http://localhost:3000/taskManager/deleteTask?id=${taskId}`, {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -123,7 +123,7 @@ function deleteTask(taskId, buttonElement) {
 
 // Marcar una tarea como completada
 function disabledButton(taskId, checkbox) {
-    fetch(`https://localhost:443/taskManager/markTaskAsCompleted?id=${taskId}`, {
+    fetch(`http://localhost:3000/taskManager/markTaskAsCompleted?id=${taskId}`, {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -142,7 +142,7 @@ function disabledButton(taskId, checkbox) {
 
 // Generar tareas aleatorias para prueba
 function generateRandomTasks() {
-    fetch("https://localhost:443/taskManager/generateRandomTasks", {
+    fetch("http://localhost:3000/taskManager/generateRandomTasks", {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
