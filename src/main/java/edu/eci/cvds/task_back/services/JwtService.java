@@ -24,6 +24,7 @@ public class JwtService {
         Dotenv dotenv = Dotenv.load();
         SECRET_KEY = dotenv.get("JWT_SECRET_KEY");
         if (SECRET_KEY == null || SECRET_KEY.isEmpty()) {
+            System.out.println("JWT_SECRET_KEY no está configurada en el archivo .env.");
             throw new IllegalStateException("La clave secreta JWT no está configurada en el archivo .env.");
         }
     }
