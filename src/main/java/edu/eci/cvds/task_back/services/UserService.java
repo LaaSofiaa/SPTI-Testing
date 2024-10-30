@@ -2,8 +2,8 @@ package edu.eci.cvds.task_back.services;
 
 import edu.eci.cvds.task_back.domain.Task;
 import edu.eci.cvds.task_back.domain.User;
-import edu.eci.cvds.task_back.Repositories.TaskRepository;
-import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
+import edu.eci.cvds.task_back.repositories.TaskRepository;
+import edu.eci.cvds.task_back.repositories.mysql.UserMySqlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;

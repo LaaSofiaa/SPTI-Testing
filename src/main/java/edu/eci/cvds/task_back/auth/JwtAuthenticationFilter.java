@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Auth;
+package edu.eci.cvds.task_back.auth;
 
 import edu.eci.cvds.task_back.services.JwtService;
 import jakarta.servlet.FilterChain;

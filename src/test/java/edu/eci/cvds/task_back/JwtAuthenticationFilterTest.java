@@ -1,6 +1,6 @@
 package edu.eci.cvds.task_back;
 
-import edu.eci.cvds.task_back.Auth.JwtAuthenticationFilter;
+import edu.eci.cvds.task_back.auth.JwtAuthenticationFilter;
 import edu.eci.cvds.task_back.services.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

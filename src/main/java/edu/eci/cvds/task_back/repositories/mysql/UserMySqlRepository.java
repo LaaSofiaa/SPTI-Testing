@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Repositories.mysql;
+package edu.eci.cvds.task_back.repositories.mysql;
 
 import edu.eci.cvds.task_back.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

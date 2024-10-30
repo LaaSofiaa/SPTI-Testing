@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Repositories;
+package edu.eci.cvds.task_back.repositories;
 
 import edu.eci.cvds.task_back.domain.Task;
 import edu.eci.cvds.task_back.domain.User;

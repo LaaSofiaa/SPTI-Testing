@@ -1,10 +1,10 @@
 package edu.eci.cvds.task_back.config;
 
-import edu.eci.cvds.task_back.Repositories.mongo.TaskMongoRepository;
-import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
-import edu.eci.cvds.task_back.Repositories.TaskRepository;
-import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
-import edu.eci.cvds.task_back.Repositories.text.TaskTextRepository;
+import edu.eci.cvds.task_back.repositories.mongo.TaskMongoRepository;
+import edu.eci.cvds.task_back.repositories.mysql.TaskMySqlRepository;
+import edu.eci.cvds.task_back.repositories.TaskRepository;
+import edu.eci.cvds.task_back.repositories.mysql.UserMySqlRepository;
+import edu.eci.cvds.task_back.repositories.text.TaskTextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,8 +27,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * TaskMongoRepository o TaskTextRepository.
  */
 @Configuration
-@EnableJpaRepositories(basePackages = "edu.eci.cvds.task_back.Repositories.mysql")
-@EnableMongoRepositories(basePackages = "edu.eci.cvds.task_back.Repositories.mongo")
+@EnableJpaRepositories(basePackages = "edu.eci.cvds.task_back.repositories.mysql")
+@EnableMongoRepositories(basePackages = "edu.eci.cvds.task_back.repositories.mongo")
 public class TaskConfig {
 
     @Value("${task.repository.type}")

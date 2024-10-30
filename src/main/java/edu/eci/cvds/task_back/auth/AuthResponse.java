@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Auth;
+package edu.eci.cvds.task_back.auth;
 
 /**
  * Clase que representa la respuesta de autenticación.

@@ -1,10 +1,10 @@
 package edu.eci.cvds.task_back;
 
 import edu.eci.cvds.task_back.config.TaskConfig;
-import edu.eci.cvds.task_back.Repositories.mongo.TaskMongoRepository;
-import edu.eci.cvds.task_back.Repositories.mysql.TaskMySqlRepository;
-import edu.eci.cvds.task_back.Repositories.text.TaskTextRepository;
-import edu.eci.cvds.task_back.Repositories.TaskRepository;
+import edu.eci.cvds.task_back.repositories.mongo.TaskMongoRepository;
+import edu.eci.cvds.task_back.repositories.mysql.TaskMySqlRepository;
+import edu.eci.cvds.task_back.repositories.text.TaskTextRepository;
+import edu.eci.cvds.task_back.repositories.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

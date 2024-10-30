@@ -1,9 +1,9 @@
 package edu.eci.cvds.task_back.services;
 
-import edu.eci.cvds.task_back.Auth.AuthResponse;
-import edu.eci.cvds.task_back.Auth.LoginRequest;
-import edu.eci.cvds.task_back.Auth.RegisterRequest;
-import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
+import edu.eci.cvds.task_back.auth.AuthResponse;
+import edu.eci.cvds.task_back.auth.LoginRequest;
+import edu.eci.cvds.task_back.auth.RegisterRequest;
+import edu.eci.cvds.task_back.repositories.mysql.UserMySqlRepository;
 import edu.eci.cvds.task_back.domain.Role;
 import edu.eci.cvds.task_back.exception.SecurityException;
 import org.springframework.beans.factory.annotation.Autowired;

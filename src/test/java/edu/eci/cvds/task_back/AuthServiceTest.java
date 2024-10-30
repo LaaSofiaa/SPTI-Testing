@@ -1,11 +1,11 @@
 package edu.eci.cvds.task_back;
 
-import edu.eci.cvds.task_back.Auth.AuthResponse;
-import edu.eci.cvds.task_back.Auth.LoginRequest;
-import edu.eci.cvds.task_back.Auth.RegisterRequest;
+import edu.eci.cvds.task_back.auth.AuthResponse;
+import edu.eci.cvds.task_back.auth.LoginRequest;
+import edu.eci.cvds.task_back.auth.RegisterRequest;
 import edu.eci.cvds.task_back.domain.Role;
 import edu.eci.cvds.task_back.domain.User;
-import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
+import edu.eci.cvds.task_back.repositories.mysql.UserMySqlRepository;
 import edu.eci.cvds.task_back.services.AuthService;
 import edu.eci.cvds.task_back.services.JwtService;
 import org.junit.jupiter.api.BeforeEach;
