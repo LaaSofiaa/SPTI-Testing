@@ -2,7 +2,7 @@ package edu.eci.cvds.task_back.controller;
 
 import edu.eci.cvds.task_back.domain.Task;
 import edu.eci.cvds.task_back.domain.User;
-import edu.eci.cvds.task_back.Services.UserService;
+import edu.eci.cvds.task_back.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

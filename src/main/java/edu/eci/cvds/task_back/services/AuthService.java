@@ -1,11 +1,11 @@
-package edu.eci.cvds.task_back.Services;
+package edu.eci.cvds.task_back.services;
 
 import edu.eci.cvds.task_back.Auth.AuthResponse;
 import edu.eci.cvds.task_back.Auth.LoginRequest;
 import edu.eci.cvds.task_back.Auth.RegisterRequest;
 import edu.eci.cvds.task_back.Repositories.mysql.UserMySqlRepository;
 import edu.eci.cvds.task_back.domain.Role;
-
+import edu.eci.cvds.task_back.exception.SecurityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import edu.eci.cvds.task_back.domain.User;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,36 +38,29 @@ public class AuthService {
      * @throws Exception Si el nombre de usuario o el email ya están registrados, o si alguno de los campos no es válido.
      */
     public AuthResponse register(RegisterRequest request) throws Exception{
-        try {
 
-            if (request.getUsername() == null || request.getUsername().isEmpty()) {
-                throw new Exception("Username is required!");
-            }
-            if (request.getEmail() == null || request.getEmail().isEmpty()) {
-                throw new Exception("Email is required!");
-            }
-            if (request.getPasswd() == null || request.getPasswd().isEmpty()) {
-                throw new Exception("Password is required!");
-            }
-            if (!isValidPassword(request.getPasswd())) {
-                throw new Exception("Password must be at least 8 characters long, with one uppercase letter, one number, and one special character!");
-            }
-            if (userRepository.findByUsername(request.getUsername()) != null) {
-                throw new Exception("Username is already taken!");
-            }
-            Role userRole = (request.getUsername().equals("ADMIN")) ? Role.ADMIN : Role.USER;
-
-            User user = new User(request.getUsername(), request.getEmail(), request.getPasswd(), userRole);
-            this.createUser(user);
-            AuthResponse authResponse = new AuthResponse(this.jwtService.getToken(user));
-            String userId = userRepository.findByUsername(request.getUsername()).getId();
-            authResponse.setUserId(userId);
-            return authResponse;
+        if (request.getUsername() == null || request.getUsername().isEmpty()) {
+            throw new SecurityException(SecurityException.USER_REQUIRED);
         }
-        catch (Exception e){
-            throw new Exception(e.getMessage());
+        if (request.getEmail() == null || request.getEmail().isEmpty()) {
+            throw new SecurityException(SecurityException.EMAIL_REQUIRED);
         }
-
+        if (request.getPasswd() == null || request.getPasswd().isEmpty()) {
+            throw new SecurityException(SecurityException.PASSWORD_REQUIRED);
+        }
+        if (!isValidPassword(request.getPasswd())) {
+            throw new SecurityException(SecurityException.PASSWORD_PARAMETERS);
+        }
+        if (userRepository.findByUsername(request.getUsername()) != null) {
+            throw new SecurityException(SecurityException.USERNAME_TAKEN);
+        }
+        Role userRole = (request.getUsername().equals("ADMIN")) ? Role.ADMIN : Role.USER;
+        User user = new User(request.getUsername(), request.getEmail(), request.getPasswd(), userRole);
+        this.createUser(user);
+        AuthResponse authResponse = new AuthResponse(this.jwtService.getToken(user));
+        String userId = userRepository.findByUsername(request.getUsername()).getId();
+        authResponse.setUserId(userId);
+        return authResponse;
     }
 
     /**
@@ -86,15 +79,9 @@ public class AuthService {
      * @throws Exception Si el email ya ha sido utilizado previamente.
      */
     public void createUser(User user) throws Exception{
-        try{
-
-            if(userRepository.findByEmail(user.getEmail())!=null) throw new Exception("The email has already been used");
-            user.setPasswd(passwordEncoder.encode(user.getPassword())); //encripta la contraseña
+            if(userRepository.findByEmail(user.getEmail())!=null) throw new SecurityException(SecurityException.EMAIL_USE);
+            user.setPasswd(passwordEncoder.encode(user.getPassword()));
             this.userRepository.createUser(user);
-        }
-        catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
 
     }
 
@@ -103,21 +90,16 @@ public class AuthService {
      * @param request Contiene las credenciales del usuario (nombre de usuario y contraseña).
      * @return AuthResponse con el token JWT generado y el ID del usuario autenticado.
      */
-    public AuthResponse login(LoginRequest request) throws Exception{
-
+    public AuthResponse login(LoginRequest request) throws Exception {
         UserDetails user = userRepository.findByUsername(request.getUsername());
         if (user == null) {
-            throw new Exception("User does not exist!");
+            throw new SecurityException(SecurityException.USUARIO_SIN_ENCONTRAR);
         }
-        try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPasswd()));
-            String token = jwtService.getToken(user);
-            AuthResponse response = new AuthResponse(token);
-            String userId = userRepository.findByUsername(request.getUsername()).getId();
-            response.setUserId(userId);
-            return response;
-        }catch(Exception e){
-            throw new Exception("Invalid credentials!");
-        }
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPasswd()));
+        String token = jwtService.getToken(user);
+        AuthResponse response = new AuthResponse(token);
+        String userId = userRepository.findByUsername(request.getUsername()).getId();
+        response.setUserId(userId);
+        return response;
     }
 }

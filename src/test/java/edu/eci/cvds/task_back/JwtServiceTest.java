@@ -1,6 +1,6 @@
 package edu.eci.cvds.task_back;
 
-import edu.eci.cvds.task_back.Services.JwtService;
+import edu.eci.cvds.task_back.services.JwtService;
 import io.jsonwebtoken.Claims;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

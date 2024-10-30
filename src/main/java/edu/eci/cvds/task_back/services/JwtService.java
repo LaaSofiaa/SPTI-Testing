@@ -1,4 +1,4 @@
-package edu.eci.cvds.task_back.Services;
+package edu.eci.cvds.task_back.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

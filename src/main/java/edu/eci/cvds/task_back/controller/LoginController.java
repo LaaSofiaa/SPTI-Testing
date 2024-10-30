@@ -2,8 +2,8 @@ package edu.eci.cvds.task_back.controller;
 
 import edu.eci.cvds.task_back.Auth.LoginRequest;
 import edu.eci.cvds.task_back.Auth.RegisterRequest;
-import edu.eci.cvds.task_back.Services.AuthService;
-import edu.eci.cvds.task_back.Services.UserService;
+import edu.eci.cvds.task_back.services.AuthService;
+import edu.eci.cvds.task_back.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
